@@ -4,8 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UtenteDAOImpl extends BaseDAO implements UtenteDAO {
+public class UtenteDAOImpl implements UtenteDAO {
 
+    private static final UtenteDAOImpl instance = new UtenteDAOImpl();
+
+    private UtenteDAOImpl() {
+        // Costruttore privato per rendere la classe un singleton
+    }
+
+    public static UtenteDAOImpl getInstance() {
+        return instance;
+    }
     @Override
     public void insertUtente(UtenteDTO utente) throws SQLException {
         String query = "INSERT INTO TELEPASS.TB_UTENTE (CODICE_FISCALE_PK, NOME, COGNOME, EMAIL, INDIRIZZO_FATT, CITTA_FATT, REGIONE_FATT, AMMINISTRATORE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

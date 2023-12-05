@@ -4,8 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViaggioDAOImpl extends BaseDAO implements ViaggioDAO {
+public class ViaggioDAOImpl implements ViaggioDAO {
 
+    private static final ViaggioDAOImpl instance = new ViaggioDAOImpl();
+
+    private ViaggioDAOImpl() {
+        // Costruttore privato per rendere la classe un singleton
+    }
+
+    public static ViaggioDAOImpl getInstance() {
+        return instance;
+    }
     @Override
     public void insertViaggio(ViaggioDTO viaggio) throws SQLException {
         String query = "INSERT INTO TELEPASS.TB_VIAGGIO (TARGA_VE_PK, CASELLO_ENTRY_FK_PK, TIME_ENTRY_PK, CASELLO_EXIT_FK, TIME_EXIT, PEDAGGIO, PAGATO_FLAG) VALUES (?, ?, ?, ?, ?, ?, ?)";

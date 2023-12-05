@@ -4,8 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaselloDAOImpl extends BaseDAO implements CaselloDAO {
+public class CaselloDAOImpl implements CaselloDAO {
 
+    private static final CaselloDAOImpl instance = new CaselloDAOImpl();
+
+    private CaselloDAOImpl() {
+        // Costruttore privato per rendere la classe un singleton
+    }
+
+    public static CaselloDAOImpl getInstance() {
+        return instance;
+    }
     @Override
     public void insertCasello(CaselloDTO casello) throws SQLException {
         String query = "INSERT INTO TELEPASS.TB_CASELLO (ID_CASELLO_PK, KM, INGRESSI, AUTOSTRADA) VALUES (?, ?, ?, ?)";

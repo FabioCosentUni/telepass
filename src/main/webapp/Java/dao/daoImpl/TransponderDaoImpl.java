@@ -4,8 +4,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransponderDAOImpl extends BaseDAO implements TransponderDAO {
+public class TransponderDAOImpl implements TransponderDAO {
 
+    private static final TransponderDAOImpl instance = new TransponderDAOImpl();
+
+    private TransponderDAOImpl() {
+        // Costruttore privato per rendere la classe un singleton
+    }
+
+    public static TransponderDAOImpl getInstance() {
+        return instance;
+    }
     @Override
     public void insertTransponder(TransponderDTO transponder) throws SQLException {
         String query = "INSERT INTO TELEPASS.TB_TRANSPONDER (CODICE_TRANSP_PK, CF_UTENTE_FK, METODO_PAG, ATTIVO, PLUS) VALUES (?, ?, ?, ?, ?)";
