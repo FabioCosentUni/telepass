@@ -1,3 +1,8 @@
+package dao.impl;
+
+import dao.VeicoloDAO;
+import dto.VeicoloDTO;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,17 +11,9 @@ import java.util.List;
 
 public class VeicoloDAOImpl implements VeicoloDAO {
 
-    private static final VeicoloDAOImpl instance = new VeicoloDAOImpl();
-
-    private VeicoloDAOImpl() {
-        // Costruttore privato per rendere la classe un singleton
-    }
-
-    public static VeicoloDAOImpl getInstance() {
-        return instance;
-    }
     @Override
     public void insertVeicolo(VeicoloDTO veicolo) throws SQLException {
+        /*
         String query = "INSERT INTO TELEPASS.TB_VEICOLO (TARGA_PK, MODELLO, BRAND, TIPOLOGIA_VE, COLORE, TRANSPONDER_FK) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, veicolo.getTargaPk());
@@ -27,10 +24,13 @@ public class VeicoloDAOImpl implements VeicoloDAO {
             statement.setString(6, veicolo.getTransponderFk());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public VeicoloDTO getVeicoloByTarga(String targa) throws SQLException {
+        /*
         String query = "SELECT * FROM TELEPASS.TB_VEICOLO WHERE TARGA_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, targa);
@@ -40,11 +40,14 @@ public class VeicoloDAOImpl implements VeicoloDAO {
                 }
             }
         }
+
+         */
         return null;
     }
 
     @Override
     public List<VeicoloDTO> getAllVeicoli() throws SQLException {
+        /*
         List<VeicoloDTO> veicoli = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_VEICOLO";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -54,10 +57,14 @@ public class VeicoloDAOImpl implements VeicoloDAO {
             }
         }
         return veicoli;
+
+         */
+        return null;
     }
 
     @Override
     public void updateVeicolo(VeicoloDTO veicolo) throws SQLException {
+        /*
         String query = "UPDATE TELEPASS.TB_VEICOLO SET MODELLO = ?, BRAND = ?, TIPOLOGIA_VE = ?, COLORE = ?, TRANSPONDER_FK = ? WHERE TARGA_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, veicolo.getModello());
@@ -68,18 +75,24 @@ public class VeicoloDAOImpl implements VeicoloDAO {
             statement.setString(6, veicolo.getTargaPk());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public void deleteVeicolo(String targa) throws SQLException {
+        /*
         String query = "DELETE FROM TELEPASS.TB_VEICOLO WHERE TARGA_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, targa);
             statement.executeUpdate();
         }
+
+         */
     }
 
     private VeicoloDTO mapResultSetToVeicoloDTO(ResultSet resultSet) throws SQLException {
+        /* DA CAPIRE SE USARE HIBERNATE O NO
         return new VeicoloDTO(
                 resultSet.getString("TARGA_PK"),
                 resultSet.getString("MODELLO"),
@@ -88,5 +101,8 @@ public class VeicoloDAOImpl implements VeicoloDAO {
                 resultSet.getString("COLORE"),
                 resultSet.getString("TRANSPONDER_FK")
         );
+
+         */
+        return null;
     }
 }

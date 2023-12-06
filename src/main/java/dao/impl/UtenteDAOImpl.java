@@ -1,3 +1,8 @@
+package dao.impl;
+
+import dao.UtenteDAO;
+import dto.UtenteDTO;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,17 +11,9 @@ import java.util.List;
 
 public class UtenteDAOImpl implements UtenteDAO {
 
-    private static final UtenteDAOImpl instance = new UtenteDAOImpl();
-
-    private UtenteDAOImpl() {
-        // Costruttore privato per rendere la classe un singleton
-    }
-
-    public static UtenteDAOImpl getInstance() {
-        return instance;
-    }
     @Override
     public void insertUtente(UtenteDTO utente) throws SQLException {
+        /*
         String query = "INSERT INTO TELEPASS.TB_UTENTE (CODICE_FISCALE_PK, NOME, COGNOME, EMAIL, INDIRIZZO_FATT, CITTA_FATT, REGIONE_FATT, AMMINISTRATORE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, utente.getCodiceFiscalePk());
@@ -29,10 +26,13 @@ public class UtenteDAOImpl implements UtenteDAO {
             statement.setInt(8, utente.getAmministratore());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale) throws SQLException {
+        /*
         String query = "SELECT * FROM TELEPASS.TB_UTENTE WHERE CODICE_FISCALE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, codiceFiscale);
@@ -42,11 +42,14 @@ public class UtenteDAOImpl implements UtenteDAO {
                 }
             }
         }
+
+         */
         return null;
     }
 
     @Override
     public List<UtenteDTO> getAllUtenti() throws SQLException {
+        /*
         List<UtenteDTO> utenti = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_UTENTE";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -56,10 +59,14 @@ public class UtenteDAOImpl implements UtenteDAO {
             }
         }
         return utenti;
+
+         */
+        return null;
     }
 
     @Override
     public void updateUtente(UtenteDTO utente) throws SQLException {
+        /*
         String query = "UPDATE TELEPASS.TB_UTENTE SET NOME = ?, COGNOME = ?, EMAIL = ?, INDIRIZZO_FATT = ?, CITTA_FATT = ?, REGIONE_FATT = ?, AMMINISTRATORE = ? WHERE CODICE_FISCALE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, utente.getNome());
@@ -72,15 +79,20 @@ public class UtenteDAOImpl implements UtenteDAO {
             statement.setString(8, utente.getCodiceFiscalePk());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public void deleteUtente(String codiceFiscale) throws SQLException {
+        /*
         String query = "DELETE FROM TELEPASS.TB_UTENTE WHERE CODICE_FISCALE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, codiceFiscale);
             statement.executeUpdate();
         }
+
+         */
     }
 
     private UtenteDTO mapResultSetToUtenteDTO(ResultSet resultSet) throws SQLException {

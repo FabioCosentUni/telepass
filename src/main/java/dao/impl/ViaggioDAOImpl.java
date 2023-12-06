@@ -1,3 +1,8 @@
+package dao.impl;
+
+import dao.ViaggioDAO;
+import dto.ViaggioDTO;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -5,18 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViaggioDAOImpl implements ViaggioDAO {
-
-    private static final ViaggioDAOImpl instance = new ViaggioDAOImpl();
-
-    private ViaggioDAOImpl() {
-        // Costruttore privato per rendere la classe un singleton
-    }
-
-    public static ViaggioDAOImpl getInstance() {
-        return instance;
-    }
     @Override
     public void insertViaggio(ViaggioDTO viaggio) throws SQLException {
+        /*
         String query = "INSERT INTO TELEPASS.TB_VIAGGIO (TARGA_VE_PK, CASELLO_ENTRY_FK_PK, TIME_ENTRY_PK, CASELLO_EXIT_FK, TIME_EXIT, PEDAGGIO, PAGATO_FLAG) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, viaggio.getVeicoloDTO().getTarga());
@@ -28,10 +24,13 @@ public class ViaggioDAOImpl implements ViaggioDAO {
             statement.setInt(7, viaggio.getPagatoFlag());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public ViaggioDTO getViaggioByTarga(String targa) throws SQLException {
+        /*
         String query = "SELECT * FROM TELEPASS.TB_VIAGGIO WHERE TARGA_VE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, targa);
@@ -41,11 +40,14 @@ public class ViaggioDAOImpl implements ViaggioDAO {
                 }
             }
         }
+
+         */
         return null;
     }
 
     @Override
     public List<ViaggioDTO> getAllViaggi() throws SQLException {
+        /*
         List<ViaggioDTO> viaggi = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_VIAGGIO";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -55,10 +57,14 @@ public class ViaggioDAOImpl implements ViaggioDAO {
             }
         }
         return viaggi;
+
+         */
+        return null;
     }
 
     @Override
     public void updateViaggio(ViaggioDTO viaggio) throws SQLException {
+        /*
         String query = "UPDATE TELEPASS.TB_VIAGGIO SET CASELLO_ENTRY_FK_PK = ?, TIME_ENTRY_PK = ?, CASELLO_EXIT_FK = ?, TIME_EXIT = ?, PEDAGGIO = ?, PAGATO_FLAG = ? WHERE TARGA_VE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, viaggio.getCaselloEntryDTO().getIdCaselloPk());
@@ -70,18 +76,24 @@ public class ViaggioDAOImpl implements ViaggioDAO {
             statement.setString(7, viaggio.getVeicoloDTO().getTarga());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public void deleteViaggio(String targa) throws SQLException {
+        /*
         String query = "DELETE FROM TELEPASS.TB_VIAGGIO WHERE TARGA_VE_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, targa);
             statement.executeUpdate();
         }
+
+         */
     }
 
     private ViaggioDTO mapResultSetToViaggioDTO(ResultSet resultSet) throws SQLException {
+        /*
         ViaggioDTO viaggio = new ViaggioDTO();
 
         // Mapping dei campi del ResultSet al ViaggioDTO
@@ -94,6 +106,9 @@ public class ViaggioDAOImpl implements ViaggioDAO {
         viaggio.setPagatoFlag(resultSet.getInt("PAGATO_FLAG"));
 
         return viaggio;
+
+         */
+        return null;
     }
 
 }

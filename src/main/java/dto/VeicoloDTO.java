@@ -1,3 +1,7 @@
+package dto;
+
+import java.util.Objects;
+
 public class VeicoloDTO {
     private String targaPk;
     private String modello;
@@ -69,16 +73,42 @@ public class VeicoloDTO {
         this.transponderDTO = transponderDTO;
     }
 
-    // Metodo toString per la rappresentazione testuale dell'oggetto
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VeicoloDTO that = (VeicoloDTO) o;
+
+        if (!Objects.equals(targaPk, that.targaPk)) return false;
+        if (!Objects.equals(modello, that.modello)) return false;
+        if (!Objects.equals(brand, that.brand)) return false;
+        if (!Objects.equals(tipologiaVe, that.tipologiaVe)) return false;
+        if (!Objects.equals(colore, that.colore)) return false;
+        return Objects.equals(transponderDTO, that.transponderDTO);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = targaPk != null ? targaPk.hashCode() : 0;
+        result = 31 * result + (modello != null ? modello.hashCode() : 0);
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (tipologiaVe != null ? tipologiaVe.hashCode() : 0);
+        result = 31 * result + (colore != null ? colore.hashCode() : 0);
+        result = 31 * result + (transponderDTO != null ? transponderDTO.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
-        return "VeicoloDTO{" +
-                "targaPk='" + targaPk + '\'' +
-                ", modello='" + modello + '\'' +
-                ", brand='" + brand + '\'' +
-                ", tipologiaVe='" + tipologiaVe + '\'' +
-                ", colore='" + colore + '\'' +
-                ", transponderDTO=" + transponderDTO +
-                '}';
+        final StringBuilder sb = new StringBuilder("VeicoloDTO{");
+        sb.append("targaPk='").append(targaPk).append('\'');
+        sb.append(", modello='").append(modello).append('\'');
+        sb.append(", brand='").append(brand).append('\'');
+        sb.append(", tipologiaVe='").append(tipologiaVe).append('\'');
+        sb.append(", colore='").append(colore).append('\'');
+        sb.append(", transponderDTO=").append(transponderDTO);
+        sb.append('}');
+        return sb.toString();
     }
 }

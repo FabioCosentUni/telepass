@@ -1,3 +1,7 @@
+package dto;
+
+import java.util.Objects;
+
 public class UtenteDTO {
     private String codiceFiscalePk;
     private String nome;
@@ -90,18 +94,51 @@ public class UtenteDTO {
         this.amministratore = amministratore;
     }
 
-    // Metodo toString per la rappresentazione testuale dell'oggetto
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UtenteDTO utenteDTO = (UtenteDTO) o;
+
+        if (amministratore != utenteDTO.amministratore) return false;
+        if (!Objects.equals(codiceFiscalePk, utenteDTO.codiceFiscalePk))
+            return false;
+        if (!Objects.equals(nome, utenteDTO.nome)) return false;
+        if (!Objects.equals(cognome, utenteDTO.cognome)) return false;
+        if (!Objects.equals(email, utenteDTO.email)) return false;
+        if (!Objects.equals(indirizzoFatt, utenteDTO.indirizzoFatt))
+            return false;
+        if (!Objects.equals(cittaFatt, utenteDTO.cittaFatt)) return false;
+        return Objects.equals(regioneFatt, utenteDTO.regioneFatt);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = codiceFiscalePk != null ? codiceFiscalePk.hashCode() : 0;
+        result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (cognome != null ? cognome.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (indirizzoFatt != null ? indirizzoFatt.hashCode() : 0);
+        result = 31 * result + (cittaFatt != null ? cittaFatt.hashCode() : 0);
+        result = 31 * result + (regioneFatt != null ? regioneFatt.hashCode() : 0);
+        result = 31 * result + amministratore;
+        return result;
+    }
+
     @Override
     public String toString() {
-        return "UtenteDTO{" +
-                "codiceFiscalePk='" + codiceFiscalePk + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", email='" + email + '\'' +
-                ", indirizzoFatt='" + indirizzoFatt + '\'' +
-                ", cittaFatt='" + cittaFatt + '\'' +
-                ", regioneFatt='" + regioneFatt + '\'' +
-                ", amministratore=" + amministratore +
-                '}';
+        final StringBuilder sb = new StringBuilder("UtenteDTO{");
+        sb.append("codiceFiscalePk='").append(codiceFiscalePk).append('\'');
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append(", cognome='").append(cognome).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", indirizzoFatt='").append(indirizzoFatt).append('\'');
+        sb.append(", cittaFatt='").append(cittaFatt).append('\'');
+        sb.append(", regioneFatt='").append(regioneFatt).append('\'');
+        sb.append(", amministratore=").append(amministratore);
+        sb.append('}');
+        return sb.toString();
     }
 }

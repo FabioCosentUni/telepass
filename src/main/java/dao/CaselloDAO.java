@@ -1,3 +1,7 @@
+package dao;
+
+import dto.CaselloDTO;
+
 import java.sql.SQLException;
 import java.util.List;
 

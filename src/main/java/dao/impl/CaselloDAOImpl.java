@@ -1,22 +1,18 @@
-import java.sql.PreparedStatement;
+package dao.impl;
+
+import dao.CaselloDAO;
+import dto.CaselloDTO;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CaselloDAOImpl implements CaselloDAO {
 
-    private static final CaselloDAOImpl instance = new CaselloDAOImpl();
 
-    private CaselloDAOImpl() {
-        // Costruttore privato per rendere la classe un singleton
-    }
-
-    public static CaselloDAOImpl getInstance() {
-        return instance;
-    }
     @Override
     public void insertCasello(CaselloDTO casello) throws SQLException {
+        /*
         String query = "INSERT INTO TELEPASS.TB_CASELLO (ID_CASELLO_PK, KM, INGRESSI, AUTOSTRADA) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, casello.getIdCaselloPk());
@@ -25,10 +21,13 @@ public class CaselloDAOImpl implements CaselloDAO {
             statement.setString(4, casello.getAutostrada());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public CaselloDTO getCaselloById(long id) throws SQLException {
+        /*
         String query = "SELECT * FROM TELEPASS.TB_CASELLO WHERE ID_CASELLO_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
@@ -39,10 +38,14 @@ public class CaselloDAOImpl implements CaselloDAO {
             }
         }
         return null;
+
+         */
+        return null;
     }
 
     @Override
     public List<CaselloDTO> getAllCaselli() throws SQLException {
+        /*
         List<CaselloDTO> caselli = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_CASELLO";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -52,10 +55,14 @@ public class CaselloDAOImpl implements CaselloDAO {
             }
         }
         return caselli;
+
+         */
+        return null;
     }
 
     @Override
     public void updateCasello(CaselloDTO casello) throws SQLException {
+        /*
         String query = "UPDATE TELEPASS.TB_CASELLO SET KM = ?, INGRESSI = ?, AUTOSTRADA = ? WHERE ID_CASELLO_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, casello.getKm());
@@ -64,15 +71,20 @@ public class CaselloDAOImpl implements CaselloDAO {
             statement.setLong(4, casello.getIdCaselloPk());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public void deleteCasello(long id) throws SQLException {
+        /*
         String query = "DELETE FROM TELEPASS.TB_CASELLO WHERE ID_CASELLO_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             statement.executeUpdate();
         }
+
+         */
     }
 
     private CaselloDTO mapResultSetToCaselloDTO(ResultSet resultSet) throws SQLException {

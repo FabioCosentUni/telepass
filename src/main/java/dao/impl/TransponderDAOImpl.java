@@ -1,3 +1,8 @@
+package dao.impl;
+
+import dao.TransponderDAO;
+import dto.TransponderDTO;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,17 +11,10 @@ import java.util.List;
 
 public class TransponderDAOImpl implements TransponderDAO {
 
-    private static final TransponderDAOImpl instance = new TransponderDAOImpl();
 
-    private TransponderDAOImpl() {
-        // Costruttore privato per rendere la classe un singleton
-    }
-
-    public static TransponderDAOImpl getInstance() {
-        return instance;
-    }
     @Override
     public void insertTransponder(TransponderDTO transponder) throws SQLException {
+        /*
         String query = "INSERT INTO TELEPASS.TB_TRANSPONDER (CODICE_TRANSP_PK, CF_UTENTE_FK, METODO_PAG, ATTIVO, PLUS) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, transponder.getCodiceTranspPk());
@@ -26,10 +24,13 @@ public class TransponderDAOImpl implements TransponderDAO {
             statement.setInt(5, transponder.getPlus());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public TransponderDTO getTransponderByCodice(String codice) throws SQLException {
+        /*
         String query = "SELECT * FROM TELEPASS.TB_TRANSPONDER WHERE CODICE_TRANSP_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, codice);
@@ -39,11 +40,14 @@ public class TransponderDAOImpl implements TransponderDAO {
                 }
             }
         }
+
+         */
         return null;
     }
 
     @Override
     public List<TransponderDTO> getAllTransponders() throws SQLException {
+        /*
         List<TransponderDTO> transponders = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_TRANSPONDER";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -53,10 +57,13 @@ public class TransponderDAOImpl implements TransponderDAO {
             }
         }
         return transponders;
+         */
+        return null;
     }
 
     @Override
     public void updateTransponder(TransponderDTO transponder) throws SQLException {
+        /*
         String query = "UPDATE TELEPASS.TB_TRANSPONDER SET CF_UTENTE_FK = ?, METODO_PAG = ?, ATTIVO = ?, PLUS = ? WHERE CODICE_TRANSP_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, transponder.getCfUtenteFk());
@@ -66,15 +73,20 @@ public class TransponderDAOImpl implements TransponderDAO {
             statement.setString(5, transponder.getCodiceTranspPk());
             statement.executeUpdate();
         }
+
+         */
     }
 
     @Override
     public void deleteTransponder(String codice) throws SQLException {
+        /*
         String query = "DELETE FROM TELEPASS.TB_TRANSPONDER WHERE CODICE_TRANSP_PK = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, codice);
             statement.executeUpdate();
         }
+
+         */
     }
 
     private TransponderDTO mapResultSetToTransponderDTO(ResultSet resultSet) throws SQLException {
