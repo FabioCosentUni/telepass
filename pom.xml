@@ -7,6 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>Telepass_prog Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,6 +15,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <finalName>Telepass_prog</finalName>
@@ -30,6 +32,40 @@
                   <source>17</source>
                   <target>17</target>
               </configuration>
+          </plugin>
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>sql-maven-plugin</artifactId>
+              <version>1.5</version>
+              <dependencies>
+                  <!-- Dipendenza per il driver JDBC di Oracle -->
+                  <dependency>
+                      <groupId>com.oracle.database.jdbc</groupId>
+                      <artifactId>ojdbc8</artifactId>
+                      <version>19.3.0.0</version>
+                  </dependency>
+                  <!-- Altre dipendenze necessarie -->
+              </dependencies>
+              <configuration>
+                  <!-- Configurazione dello script SQL da eseguire -->
+                  <driver>oracle.jdbc.OracleDriver</driver>
+                  <url>jdbc:oracle:thin:@localhost:1521:xe</url> <!-- URL del database Oracle -->
+                  <username>TELEPASS</username> <!-- Username del database -->
+                  <password>telepass</password> <!-- Password del database -->
+                  <autocommit>true</autocommit>
+                  <srcFiles>
+                      <srcFile>src/main/resources/db/2_Telepass_DDL.sql</srcFile> <!-- Percorso dello script SQL -->
+                  </srcFiles>
+              </configuration>
+              <executions>
+                  <!-- Esegui lo script SQL durante la fase di pre-build -->
+                  <execution>
+                      <id>execute-sql-script</id>
+                      <goals>
+                          <goal>execute</goal>
+                      </goals>
+                  </execution>
+              </executions>
           </plugin>
       </plugins>
   </build>
