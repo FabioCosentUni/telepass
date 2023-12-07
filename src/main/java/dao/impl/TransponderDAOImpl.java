@@ -3,10 +3,8 @@ package dao.impl;
 import dao.TransponderDAO;
 import dto.TransponderDTO;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransponderDAOImpl implements TransponderDAO {
@@ -91,7 +89,7 @@ public class TransponderDAOImpl implements TransponderDAO {
 
     private TransponderDTO mapResultSetToTransponderDTO(ResultSet resultSet) throws SQLException {
         return new TransponderDTO(
-                resultSet.getString("CODICE_TRANSP_PK"),
+                resultSet.getInt("CODICE_TRANSP_PK"),
                 resultSet.getString("CF_UTENTE_FK"),
                 resultSet.getString("METODO_PAG"),
                 resultSet.getInt("ATTIVO"),

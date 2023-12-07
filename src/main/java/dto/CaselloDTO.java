@@ -1,11 +1,22 @@
 package dto;
 
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name="tb_casello")
 public class CaselloDTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "casello_generator")
+    @SequenceGenerator(name="casello_generator", sequenceName = "seq_casello")
+    @Column(name="idCaselloPk", nullable = false)
     private Long idCaselloPk;
+    @Column(name="km")
     private Integer km;
+    @Column(name="ingressi")
     private Integer ingressi;
+    @Column(name="autostrada")
     private String autostrada;
 
     // Costruttore vuoto

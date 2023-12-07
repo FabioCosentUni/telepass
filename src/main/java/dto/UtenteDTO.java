@@ -1,15 +1,34 @@
 package dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import java.util.Objects;
 
+@Entity
+@Table(name="tb_utente")
 public class UtenteDTO {
+    @Id
+    @Column(name="codiceFiscalePk", nullable = false)
     private String codiceFiscalePk;
+    @Column(name="nome", nullable = false)
     private String nome;
+    @Column(name="cognome", nullable = false)
     private String cognome;
+    @Email(message = "L'email deve essere valida")
+    @Column(name="email", nullable = false)
     private String email;
+    @Column(name="indirizzoFatt", nullable = false)
     private String indirizzoFatt;
+    @Column(name="cittaFatt", nullable = false)
     private String cittaFatt;
+    @Column(name="regioneFatt", nullable = false)
     private String regioneFatt;
+    @Max(value=1, message="Il flag 'amministratore' può assumere solo i valori 0 o 1")
+    @Column(name="amministratore", nullable = false)
     private int amministratore;
 
     // Costruttore vuoto

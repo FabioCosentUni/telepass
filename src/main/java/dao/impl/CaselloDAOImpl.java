@@ -2,9 +2,13 @@ package dao.impl;
 
 import dao.CaselloDAO;
 import dto.CaselloDTO;
+import utils.DatabaseManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CaselloDAOImpl implements CaselloDAO {
@@ -45,7 +49,8 @@ public class CaselloDAOImpl implements CaselloDAO {
 
     @Override
     public List<CaselloDTO> getAllCaselli() throws SQLException {
-        /*
+
+        Connection connection = DatabaseManager.getConnection();
         List<CaselloDTO> caselli = new ArrayList<>();
         String query = "SELECT * FROM TELEPASS.TB_CASELLO";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -55,9 +60,6 @@ public class CaselloDAOImpl implements CaselloDAO {
             }
         }
         return caselli;
-
-         */
-        return null;
     }
 
     @Override

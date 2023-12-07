@@ -1,15 +1,31 @@
 package dto;
 
+import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@Table(name="tb_viaggio")
 public class ViaggioDTO {
+    @Id
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="TARGA_VE_FK", referencedColumnName = "TARGA_PK")
     private VeicoloDTO veicoloDTO;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="CASELLO_ENTRY_FK", referencedColumnName = "ID_CASELLO_PK")
     private CaselloDTO caselloEntryDTO;
+    @Column(name="timeEntry", nullable = false)
     private Date timeEntry;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="CASELLO_ENTRY_FK", referencedColumnName = "ID_CASELLO_PK")
     private CaselloDTO caselloExitDTO;
+    @Column(name="timeExit", nullable = false)
     private Date timeExit;
+    @Column(name="pedaggio", nullable = false)
     private float pedaggio;
+    @Max(value=1, message="Il flag 'pagato' può assumere solo i valori 0 o 1")
+    @Column(name="pagatoFlag", nullable = false)
     private int pagatoFlag;
 
     // Costruttore vuoto

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    private static final String JDBC_URL = "jdbc:oracle:thin:@//localhost:1521/your_database";
+    private static final String JDBC_URL = "jdbc:oracle:thin:@//localhost:1521/xe";
     private static final String USERNAME = "your_username";
     private static final String PASSWORD = "your_password";
 
