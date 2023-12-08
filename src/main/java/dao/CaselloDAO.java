@@ -14,5 +14,5 @@ public interface CaselloDAO {
 
     void updateCasello(CaselloDTO casello) throws SQLException;
 
-    void deleteCasello(long id) throws SQLException;
+    void deleteCaselloById(long caselloId) throws SQLException;
 }

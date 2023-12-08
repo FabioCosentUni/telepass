@@ -14,5 +14,5 @@ public interface VeicoloDAO {
 
     void updateVeicolo(VeicoloDTO veicolo) throws SQLException;
 
-    void deleteVeicolo(String targa) throws SQLException;
+    void deleteVeicoloByTarga(String targa) throws SQLException;
 }

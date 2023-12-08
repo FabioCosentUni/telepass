@@ -14,5 +14,5 @@ public interface UtenteDAO {
 
     void updateUtente(UtenteDTO utente) throws SQLException;
 
-    void deleteUtente(String codiceFiscale) throws SQLException;
+    void deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
 }

@@ -2,107 +2,92 @@ package dao.impl;
 
 import dao.VeicoloDAO;
 import dto.VeicoloDTO;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import utils.HibernateConfiguration;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VeicoloDAOImpl implements VeicoloDAO {
 
     @Override
     public void insertVeicolo(VeicoloDTO veicolo) throws SQLException {
-        /*
-        String query = "INSERT INTO TELEPASS.TB_VEICOLO (TARGA_PK, MODELLO, BRAND, TIPOLOGIA_VE, COLORE, TRANSPONDER_FK) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, veicolo.getTargaPk());
-            statement.setString(2, veicolo.getModello());
-            statement.setString(3, veicolo.getBrand());
-            statement.setString(4, veicolo.getTipologiaVe());
-            statement.setString(5, veicolo.getColore());
-            statement.setString(6, veicolo.getTransponderFk());
-            statement.executeUpdate();
+        Transaction transaction = null;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.save(veicolo);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new SQLException("Errore durante l'inserimento del veicolo.", e);
         }
-
-         */
     }
+
 
     @Override
-    public VeicoloDTO getVeicoloByTarga(String targa) throws SQLException {
-        /*
-        String query = "SELECT * FROM TELEPASS.TB_VEICOLO WHERE TARGA_PK = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, targa);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return mapResultSetToVeicoloDTO(resultSet);
-                }
-            }
+    public VeicoloDTO getVeicoloByTarga(String targa) {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            return session.get(VeicoloDTO.class, targa);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-         */
-        return null;
     }
+
 
     @Override
     public List<VeicoloDTO> getAllVeicoli() throws SQLException {
-        /*
-        List<VeicoloDTO> veicoli = new ArrayList<>();
-        String query = "SELECT * FROM TELEPASS.TB_VEICOLO";
-        try (PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                veicoli.add(mapResultSetToVeicoloDTO(resultSet));
-            }
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            Query<VeicoloDTO> query = session.createQuery("FROM VeicoloDTO", VeicoloDTO.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SQLException("Errore durante il recupero di tutti i veicoli.", e);
         }
-        return veicoli;
-
-         */
-        return null;
     }
+
 
     @Override
     public void updateVeicolo(VeicoloDTO veicolo) throws SQLException {
-        /*
-        String query = "UPDATE TELEPASS.TB_VEICOLO SET MODELLO = ?, BRAND = ?, TIPOLOGIA_VE = ?, COLORE = ?, TRANSPONDER_FK = ? WHERE TARGA_PK = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, veicolo.getModello());
-            statement.setString(2, veicolo.getBrand());
-            statement.setString(3, veicolo.getTipologiaVe());
-            statement.setString(4, veicolo.getColore());
-            statement.setString(5, veicolo.getTransponderFk());
-            statement.setString(6, veicolo.getTargaPk());
-            statement.executeUpdate();
+        Transaction transaction = null;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(veicolo);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new SQLException("Errore durante l'aggiornamento del veicolo.", e);
         }
-
-         */
     }
+
 
     @Override
-    public void deleteVeicolo(String targa) throws SQLException {
-        /*
-        String query = "DELETE FROM TELEPASS.TB_VEICOLO WHERE TARGA_PK = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, targa);
-            statement.executeUpdate();
+    public void deleteVeicoloByTarga(String targa) throws SQLException {
+        Transaction transaction = null;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            VeicoloDTO veicolo = session.get(VeicoloDTO.class, targa);
+            if (veicolo != null) {
+                session.delete(veicolo);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            throw new SQLException("Errore durante l'eliminazione del veicolo.", e);
         }
-
-         */
     }
 
-    private VeicoloDTO mapResultSetToVeicoloDTO(ResultSet resultSet) throws SQLException {
-        /* DA CAPIRE SE USARE HIBERNATE O NO
-        return new VeicoloDTO(
-                resultSet.getString("TARGA_PK"),
-                resultSet.getString("MODELLO"),
-                resultSet.getString("BRAND"),
-                resultSet.getString("TIPOLOGIA_VE"),
-                resultSet.getString("COLORE"),
-                resultSet.getString("TRANSPONDER_FK")
-        );
-
-         */
-        return null;
-    }
 }
