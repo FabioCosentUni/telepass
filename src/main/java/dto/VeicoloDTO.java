@@ -7,19 +7,19 @@ import java.util.Objects;
 @Table(name="tb_veicolo")
 public class VeicoloDTO {
     @Id
-    @Column(name="targaPk", nullable = false)
+    @Column(name="TARGA_PK", nullable = false)
     private String targaPk;
-    @Column(name="modello", nullable = false)
+    @Column(name="MODELLO", nullable = false)
     private String modello;
-    @Column(name="brand", nullable = false)
+    @Column(name="BRAND", nullable = false)
     private String brand;
-    @Column(name="tipologiaVe", nullable = false)
+    @Column(name="TIPOLOGIA_VE", nullable = false)
     private String tipologiaVe;
-    @Column(name="colore", nullable = false)
+    @Column(name="COLORE", nullable = false)
     private String colore;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="codiceTranspFk", nullable = false)
-    private TransponderDTO transponderDTO;  // Aggiunto campo per rappresentare la relazione con il transponder
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="TRANSPONDER_FK", nullable = false)
+    private TransponderDTO transponderDTO;
 
     // Costruttore vuoto
     public VeicoloDTO() {

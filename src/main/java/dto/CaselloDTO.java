@@ -9,8 +9,8 @@ import java.util.Objects;
 public class CaselloDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "casello_generator")
-    @SequenceGenerator(name="casello_generator", sequenceName = "seq_casello")
-    @Column(name="idCaselloPk", nullable = false)
+    @SequenceGenerator(name="casello_generator", sequenceName = "seq_casello", allocationSize = 1)
+    @Column(name="ID_CASELLO_PK", nullable = false)
     private Long idCaselloPk;
     @Column(name="km")
     private Integer km;

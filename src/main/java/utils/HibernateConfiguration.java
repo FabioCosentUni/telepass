@@ -11,6 +11,7 @@ import java.util.Properties;
 
 public class HibernateConfiguration {
     private static SessionFactory sessionFactory;
+    private HibernateConfiguration(){}
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -29,7 +30,7 @@ public class HibernateConfiguration {
 
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-                settings.put(Environment.HBM2DDL_AUTO, "create-drop");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(CaselloDTO.class);

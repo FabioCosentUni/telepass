@@ -9,42 +9,38 @@ import java.util.Objects;
 @Table(name="tb_viaggio")
 public class ViaggioDTO {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "viaggio_generator")
+    @SequenceGenerator(name="viaggio_generator", sequenceName = "seq_viaggio", allocationSize = 1)
+    @Column(name="ID_VIAGGIO_PK", nullable = false)
+    private long idViaggioPk;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="TARGA_VE_FK", referencedColumnName = "TARGA_PK")
     private VeicoloDTO veicoloDTO;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CASELLO_ENTRY_FK", referencedColumnName = "ID_CASELLO_PK")
     private CaselloDTO caselloEntryDTO;
-    @Column(name="timeEntry", nullable = false)
+    @Column(name="TIME_ENTRY", nullable = false)
     private Date timeEntry;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="CASELLO_ENTRY_FK", referencedColumnName = "ID_CASELLO_PK")
+    @JoinColumn(name="CASELLO_EXIT_FK", referencedColumnName = "ID_CASELLO_PK")
     private CaselloDTO caselloExitDTO;
-    @Column(name="timeExit", nullable = false)
+    @Column(name="TIME_EXIT", nullable = false)
     private Date timeExit;
     @Column(name="pedaggio", nullable = false)
     private float pedaggio;
     @Max(value=1, message="Il flag 'pagato' può assumere solo i valori 0 o 1")
-    @Column(name="pagatoFlag", nullable = false)
+    @Column(name="PAGATO_FLAG", nullable = false)
     private int pagatoFlag;
 
-    // Costruttore vuoto
-    public ViaggioDTO() {
+    public long getIdViaggioPk() {
+        return idViaggioPk;
     }
 
-    // Costruttore con parametri
-    public ViaggioDTO(VeicoloDTO veicoloDTO, CaselloDTO caselloEntryDTO, Date timeEntry,
-                      CaselloDTO caselloExitDTO, Date timeExit, float pedaggio, int pagatoFlag) {
-        this.veicoloDTO = veicoloDTO;
-        this.caselloEntryDTO = caselloEntryDTO;
-        this.timeEntry = timeEntry;
-        this.caselloExitDTO = caselloExitDTO;
-        this.timeExit = timeExit;
-        this.pedaggio = pedaggio;
-        this.pagatoFlag = pagatoFlag;
+    public void setIdViaggioPk(long idViaggioPk) {
+        this.idViaggioPk = idViaggioPk;
     }
 
-    // Metodi getter e setter
     public VeicoloDTO getVeicoloDTO() {
         return veicoloDTO;
     }
@@ -108,6 +104,7 @@ public class ViaggioDTO {
 
         ViaggioDTO that = (ViaggioDTO) o;
 
+        if (idViaggioPk != that.idViaggioPk) return false;
         if (Float.compare(that.pedaggio, pedaggio) != 0) return false;
         if (pagatoFlag != that.pagatoFlag) return false;
         if (!Objects.equals(veicoloDTO, that.veicoloDTO)) return false;
@@ -121,7 +118,8 @@ public class ViaggioDTO {
 
     @Override
     public int hashCode() {
-        int result = veicoloDTO != null ? veicoloDTO.hashCode() : 0;
+        int result = (int) (idViaggioPk ^ (idViaggioPk >>> 32));
+        result = 31 * result + (veicoloDTO != null ? veicoloDTO.hashCode() : 0);
         result = 31 * result + (caselloEntryDTO != null ? caselloEntryDTO.hashCode() : 0);
         result = 31 * result + (timeEntry != null ? timeEntry.hashCode() : 0);
         result = 31 * result + (caselloExitDTO != null ? caselloExitDTO.hashCode() : 0);
@@ -134,7 +132,8 @@ public class ViaggioDTO {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ViaggioDTO{");
-        sb.append("veicoloDTO=").append(veicoloDTO);
+        sb.append("idViaggioPk=").append(idViaggioPk);
+        sb.append(", veicoloDTO=").append(veicoloDTO);
         sb.append(", caselloEntryDTO=").append(caselloEntryDTO);
         sb.append(", timeEntry=").append(timeEntry);
         sb.append(", caselloExitDTO=").append(caselloExitDTO);

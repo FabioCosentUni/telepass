@@ -86,14 +86,4 @@ public class TransponderDAOImpl implements TransponderDAO {
 
          */
     }
-
-    private TransponderDTO mapResultSetToTransponderDTO(ResultSet resultSet) throws SQLException {
-        return new TransponderDTO(
-                resultSet.getInt("CODICE_TRANSP_PK"),
-                resultSet.getString("CF_UTENTE_FK"),
-                resultSet.getString("METODO_PAG"),
-                resultSet.getInt("ATTIVO"),
-                resultSet.getInt("PLUS")
-        );
-    }
 }

@@ -2,13 +2,13 @@ package dao.impl;
 
 import dao.CaselloDAO;
 import dto.CaselloDTO;
-import utils.DatabaseManager;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import utils.HibernateConfiguration;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CaselloDAOImpl implements CaselloDAO {
@@ -16,17 +16,17 @@ public class CaselloDAOImpl implements CaselloDAO {
 
     @Override
     public void insertCasello(CaselloDTO casello) throws SQLException {
-        /*
-        String query = "INSERT INTO TELEPASS.TB_CASELLO (ID_CASELLO_PK, KM, INGRESSI, AUTOSTRADA) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, casello.getIdCaselloPk());
-            statement.setInt(2, casello.getKm());
-            statement.setInt(3, casello.getIngressi());
-            statement.setString(4, casello.getAutostrada());
-            statement.executeUpdate();
+        Transaction transaction = null;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.save(casello);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
-
-         */
     }
 
     @Override
@@ -50,16 +50,7 @@ public class CaselloDAOImpl implements CaselloDAO {
     @Override
     public List<CaselloDTO> getAllCaselli() throws SQLException {
 
-        Connection connection = DatabaseManager.getConnection();
-        List<CaselloDTO> caselli = new ArrayList<>();
-        String query = "SELECT * FROM TELEPASS.TB_CASELLO";
-        try (PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                caselli.add(mapResultSetToCaselloDTO(resultSet));
-            }
-        }
-        return caselli;
+       return null;
     }
 
     @Override

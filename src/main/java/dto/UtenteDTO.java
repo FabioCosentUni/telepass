@@ -1,35 +1,36 @@
 package dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_utente")
 public class UtenteDTO {
     @Id
-    @Column(name="codiceFiscalePk", nullable = false)
+    @Column(name="CODICE_FISCALE_PK", nullable = false)
     private String codiceFiscalePk;
-    @Column(name="nome", nullable = false)
+    @Column(name="NOME", nullable = false)
     private String nome;
-    @Column(name="cognome", nullable = false)
+    @Column(name="COGNOME", nullable = false)
     private String cognome;
     @Email(message = "L'email deve essere valida")
-    @Column(name="email", nullable = false)
+    @Column(name="EMAIL", nullable = false)
     private String email;
-    @Column(name="indirizzoFatt", nullable = false)
+    @Column(name="INDIRIZZO_FATT", nullable = false)
     private String indirizzoFatt;
-    @Column(name="cittaFatt", nullable = false)
+    @Column(name="CITTA_FATT", nullable = false)
     private String cittaFatt;
-    @Column(name="regioneFatt", nullable = false)
+    @Column(name="REGIONE_FATT", nullable = false)
     private String regioneFatt;
     @Max(value=1, message="Il flag 'amministratore' può assumere solo i valori 0 o 1")
-    @Column(name="amministratore", nullable = false)
+    @Column(name="AMMINISTRATORE", nullable = false)
     private int amministratore;
+
+    @OneToMany(mappedBy = "utente")
+    private List<TransponderDTO> transponderList;
 
     // Costruttore vuoto
     public UtenteDTO() {
