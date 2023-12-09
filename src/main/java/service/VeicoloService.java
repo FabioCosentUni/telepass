@@ -1,18 +1,22 @@
 package service;
 
+import dto.VeicoloDTO;
+
+import java.util.List;
+
 public interface VeicoloService {
 
-             void insertVeicolo();
+             boolean insertVeicolo(VeicoloDTO veicolo);
 
-             void getAllVeicoli();
+             List<VeicoloDTO> getAllVeicoli();
 
-             void updateVeicolo();
+             boolean updateVeicolo(VeicoloDTO veicolo);
 
-             void deleteVeicoloById();
+             boolean deleteVeicoloByTarga(String targa);
 
-             void getVeicoloByTarga();
+             VeicoloDTO getVeicoloByTarga(String targa);
 
-             void entraNelCasello(long idCasello);
+             void entraNelCasello(VeicoloDTO veicolo, long idCasello);
 
-             void esceDalCasello(long idCasello);
+             void esceDalCasello(VeicoloDTO veicolo, long idCasello);
 }

@@ -3,6 +3,8 @@ package utils;
 import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
 import dto.CaselloDTO;
+import service.CaselloService;
+import service.impl.CaselloServiceImpl;
 
 import java.sql.SQLException;
 
@@ -21,7 +23,8 @@ public class Main {
         //caselloDAO.insertCasello(caselloDTO);
         //caselloDAO.updateCasello(caselloDTO);
         //caselloDAO.deleteCaselloById((long)1);
-        caselloDAO.getAllCaselli().forEach(casello -> System.out.println(casello.getAutostrada()));
-
+        //caselloDAO.getAllCaselli().forEach(casello -> System.out.println(casello.getAutostrada()));
+        CaselloService caselloService = new CaselloServiceImpl();
+        caselloService.getAllCaselli().forEach(casello -> System.out.println(casello.getAutostrada()));
     }
 }

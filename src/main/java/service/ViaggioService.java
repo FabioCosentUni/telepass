@@ -1,14 +1,18 @@
 package service;
 
+import dto.ViaggioDTO;
+
+import java.util.List;
+
 public interface ViaggioService {
 
-             void insertViaggio();
+             boolean insertViaggio(ViaggioDTO viaggio);
 
-             void getAllViaggi();
+             List<ViaggioDTO> getAllViaggi();
 
-             void updateViaggio();
+             boolean updateViaggio(ViaggioDTO viaggio);
 
-             void deleteViaggioById();
+             boolean deleteViaggioById(long viaggioId);
 
-             void getViaggioById();
+             ViaggioDTO getViaggioById(long viaggioId);
 }

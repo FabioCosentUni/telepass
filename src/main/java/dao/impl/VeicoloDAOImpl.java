@@ -13,12 +13,13 @@ import java.util.List;
 public class VeicoloDAOImpl implements VeicoloDAO {
 
     @Override
-    public void insertVeicolo(VeicoloDTO veicolo) throws SQLException {
+    public boolean insertVeicolo(VeicoloDTO veicolo) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(veicolo);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -53,12 +54,13 @@ public class VeicoloDAOImpl implements VeicoloDAO {
 
 
     @Override
-    public void updateVeicolo(VeicoloDTO veicolo) throws SQLException {
+    public boolean updateVeicolo(VeicoloDTO veicolo) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(veicolo);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -70,7 +72,7 @@ public class VeicoloDAOImpl implements VeicoloDAO {
 
 
     @Override
-    public void deleteVeicoloByTarga(String targa) throws SQLException {
+    public boolean deleteVeicoloByTarga(String targa) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -81,6 +83,7 @@ public class VeicoloDAOImpl implements VeicoloDAO {
             }
 
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

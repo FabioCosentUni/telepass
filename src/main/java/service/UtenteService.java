@@ -1,19 +1,23 @@
 package service;
 
+import dto.UtenteDTO;
+
+import java.util.List;
+
 public interface UtenteService {
 
-     void insertUtente();
+     boolean insertUtente(UtenteDTO utenteDTO);
 
-     void getAllUtenti();
+     List<UtenteDTO> getAllUtenti();
 
-     void updateUtente();
+     boolean updateUtente(UtenteDTO utenteDTO);
 
-     void deleteUtenteById();
+     boolean deleteUtenteByCodiceFiscale(String codiceFiscale);
 
-     void getUtenteByCodiceFiscale();
+     UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale);
 
-     void richiediNuovoVeicoloTransponder(String targa);
+     boolean richiediNuovoVeicoloTransponder(String targa);
 
-     void richiediTelepassPlus();
+     boolean richiediTelepassPlus(long idTransponder);
 
 }

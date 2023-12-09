@@ -1,16 +1,20 @@
 package service;
 
+import dto.TransponderDTO;
+
+import java.util.List;
+
 public interface TransponderService {
 
         //Può essere usato per la registrazione transponder fatta dall'amministratore
-        void insertTransponder();
+        boolean insertTransponder(TransponderDTO transponder);
 
-        void getAllTransponders();
+        List<TransponderDTO> getAllTransponders();
 
         //Può essere usato per la revoca transponder fatta dall'amministratore
-        void updateTransponder();
+        boolean updateTransponder(TransponderDTO transponder);
 
-        void deleteTransponderById();
+        boolean deleteTransponderById(long id);
 
-        void getTransponderByCodice();
+        TransponderDTO getTransponderByCodice(long id);
 }

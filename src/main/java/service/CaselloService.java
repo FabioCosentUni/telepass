@@ -1,16 +1,21 @@
 package service;
 
+import dto.CaselloDTO;
+import dto.UtenteDTO;
+
+import java.util.List;
+
 public interface CaselloService {
 
-         void insertCasello();
+         boolean insertCasello(UtenteDTO utente, CaselloDTO casello);
 
-         void getAllCaselli();
+         List<CaselloDTO> getAllCaselli();
 
-         void updateCasello();
+         boolean updateCasello(UtenteDTO utente, CaselloDTO casello);
 
-         void deleteCaselloById();
+         boolean deleteCaselloById(UtenteDTO utente, long caselloId);
 
-         void getCaselloById();
+         CaselloDTO getCaselloById(long caselloId);
 
          void statisticheCasello();
 }

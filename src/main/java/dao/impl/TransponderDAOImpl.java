@@ -14,12 +14,13 @@ public class TransponderDAOImpl implements TransponderDAO {
 
 
     @Override
-    public void insertTransponder(TransponderDTO transponder) throws SQLException {
+    public boolean insertTransponder(TransponderDTO transponder) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(transponder);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -53,12 +54,13 @@ public class TransponderDAOImpl implements TransponderDAO {
 
 
     @Override
-    public void updateTransponder(TransponderDTO transponder) throws SQLException {
+    public boolean updateTransponder(TransponderDTO transponder) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(transponder);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -70,7 +72,7 @@ public class TransponderDAOImpl implements TransponderDAO {
 
 
     @Override
-    public void deleteTransponderById(long transponderId) throws SQLException {
+    public boolean deleteTransponderById(long transponderId) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -79,8 +81,8 @@ public class TransponderDAOImpl implements TransponderDAO {
             if (transponder != null) {
                 session.delete(transponder);
             }
-
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

@@ -13,12 +13,13 @@ import java.util.List;
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
-    public void insertUtente(UtenteDTO utente) throws SQLException {
+    public boolean insertUtente(UtenteDTO utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(utente);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -53,12 +54,13 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     @Override
-    public void updateUtente(UtenteDTO utente) throws SQLException {
+    public boolean updateUtente(UtenteDTO utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(utente);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -70,7 +72,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     @Override
-    public void deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException {
+    public boolean deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -79,8 +81,8 @@ public class UtenteDAOImpl implements UtenteDAO {
             if (utente != null) {
                 session.delete(utente);
             }
-
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UtenteDAO {
-    void insertUtente(UtenteDTO utente) throws SQLException;
+    boolean insertUtente(UtenteDTO utente) throws SQLException;
 
     UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
 
     List<UtenteDTO> getAllUtenti() throws SQLException;
 
-    void updateUtente(UtenteDTO utente) throws SQLException;
+    boolean updateUtente(UtenteDTO utente) throws SQLException;
 
-    void deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
+    boolean deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
 }

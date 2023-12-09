@@ -15,18 +15,20 @@ public class CaselloDAOImpl implements CaselloDAO {
 
 
     @Override
-    public void insertCasello(CaselloDTO casello) throws SQLException {
+    public boolean insertCasello(CaselloDTO casello) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(casello);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -52,24 +54,26 @@ public class CaselloDAOImpl implements CaselloDAO {
 
 
     @Override
-    public void updateCasello(CaselloDTO casello) throws SQLException {
+    public boolean updateCasello(CaselloDTO casello) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(casello);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false;
         }
     }
 
 
 
     @Override
-    public void deleteCaselloById(long caselloId) throws SQLException {
+    public boolean deleteCaselloById(long caselloId) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -84,5 +88,6 @@ public class CaselloDAOImpl implements CaselloDAO {
             }
             e.printStackTrace();
         }
+        return false;
     }
 }

@@ -12,12 +12,13 @@ import java.util.List;
 
 public class ViaggioDAOImpl implements ViaggioDAO {
     @Override
-    public void insertViaggio(ViaggioDTO viaggio) throws SQLException {
+    public boolean insertViaggio(ViaggioDTO viaggio) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(viaggio);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -52,12 +53,13 @@ public class ViaggioDAOImpl implements ViaggioDAO {
 
 
     @Override
-    public void updateViaggio(ViaggioDTO viaggio) throws SQLException {
+    public boolean updateViaggio(ViaggioDTO viaggio) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(viaggio);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -69,7 +71,7 @@ public class ViaggioDAOImpl implements ViaggioDAO {
 
 
     @Override
-    public void deleteViaggioById(long viaggioId) throws SQLException {
+    public boolean deleteViaggioById(long viaggioId) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -80,6 +82,7 @@ public class ViaggioDAOImpl implements ViaggioDAO {
             }
 
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
