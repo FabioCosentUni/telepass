@@ -2,7 +2,7 @@ package utils;
 
 import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
-import dto.CaselloDTO;
+import model.Casello;
 import service.CaselloService;
 import service.impl.CaselloServiceImpl;
 
@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         System.out.println("Hello World!");
 
-        CaselloDTO caselloDTO = new CaselloDTO();
+        Casello caselloDTO = new Casello();
         caselloDTO.setIdCaselloPk((long)1);
         caselloDTO.setKm(100);
         caselloDTO.setIngressi(5);

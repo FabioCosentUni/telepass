@@ -1,4 +1,4 @@
-package dto;
+package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="tb_transponder")
-public class TransponderDTO {
+public class Transponder {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transponder_generator")
     @SequenceGenerator(name="transponder_generator", sequenceName = "seq_transponder", allocationSize = 1)
@@ -16,7 +16,7 @@ public class TransponderDTO {
 
     @ManyToOne
     @JoinColumn(name="CF_UTENTE_FK", nullable = false)
-    private UtenteDTO utente;
+    private Utente utente;
 
     @Column(name="METODO_PAG")
     private String metodoPag;
@@ -30,7 +30,7 @@ public class TransponderDTO {
     private int plus;
 
     @OneToMany(mappedBy = "transponderDTO")
-    private List<VeicoloDTO> veicoloList;
+    private List<Veicolo> veicoloList;
 
     public long getCodiceTranspPk() {
         return codiceTranspPk;
@@ -40,11 +40,11 @@ public class TransponderDTO {
         this.codiceTranspPk = codiceTranspPk;
     }
 
-    public UtenteDTO getUtente() {
+    public Utente getUtente() {
         return utente;
     }
 
-    public void setUtente(UtenteDTO utente) {
+    public void setUtente(Utente utente) {
         this.utente = utente;
     }
 
@@ -72,11 +72,11 @@ public class TransponderDTO {
         this.plus = plus;
     }
 
-    public List<VeicoloDTO> getVeicoloList() {
+    public List<Veicolo> getVeicoloList() {
         return veicoloList;
     }
 
-    public void setVeicoloList(List<VeicoloDTO> veicoloList) {
+    public void setVeicoloList(List<Veicolo> veicoloList) {
         this.veicoloList = veicoloList;
     }
 
@@ -85,7 +85,7 @@ public class TransponderDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TransponderDTO that = (TransponderDTO) o;
+        Transponder that = (Transponder) o;
 
         if (codiceTranspPk != that.codiceTranspPk) return false;
         if (attivo != that.attivo) return false;

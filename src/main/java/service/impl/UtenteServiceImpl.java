@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.UtenteDAO;
 import dao.impl.UtenteDAOImpl;
-import dto.UtenteDTO;
+import model.Utente;
 import service.UtenteService;
 
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import java.util.List;
 public class UtenteServiceImpl implements UtenteService {
     private UtenteDAO utenteDAO = new UtenteDAOImpl();
     @Override
-    public boolean insertUtente(UtenteDTO utenteDTO) {
+    public boolean insertUtente(Utente utente) {
         try {
-            return utenteDAO.insertUtente(utenteDTO);
+            return utenteDAO.insertUtente(utente);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -21,7 +21,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public List<UtenteDTO> getAllUtenti() {
+    public List<Utente> getAllUtenti() {
         try {
             return utenteDAO.getAllUtenti();
         } catch (SQLException e) {
@@ -31,9 +31,9 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public boolean updateUtente(UtenteDTO utenteDTO) {
+    public boolean updateUtente(Utente utente) {
         try {
-            return utenteDAO.updateUtente(utenteDTO);
+            return utenteDAO.updateUtente(utente);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -51,7 +51,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale) {
+    public Utente getUtenteByCodiceFiscale(String codiceFiscale) {
         try {
             return utenteDAO.getUtenteByCodiceFiscale(codiceFiscale);
         } catch (SQLException e) {

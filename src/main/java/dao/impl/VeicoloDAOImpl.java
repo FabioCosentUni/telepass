@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.VeicoloDAO;
-import dto.VeicoloDTO;
+import model.Veicolo;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -13,7 +13,7 @@ import java.util.List;
 public class VeicoloDAOImpl implements VeicoloDAO {
 
     @Override
-    public boolean insertVeicolo(VeicoloDTO veicolo) throws SQLException {
+    public boolean insertVeicolo(Veicolo veicolo) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -31,9 +31,9 @@ public class VeicoloDAOImpl implements VeicoloDAO {
 
 
     @Override
-    public VeicoloDTO getVeicoloByTarga(String targa) {
+    public Veicolo getVeicoloByTarga(String targa) {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(VeicoloDTO.class, targa);
+            return session.get(Veicolo.class, targa);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -42,9 +42,9 @@ public class VeicoloDAOImpl implements VeicoloDAO {
 
 
     @Override
-    public List<VeicoloDTO> getAllVeicoli() throws SQLException {
+    public List<Veicolo> getAllVeicoli() throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<VeicoloDTO> query = session.createQuery("FROM VeicoloDTO", VeicoloDTO.class);
+            Query<Veicolo> query = session.createQuery("FROM Veicolo", Veicolo.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class VeicoloDAOImpl implements VeicoloDAO {
 
 
     @Override
-    public boolean updateVeicolo(VeicoloDTO veicolo) throws SQLException {
+    public boolean updateVeicolo(Veicolo veicolo) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -77,7 +77,7 @@ public class VeicoloDAOImpl implements VeicoloDAO {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            VeicoloDTO veicolo = session.get(VeicoloDTO.class, targa);
+            Veicolo veicolo = session.get(Veicolo.class, targa);
             if (veicolo != null) {
                 session.delete(veicolo);
             }

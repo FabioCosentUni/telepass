@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.UtenteDAO;
-import dto.UtenteDTO;
+import model.Utente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
-    public boolean insertUtente(UtenteDTO utente) throws SQLException {
+    public boolean insertUtente(Utente utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -31,9 +31,9 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     @Override
-    public UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale) {
+    public Utente getUtenteByCodiceFiscale(String codiceFiscale) {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(UtenteDTO.class, codiceFiscale);
+            return session.get(Utente.class, codiceFiscale);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -42,9 +42,9 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     @Override
-    public List<UtenteDTO> getAllUtenti() throws SQLException {
+    public List<Utente> getAllUtenti() throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<UtenteDTO> query = session.createQuery("FROM UtenteDTO", UtenteDTO.class);
+            Query<Utente> query = session.createQuery("FROM Utente", Utente.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 
     @Override
-    public boolean updateUtente(UtenteDTO utente) throws SQLException {
+    public boolean updateUtente(Utente utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -77,7 +77,7 @@ public class UtenteDAOImpl implements UtenteDAO {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            UtenteDTO utente = session.get(UtenteDTO.class, codiceFiscale);
+            Utente utente = session.get(Utente.class, codiceFiscale);
             if (utente != null) {
                 session.delete(utente);
             }

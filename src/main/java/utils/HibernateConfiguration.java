@@ -1,6 +1,6 @@
 package utils;
 
-import dto.*;
+import model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -33,11 +33,11 @@ public class HibernateConfiguration {
                 settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.setProperties(settings);
-                configuration.addAnnotatedClass(CaselloDTO.class);
-                configuration.addAnnotatedClass(VeicoloDTO.class);
-                configuration.addAnnotatedClass(UtenteDTO.class);
-                configuration.addAnnotatedClass(TransponderDTO.class);
-                configuration.addAnnotatedClass(ViaggioDTO.class);
+                configuration.addAnnotatedClass(Casello.class);
+                configuration.addAnnotatedClass(Veicolo.class);
+                configuration.addAnnotatedClass(Utente.class);
+                configuration.addAnnotatedClass(Transponder.class);
+                configuration.addAnnotatedClass(Viaggio.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

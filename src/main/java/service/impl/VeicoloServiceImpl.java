@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.VeicoloDAO;
 import dao.impl.VeicoloDAOImpl;
-import dto.VeicoloDTO;
+import model.Veicolo;
 import service.VeicoloService;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class VeicoloServiceImpl implements VeicoloService {
     private VeicoloDAO veicoloDAO=new VeicoloDAOImpl();
     @Override
-    public boolean insertVeicolo(VeicoloDTO veicolo) {
+    public boolean insertVeicolo(Veicolo veicolo) {
         try {
             return veicoloDAO.insertVeicolo(veicolo);
         } catch (Exception e) {
@@ -20,7 +20,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     }
 
     @Override
-    public List<VeicoloDTO> getAllVeicoli() {
+    public List<Veicolo> getAllVeicoli() {
         try {
             return veicoloDAO.getAllVeicoli();
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     }
 
     @Override
-    public boolean updateVeicolo(VeicoloDTO veicolo) {
+    public boolean updateVeicolo(Veicolo veicolo) {
         try {
             return veicoloDAO.updateVeicolo(veicolo);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     }
 
     @Override
-    public VeicoloDTO getVeicoloByTarga(String targa) {
+    public Veicolo getVeicoloByTarga(String targa) {
         try {
             return veicoloDAO.getVeicoloByTarga(targa);
         } catch (Exception e) {
@@ -60,12 +60,12 @@ public class VeicoloServiceImpl implements VeicoloService {
     }
 
     @Override
-    public void entraNelCasello(VeicoloDTO veicolo, long idCasello) {
+    public void entraNelCasello(Veicolo veicolo, long idCasello) {
 
     }
 
     @Override
-    public void esceDalCasello(VeicoloDTO veicolo, long idCasello) {
+    public void esceDalCasello(Veicolo veicolo, long idCasello) {
 
     }
 }

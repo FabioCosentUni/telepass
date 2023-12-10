@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.ViaggioDAO;
-import dto.ViaggioDTO;
+import model.Viaggio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ViaggioDAOImpl implements ViaggioDAO {
     @Override
-    public boolean insertViaggio(ViaggioDTO viaggio) throws SQLException {
+    public boolean insertViaggio(Viaggio viaggio) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -30,9 +30,9 @@ public class ViaggioDAOImpl implements ViaggioDAO {
 
 
     @Override
-    public ViaggioDTO getViaggioById(long viaggioId) {
+    public Viaggio getViaggioById(long viaggioId) {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(ViaggioDTO.class, viaggioId);
+            return session.get(Viaggio.class, viaggioId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -41,9 +41,9 @@ public class ViaggioDAOImpl implements ViaggioDAO {
 
 
     @Override
-    public List<ViaggioDTO> getAllViaggi() throws SQLException {
+    public List<Viaggio> getAllViaggi() throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<ViaggioDTO> query = session.createQuery("FROM ViaggioDTO", ViaggioDTO.class);
+            Query<Viaggio> query = session.createQuery("FROM Viaggio", Viaggio.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class ViaggioDAOImpl implements ViaggioDAO {
 
 
     @Override
-    public boolean updateViaggio(ViaggioDTO viaggio) throws SQLException {
+    public boolean updateViaggio(Viaggio viaggio) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -76,7 +76,7 @@ public class ViaggioDAOImpl implements ViaggioDAO {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            ViaggioDTO viaggio = session.get(ViaggioDTO.class, viaggioId);
+            Viaggio viaggio = session.get(Viaggio.class, viaggioId);
             if (viaggio != null) {
                 session.delete(viaggio);
             }

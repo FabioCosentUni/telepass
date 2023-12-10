@@ -1,4 +1,4 @@
-package dto;
+package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="tb_utente")
-public class UtenteDTO {
+public class Utente {
     @Id
     @Column(name="CODICE_FISCALE_PK", nullable = false)
     private String codiceFiscalePk;
@@ -30,15 +30,15 @@ public class UtenteDTO {
     private int amministratore;
 
     @OneToMany(mappedBy = "utente")
-    private List<TransponderDTO> transponderList;
+    private List<Transponder> transponderList;
 
     // Costruttore vuoto
-    public UtenteDTO() {
+    public Utente() {
     }
 
     // Costruttore con parametri
-    public UtenteDTO(String codiceFiscalePk, String nome, String cognome, String email,
-                     String indirizzoFatt, String cittaFatt, String regioneFatt, int amministratore) {
+    public Utente(String codiceFiscalePk, String nome, String cognome, String email,
+                  String indirizzoFatt, String cittaFatt, String regioneFatt, int amministratore) {
         this.codiceFiscalePk = codiceFiscalePk;
         this.nome = nome;
         this.cognome = cognome;
@@ -120,18 +120,18 @@ public class UtenteDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UtenteDTO utenteDTO = (UtenteDTO) o;
+        Utente utente = (Utente) o;
 
-        if (amministratore != utenteDTO.amministratore) return false;
-        if (!Objects.equals(codiceFiscalePk, utenteDTO.codiceFiscalePk))
+        if (amministratore != utente.amministratore) return false;
+        if (!Objects.equals(codiceFiscalePk, utente.codiceFiscalePk))
             return false;
-        if (!Objects.equals(nome, utenteDTO.nome)) return false;
-        if (!Objects.equals(cognome, utenteDTO.cognome)) return false;
-        if (!Objects.equals(email, utenteDTO.email)) return false;
-        if (!Objects.equals(indirizzoFatt, utenteDTO.indirizzoFatt))
+        if (!Objects.equals(nome, utente.nome)) return false;
+        if (!Objects.equals(cognome, utente.cognome)) return false;
+        if (!Objects.equals(email, utente.email)) return false;
+        if (!Objects.equals(indirizzoFatt, utente.indirizzoFatt))
             return false;
-        if (!Objects.equals(cittaFatt, utenteDTO.cittaFatt)) return false;
-        return Objects.equals(regioneFatt, utenteDTO.regioneFatt);
+        if (!Objects.equals(cittaFatt, utente.cittaFatt)) return false;
+        return Objects.equals(regioneFatt, utente.regioneFatt);
     }
 
     @Override

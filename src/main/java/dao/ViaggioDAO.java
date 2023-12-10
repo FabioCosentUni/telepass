@@ -1,18 +1,18 @@
 package dao;
 
-import dto.ViaggioDTO;
+import model.Viaggio;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface ViaggioDAO {
-    boolean insertViaggio(ViaggioDTO viaggio) throws SQLException;
+    boolean insertViaggio(Viaggio viaggio) throws SQLException;
 
-    ViaggioDTO getViaggioById(long viaggioId) throws SQLException;
+    Viaggio getViaggioById(long viaggioId) throws SQLException;
 
-    List<ViaggioDTO> getAllViaggi() throws SQLException;
+    List<Viaggio> getAllViaggi() throws SQLException;
 
-    boolean updateViaggio(ViaggioDTO viaggio) throws SQLException;
+    boolean updateViaggio(Viaggio viaggio) throws SQLException;
 
     boolean deleteViaggioById(long viaggioId) throws SQLException;
 }

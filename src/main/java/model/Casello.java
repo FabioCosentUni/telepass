@@ -1,4 +1,4 @@
-package dto;
+package model;
 
 
 import javax.persistence.*;
@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="tb_casello")
-public class CaselloDTO {
+public class Casello {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "casello_generator")
     @SequenceGenerator(name="casello_generator", sequenceName = "seq_casello", allocationSize = 1)
@@ -20,11 +20,11 @@ public class CaselloDTO {
     private String autostrada;
 
     // Costruttore vuoto
-    public CaselloDTO() {
+    public Casello() {
     }
 
     // Costruttore con parametri
-    public CaselloDTO(Long idCaselloPk, Integer km, Integer ingressi, String autostrada) {
+    public Casello(Long idCaselloPk, Integer km, Integer ingressi, String autostrada) {
         this.idCaselloPk = idCaselloPk;
         this.km = km;
         this.ingressi = ingressi;
@@ -70,7 +70,7 @@ public class CaselloDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CaselloDTO that = (CaselloDTO) o;
+        Casello that = (Casello) o;
 
         if (!Objects.equals(idCaselloPk, that.idCaselloPk)) return false;
         if (!Objects.equals(km, that.km)) return false;

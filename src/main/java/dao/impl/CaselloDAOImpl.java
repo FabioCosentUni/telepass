@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.CaselloDAO;
-import dto.CaselloDTO;
+import model.Casello;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,7 +15,7 @@ public class CaselloDAOImpl implements CaselloDAO {
 
 
     @Override
-    public boolean insertCasello(CaselloDTO casello) throws SQLException {
+    public boolean insertCasello(Casello casello) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -32,9 +32,9 @@ public class CaselloDAOImpl implements CaselloDAO {
     }
 
     @Override
-    public CaselloDTO getCaselloById(long caselloId) throws SQLException {
+    public Casello getCaselloById(long caselloId) throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(CaselloDTO.class, caselloId);
+            return session.get(Casello.class, caselloId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -42,9 +42,9 @@ public class CaselloDAOImpl implements CaselloDAO {
     }
 
     @Override
-    public List<CaselloDTO> getAllCaselli()throws SQLException {
+    public List<Casello> getAllCaselli()throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<CaselloDTO> query = session.createQuery("FROM CaselloDTO", CaselloDTO.class);
+            Query<Casello> query = session.createQuery("FROM Casello", Casello.class);
             return query.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class CaselloDAOImpl implements CaselloDAO {
 
 
     @Override
-    public boolean updateCasello(CaselloDTO casello) throws SQLException {
+    public boolean updateCasello(Casello casello) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -77,7 +77,7 @@ public class CaselloDAOImpl implements CaselloDAO {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            CaselloDTO casello = session.get(CaselloDTO.class, caselloId);
+            Casello casello = session.get(Casello.class, caselloId);
             if (casello != null) {
                 session.delete(casello);
             }

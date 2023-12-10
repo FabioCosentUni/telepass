@@ -1,20 +1,20 @@
 package service;
 
-import dto.UtenteDTO;
+import model.Utente;
 
 import java.util.List;
 
 public interface UtenteService {
 
-     boolean insertUtente(UtenteDTO utenteDTO);
+     boolean insertUtente(Utente utente);
 
-     List<UtenteDTO> getAllUtenti();
+     List<Utente> getAllUtenti();
 
-     boolean updateUtente(UtenteDTO utenteDTO);
+     boolean updateUtente(Utente utente);
 
      boolean deleteUtenteByCodiceFiscale(String codiceFiscale);
 
-     UtenteDTO getUtenteByCodiceFiscale(String codiceFiscale);
+     Utente getUtenteByCodiceFiscale(String codiceFiscale);
 
      boolean richiediNuovoVeicoloTransponder(String targa);
 

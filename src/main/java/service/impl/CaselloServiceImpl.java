@@ -2,8 +2,8 @@ package service.impl;
 
 import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
-import dto.CaselloDTO;
-import dto.UtenteDTO;
+import model.Casello;
+import model.Utente;
 import service.CaselloService;
 
 import java.util.Collections;
@@ -13,7 +13,7 @@ public class CaselloServiceImpl implements CaselloService {
     private CaselloDAO caselloDAO = new CaselloDAOImpl();
 
     @Override
-    public boolean insertCasello(UtenteDTO utente, CaselloDTO casello) {
+    public boolean insertCasello(Utente utente, Casello casello) {
         try {
             if (utente.getAmministratore()==1) {
                 caselloDAO.insertCasello(casello);
@@ -29,7 +29,7 @@ public class CaselloServiceImpl implements CaselloService {
     }
 
     @Override
-    public List<CaselloDTO> getAllCaselli() {
+    public List<Casello> getAllCaselli() {
         try {
             return caselloDAO.getAllCaselli();
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class CaselloServiceImpl implements CaselloService {
     }
 
     @Override
-    public boolean updateCasello(UtenteDTO utente, CaselloDTO casello) {
+    public boolean updateCasello(Utente utente, Casello casello) {
         try{
             if (utente.getAmministratore()==1) {
                 caselloDAO.updateCasello(casello);
@@ -56,7 +56,7 @@ public class CaselloServiceImpl implements CaselloService {
     }
 
     @Override
-    public boolean deleteCaselloById(UtenteDTO utente, long caselloId) {
+    public boolean deleteCaselloById(Utente utente, long caselloId) {
         try{
             if (utente.getAmministratore()==1) {
                 caselloDAO.deleteCaselloById(caselloId);
@@ -72,7 +72,7 @@ public class CaselloServiceImpl implements CaselloService {
     }
 
     @Override
-    public CaselloDTO getCaselloById(long caselloId) {
+    public Casello getCaselloById(long caselloId) {
         try {
             return caselloDAO.getCaselloById(caselloId);
         } catch (Exception e) {

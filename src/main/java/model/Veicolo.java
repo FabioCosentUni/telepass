@@ -1,11 +1,11 @@
-package dto;
+package model;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_veicolo")
-public class VeicoloDTO {
+public class Veicolo {
     @Id
     @Column(name="TARGA_PK", nullable = false)
     private String targaPk;
@@ -19,20 +19,20 @@ public class VeicoloDTO {
     private String colore;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TRANSPONDER_FK", nullable = false)
-    private TransponderDTO transponderDTO;
+    private Transponder transponder;
 
     // Costruttore vuoto
-    public VeicoloDTO() {
+    public Veicolo() {
     }
 
     // Costruttore con parametri
-    public VeicoloDTO(String targaPk, String modello, String brand, String tipologiaVe, String colore, TransponderDTO transponderDTO) {
+    public Veicolo(String targaPk, String modello, String brand, String tipologiaVe, String colore, Transponder transponder) {
         this.targaPk = targaPk;
         this.modello = modello;
         this.brand = brand;
         this.tipologiaVe = tipologiaVe;
         this.colore = colore;
-        this.transponderDTO = transponderDTO;
+        this.transponder = transponder;
     }
 
     // Metodi getter e setter
@@ -76,12 +76,12 @@ public class VeicoloDTO {
         this.colore = colore;
     }
 
-    public TransponderDTO getTransponderDTO() {
-        return transponderDTO;
+    public Transponder getTransponderDTO() {
+        return transponder;
     }
 
-    public void setTransponderDTO(TransponderDTO transponderDTO) {
-        this.transponderDTO = transponderDTO;
+    public void setTransponderDTO(Transponder transponder) {
+        this.transponder = transponder;
     }
 
     @Override
@@ -89,14 +89,14 @@ public class VeicoloDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VeicoloDTO that = (VeicoloDTO) o;
+        Veicolo that = (Veicolo) o;
 
         if (!Objects.equals(targaPk, that.targaPk)) return false;
         if (!Objects.equals(modello, that.modello)) return false;
         if (!Objects.equals(brand, that.brand)) return false;
         if (!Objects.equals(tipologiaVe, that.tipologiaVe)) return false;
         if (!Objects.equals(colore, that.colore)) return false;
-        return Objects.equals(transponderDTO, that.transponderDTO);
+        return Objects.equals(transponder, that.transponder);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class VeicoloDTO {
         result = 31 * result + (brand != null ? brand.hashCode() : 0);
         result = 31 * result + (tipologiaVe != null ? tipologiaVe.hashCode() : 0);
         result = 31 * result + (colore != null ? colore.hashCode() : 0);
-        result = 31 * result + (transponderDTO != null ? transponderDTO.hashCode() : 0);
+        result = 31 * result + (transponder != null ? transponder.hashCode() : 0);
         return result;
     }
 
@@ -118,7 +118,7 @@ public class VeicoloDTO {
         sb.append(", brand='").append(brand).append('\'');
         sb.append(", tipologiaVe='").append(tipologiaVe).append('\'');
         sb.append(", colore='").append(colore).append('\'');
-        sb.append(", transponderDTO=").append(transponderDTO);
+        sb.append(", transponderDTO=").append(transponder);
         sb.append('}');
         return sb.toString();
     }

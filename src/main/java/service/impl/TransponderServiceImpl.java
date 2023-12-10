@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.TransponderDAO;
 import dao.impl.TransponderDAOImpl;
-import dto.TransponderDTO;
+import model.Transponder;
 import service.TransponderService;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class TransponderServiceImpl implements TransponderService {
     public TransponderDAO transponderDAO = new TransponderDAOImpl();
     @Override
-    public boolean insertTransponder(TransponderDTO transponder) {
+    public boolean insertTransponder(Transponder transponder) {
         try {
             return transponderDAO.insertTransponder(transponder);
         } catch (Exception e) {
@@ -20,7 +20,7 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public List<TransponderDTO> getAllTransponders() {
+    public List<Transponder> getAllTransponders() {
         try {
             return transponderDAO.getAllTransponders();
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public boolean updateTransponder(TransponderDTO transponder) {
+    public boolean updateTransponder(Transponder transponder) {
         try{
             return transponderDAO.updateTransponder(transponder);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public TransponderDTO getTransponderByCodice(long id) {
+    public Transponder getTransponderByCodice(long id) {
         try{
             return transponderDAO.getTransponderByCodice(id);
         } catch (Exception e) {

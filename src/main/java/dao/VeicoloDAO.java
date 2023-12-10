@@ -1,18 +1,18 @@
 package dao;
 
-import dto.VeicoloDTO;
+import model.Veicolo;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface VeicoloDAO {
-    boolean insertVeicolo(VeicoloDTO veicolo) throws SQLException;
+    boolean insertVeicolo(Veicolo veicolo) throws SQLException;
 
-    VeicoloDTO getVeicoloByTarga(String targa) throws SQLException;
+    Veicolo getVeicoloByTarga(String targa) throws SQLException;
 
-    List<VeicoloDTO> getAllVeicoli() throws SQLException;
+    List<Veicolo> getAllVeicoli() throws SQLException;
 
-    boolean updateVeicolo(VeicoloDTO veicolo) throws SQLException;
+    boolean updateVeicolo(Veicolo veicolo) throws SQLException;
 
     boolean deleteVeicoloByTarga(String targa) throws SQLException;
 }
