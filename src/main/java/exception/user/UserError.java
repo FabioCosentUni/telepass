@@ -2,7 +2,7 @@ package exception.user;
 
 public enum UserError {
 
-    INCORRECT_EMAIL("TP001", "Email non valida."),
+    INCORRECT_EMAIL("TP001", "Nessun utente associato a questa email."),
     INCORRECT_PASSWORD("TP002", "Password non valida.");
 
     private final String errorCode;

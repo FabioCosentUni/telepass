@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name="tb_utente")
 public class Utente {
     @Id
-    @Column(name="CODICE_FISCALE_PK", nullable = false)
+    @Column(name="CODICE_FISCALE_PK", nullable = false, length = 16)
     private String codiceFiscalePk;
     @Column(name="NOME", nullable = false)
     private String nome;

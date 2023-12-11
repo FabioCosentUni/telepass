@@ -5,14 +5,13 @@ import dao.impl.UtenteDAOImpl;
 import exception.user.UserError;
 import exception.user.UserException;
 import model.Utente;
-import org.apache.catalina.User;
 import service.UtenteService;
 
 import java.sql.SQLException;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    private UtenteDAO utenteDAO;
+    private final UtenteDAO utenteDAO;
 
     public UtenteServiceImpl() {
         this.utenteDAO = new UtenteDAOImpl();
@@ -30,7 +29,7 @@ public class UtenteServiceImpl implements UtenteService {
             throw new UserException(UserError.INCORRECT_PASSWORD);
         }
 
-        System.out.println("Utente recuperato: " + u);
+        System.out.println("Utente recuperato: " + u.getCodiceFiscalePk());
         return u;
     }
 

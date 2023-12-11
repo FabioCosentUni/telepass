@@ -1,4 +1,4 @@
-<%--
+<%@ page import="exception.user.UserError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 10/12/2023
@@ -25,24 +25,17 @@
                     <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0">Sign in</p>
                     </div>
-
-                    <c:when test="${'TP001' eq error.getErrorCode()}">
-                        <c:set var="error_mail" value="${error.getErrorMessage()}"/>
-                    </c:when>
-                    <c:out value = "${error_mail}"/>
-                    <!-- Email address input-->
                     <div class="form-floating mb-3">
-                       <%-- <c:if test = "${UserError.INCORRECT_EMAIL.equals(error)}">--%>
-                        <input class="form-control ${not empty error_mail ? 'is-invalid' : ''}" id="email_login" type="email" placeholder="name@example.com" name="email" />
+                        <input class="form-control <%= UserError.INCORRECT_EMAIL.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="email_login" type="email" placeholder="name@example.com" name="email" value="<%=request.getAttribute("email") != null ? request.getAttribute("email") : ""%>" />
                         <label for="email_login">Email address</label>
-                        <div class="invalid-feedback" id="invalidEmail"><c:out>${error_mail}</c:out></div>
+                        <div class="invalid-feedback" id="invalidEmail"><%= UserError.INCORRECT_EMAIL.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
 
 
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="password" type="password" placeholder="password" name="password"/>
+                        <input class="form-control <%= UserError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="password" type="password" placeholder="password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>"/>
                         <label for="password">Enter password</label>
-                        <div class="invalid-feedback">Password is required.</div>
+                        <div class="invalid-feedback"><%= UserError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">

@@ -1,6 +1,5 @@
 package controller;
 
-import exception.user.UserError;
 import exception.user.UserException;
 import model.Utente;
 import service.UtenteService;
@@ -66,42 +65,27 @@ public class UtenteServlet extends HttpServlet {
 
         switch (action) {
             case "/login":
-                try {
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    Utente u = utenteService.login(email, password);
-                    request.getSession().setAttribute("utente", u);
-                    request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-                } catch (UserException e) {
-                    if(UserError.INCORRECT_EMAIL.equals(e.getErrorCause())) {
-                        request.setAttribute("error", UserError.INCORRECT_EMAIL);
-                        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-                    } else if(UserError.INCORRECT_PASSWORD.equals(e.getErrorCause())) {
-                        request.setAttribute("error", UserError.INCORRECT_PASSWORD);
-                        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(500, e.getMessage());
-                }
+                handleLogin(request, response);
                 break;
         }
     }
 
-    /*private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
+    private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
             Utente u = utenteService.login(email, password);
-            //mettere in sessione?
+            request.getSession().setAttribute("utente", u);
+            request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (UserException e) {
-            if(UserError.INCORRECT_EMAIL.equals(e.getErrorCause())) {
-                // che fare?
-            } else if(UserError.INCORRECT_PASSWORD.equals(e.getErrorCause())) {
-                // che fare?
-            }
+            request.setAttribute("error", e.getErrorCause());
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("password", request.getParameter("password"));
+            request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(500, e.getMessage());
         }
-    }*/
+    }
 
 }
