@@ -16,7 +16,7 @@
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-5 col-lg-6 col-xl-5">
-                <img src="${pageContext.request.contextPath}/img//pngegg.png"
+                <img src="${pageContext.request.contextPath}/img/pngegg.png"
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 offset-xl-1 pt-5">
@@ -26,11 +26,16 @@
                         <p class="text-center fw-bold mx-3 mb-0">Sign in</p>
                     </div>
 
+                    <c:when test="${'TP001' eq error.getErrorCode()}">
+                        <c:set var="error_mail" value="${error.getErrorMessage()}"/>
+                    </c:when>
+                    <c:out value = "${error_mail}"/>
                     <!-- Email address input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="email_login" type="email" placeholder="name@example.com" name="email" />
+                       <%-- <c:if test = "${UserError.INCORRECT_EMAIL.equals(error)}">--%>
+                        <input class="form-control ${not empty error_mail ? 'is-invalid' : ''}" id="email_login" type="email" placeholder="name@example.com" name="email" />
                         <label for="email_login">Email address</label>
-                        <div class="invalid-feedback" id="invalidEmail"></div>
+                        <div class="invalid-feedback" id="invalidEmail"><c:out>${error_mail}</c:out></div>
                     </div>
 
 

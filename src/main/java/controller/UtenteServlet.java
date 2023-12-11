@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/user/*")
 public class UtenteServlet extends HttpServlet {
@@ -68,15 +67,28 @@ public class UtenteServlet extends HttpServlet {
         switch (action) {
             case "/login":
                 try {
-                    handleLogin(request, response);
-                } catch (SQLException e) {
-                    // restituire una pagina d'errore ?
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    Utente u = utenteService.login(email, password);
+                    request.getSession().setAttribute("utente", u);
+                    request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                } catch (UserException e) {
+                    if(UserError.INCORRECT_EMAIL.equals(e.getErrorCause())) {
+                        request.setAttribute("error", UserError.INCORRECT_EMAIL);
+                        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+                    } else if(UserError.INCORRECT_PASSWORD.equals(e.getErrorCause())) {
+                        request.setAttribute("error", UserError.INCORRECT_PASSWORD);
+                        request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.sendError(500, e.getMessage());
                 }
                 break;
         }
     }
 
-    private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    /*private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -90,6 +102,6 @@ public class UtenteServlet extends HttpServlet {
                 // che fare?
             }
         }
-    }
+    }*/
 
 }

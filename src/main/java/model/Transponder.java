@@ -29,7 +29,7 @@ public class Transponder {
     @Column(name="PLUS", nullable = false)
     private int plus;
 
-    @OneToMany(mappedBy = "transponderDTO")
+    @OneToMany(mappedBy = "transponder")
     private List<Veicolo> veicoloList;
 
     public long getCodiceTranspPk() {
