@@ -14,11 +14,15 @@ public class Utente {
     private String codiceFiscalePk;
     @Column(name="NOME", nullable = false)
     private String nome;
-    @Column(name="COGNOME", nullable = false)
+    @Column(name="COGNOME", nullable = false, unique = true)
     private String cognome;
     @Email(message = "L'email deve essere valida")
     @Column(name="EMAIL", nullable = false)
     private String email;
+
+    @Column(name="PASSWORD", nullable = false)
+    private String password;
+
     @Column(name="INDIRIZZO_FATT", nullable = false)
     private String indirizzoFatt;
     @Column(name="CITTA_FATT", nullable = false)
@@ -36,20 +40,6 @@ public class Utente {
     public Utente() {
     }
 
-    // Costruttore con parametri
-    public Utente(String codiceFiscalePk, String nome, String cognome, String email,
-                  String indirizzoFatt, String cittaFatt, String regioneFatt, int amministratore) {
-        this.codiceFiscalePk = codiceFiscalePk;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.email = email;
-        this.indirizzoFatt = indirizzoFatt;
-        this.cittaFatt = cittaFatt;
-        this.regioneFatt = regioneFatt;
-        this.amministratore = amministratore;
-    }
-
-    // Metodi getter e setter
     public String getCodiceFiscalePk() {
         return codiceFiscalePk;
     }
@@ -80,6 +70,14 @@ public class Utente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIndirizzoFatt() {
@@ -114,6 +112,13 @@ public class Utente {
         this.amministratore = amministratore;
     }
 
+    public List<Transponder> getTransponderList() {
+        return transponderList;
+    }
+
+    public void setTransponderList(List<Transponder> transponderList) {
+        this.transponderList = transponderList;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -128,10 +133,12 @@ public class Utente {
         if (!Objects.equals(nome, utente.nome)) return false;
         if (!Objects.equals(cognome, utente.cognome)) return false;
         if (!Objects.equals(email, utente.email)) return false;
+        if (!Objects.equals(password, utente.password)) return false;
         if (!Objects.equals(indirizzoFatt, utente.indirizzoFatt))
             return false;
         if (!Objects.equals(cittaFatt, utente.cittaFatt)) return false;
-        return Objects.equals(regioneFatt, utente.regioneFatt);
+        if (!Objects.equals(regioneFatt, utente.regioneFatt)) return false;
+        return Objects.equals(transponderList, utente.transponderList);
     }
 
     @Override
@@ -140,24 +147,28 @@ public class Utente {
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
         result = 31 * result + (cognome != null ? cognome.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (indirizzoFatt != null ? indirizzoFatt.hashCode() : 0);
         result = 31 * result + (cittaFatt != null ? cittaFatt.hashCode() : 0);
         result = 31 * result + (regioneFatt != null ? regioneFatt.hashCode() : 0);
         result = 31 * result + amministratore;
+        result = 31 * result + (transponderList != null ? transponderList.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("UtenteDTO{");
+        final StringBuilder sb = new StringBuilder("Utente{");
         sb.append("codiceFiscalePk='").append(codiceFiscalePk).append('\'');
         sb.append(", nome='").append(nome).append('\'');
         sb.append(", cognome='").append(cognome).append('\'');
         sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
         sb.append(", indirizzoFatt='").append(indirizzoFatt).append('\'');
         sb.append(", cittaFatt='").append(cittaFatt).append('\'');
         sb.append(", regioneFatt='").append(regioneFatt).append('\'');
         sb.append(", amministratore=").append(amministratore);
+        sb.append(", transponderList=").append(transponderList);
         sb.append('}');
         return sb.toString();
     }

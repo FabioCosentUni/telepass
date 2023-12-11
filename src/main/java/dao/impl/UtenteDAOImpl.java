@@ -13,6 +13,18 @@ import java.util.List;
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
+    public Utente getUtenteByEmail(String email) throws SQLException {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            Query<Utente> query = session.createQuery("FROM Utente WHERE email = :email", Utente.class);
+            query.setParameter("email", email);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SQLException("Errore durante il recupero dell'utente.", e);
+        }
+    }
+
+    @Override
     public boolean insertUtente(Utente utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {

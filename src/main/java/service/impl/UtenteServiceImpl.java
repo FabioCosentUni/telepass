@@ -2,62 +2,41 @@ package service.impl;
 
 import dao.UtenteDAO;
 import dao.impl.UtenteDAOImpl;
+import exception.user.UserError;
+import exception.user.UserException;
 import model.Utente;
+import org.apache.catalina.User;
 import service.UtenteService;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class UtenteServiceImpl implements UtenteService {
-    private UtenteDAO utenteDAO = new UtenteDAOImpl();
-    @Override
-    public boolean insertUtente(Utente utente) {
-        try {
-            return utenteDAO.insertUtente(utente);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+
+    private UtenteDAO utenteDAO;
+
+    public UtenteServiceImpl() {
+        this.utenteDAO = new UtenteDAOImpl();
     }
 
     @Override
-    public List<Utente> getAllUtenti() {
-        try {
-            return utenteDAO.getAllUtenti();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+    public Utente login(String email, String password) throws SQLException, UserException {
+
+        Utente u = utenteDAO.getUtenteByEmail(email);
+        if(u == null) {
+            throw new UserException(UserError.INCORRECT_EMAIL);
         }
+
+        if(!u.getPassword().equals(password)) {
+            throw new UserException(UserError.INCORRECT_PASSWORD);
+        }
+
+        System.out.println("Utente recuperato: " + u);
+        return u;
     }
 
     @Override
-    public boolean updateUtente(Utente utente) {
-        try {
-            return utenteDAO.updateUtente(utente);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteUtenteByCodiceFiscale(String codiceFiscale) {
-        try {
-            return utenteDAO.deleteUtenteByCodiceFiscale(codiceFiscale);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public Utente getUtenteByCodiceFiscale(String codiceFiscale) {
-        try {
-            return utenteDAO.getUtenteByCodiceFiscale(codiceFiscale);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public boolean register(Utente utente) {
+        return false;
     }
 
     @Override

@@ -1,20 +1,15 @@
 package service;
 
+import exception.user.UserException;
 import model.Utente;
 
-import java.util.List;
+import java.sql.SQLException;
 
 public interface UtenteService {
 
-     boolean insertUtente(Utente utente);
+     Utente login(String email, String password) throws SQLException, UserException;
 
-     List<Utente> getAllUtenti();
-
-     boolean updateUtente(Utente utente);
-
-     boolean deleteUtenteByCodiceFiscale(String codiceFiscale);
-
-     Utente getUtenteByCodiceFiscale(String codiceFiscale);
+     boolean register(Utente utente);
 
      boolean richiediNuovoVeicoloTransponder(String targa);
 
