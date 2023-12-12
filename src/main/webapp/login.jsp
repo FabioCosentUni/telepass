@@ -40,7 +40,7 @@
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="loginButton" type="login">Login</button></div>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup"
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/Telepass/signup"
                                                                                           class="link-danger">Register</a></p>
                     </div>
 
