@@ -10,13 +10,13 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>UserControllerServlet</servlet-name>
-    <servlet-class>controller.UtenteServlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>controller.LoginServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>UserControllerServlet</servlet-name>
-    <url-pattern>/Telepass/user/*</url-pattern>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet>
