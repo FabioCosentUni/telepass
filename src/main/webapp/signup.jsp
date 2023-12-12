@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="nav.jsp" />
 
-<section id="login" class="pb-3">
+<section id="signup" class="pb-3">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-5 col-lg-6 col-xl-5">
