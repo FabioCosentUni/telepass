@@ -16,9 +16,6 @@ public class Utente {
     private String nome;
     @Column(name="COGNOME", nullable = false, unique = true)
     private String cognome;
-    @Email(message = "L'email deve essere valida")
-    @Column(name="EMAIL", nullable = false)
-    private String email;
 
     @Column(name="PASSWORD", nullable = false)
     private String password;
@@ -29,15 +26,28 @@ public class Utente {
     private String cittaFatt;
     @Column(name="REGIONE_FATT", nullable = false)
     private String regioneFatt;
+
+    //default value = 0
+
     @Max(value=1, message="Il flag 'amministratore' può assumere solo i valori 0 o 1")
     @Column(name="AMMINISTRATORE", nullable = false)
-    private int amministratore;
+    private int amministratore = 0;
 
     @OneToMany(mappedBy = "utente")
     private List<Transponder> transponderList;
 
     // Costruttore vuoto
     public Utente() {
+    }
+
+    public Utente(String codiceFiscalePk, String nome, String cognome, String password, String indirizzoFatt, String cittaFatt, String regioneFatt) {
+        this.codiceFiscalePk = codiceFiscalePk;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.password = password;
+        this.indirizzoFatt = indirizzoFatt;
+        this.cittaFatt = cittaFatt;
+        this.regioneFatt = regioneFatt;
     }
 
     public String getCodiceFiscalePk() {
@@ -62,14 +72,6 @@ public class Utente {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -132,7 +134,6 @@ public class Utente {
             return false;
         if (!Objects.equals(nome, utente.nome)) return false;
         if (!Objects.equals(cognome, utente.cognome)) return false;
-        if (!Objects.equals(email, utente.email)) return false;
         if (!Objects.equals(password, utente.password)) return false;
         if (!Objects.equals(indirizzoFatt, utente.indirizzoFatt))
             return false;
@@ -146,7 +147,6 @@ public class Utente {
         int result = codiceFiscalePk != null ? codiceFiscalePk.hashCode() : 0;
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
         result = 31 * result + (cognome != null ? cognome.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (indirizzoFatt != null ? indirizzoFatt.hashCode() : 0);
         result = 31 * result + (cittaFatt != null ? cittaFatt.hashCode() : 0);
@@ -162,7 +162,6 @@ public class Utente {
         sb.append("codiceFiscalePk='").append(codiceFiscalePk).append('\'');
         sb.append(", nome='").append(nome).append('\'');
         sb.append(", cognome='").append(cognome).append('\'');
-        sb.append(", email='").append(email).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", indirizzoFatt='").append(indirizzoFatt).append('\'');
         sb.append(", cittaFatt='").append(cittaFatt).append('\'');

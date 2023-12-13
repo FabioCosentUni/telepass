@@ -2,8 +2,10 @@ package exception.user;
 
 public enum UserError {
 
-    INCORRECT_EMAIL("TP001", "Nessun utente associato a questa email."),
-    INCORRECT_PASSWORD("TP002", "Password non valida.");
+    INCORRECT_CF("TP001", "Nessun utente associato a questo Codice Fiscale."),
+    INCORRECT_PASSWORD("TP002", "Password non valida."),
+
+    USER_ALREADY_REGISTERED("TP003", "Attenzione! Codice Fiscale già associata ad un altro utente.");
 
     private final String errorCode;
     private final String errorMessage;

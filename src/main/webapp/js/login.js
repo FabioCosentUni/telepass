@@ -1,25 +1,25 @@
 function validateRequest() {
-    let email = $('#email_login').val();
+    let cf = $('#cf_login').val();
     let password = $('#password').val();
 
-    if (email === "") {
-        $('#email_login').addClass('is-invalid');
-        $('#invalidEmail').text('Email is required');
+    if (cf === "") {
+        $('#cf_login').addClass('is-invalid');
+        $('#invalidEmail').text('Inserire un codice fiscale');
     }
 
     if (password === "") {
         $('#password').addClass('is-invalid');
-        $('#invalidPassword').text('Password is required');
+        $('#invalidPassword').text('Inserirere una password');
     }
 
-    if (email === "" || password === "") {
+    if (cf === "" || password === "") {
         return false;
     }
 }
 
 $(document).ready(function () {
-    $('#email_login').keyup(function () {
-        $('#email_login').removeClass('is-invalid');
+    $('#cf_login').keyup(function () {
+        $('#cf_login').removeClass('is-invalid');
         $('#invalidEmail').text('');
     });
 

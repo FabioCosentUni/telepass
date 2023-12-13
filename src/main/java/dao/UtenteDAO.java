@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface UtenteDAO {
 
-    Utente getUtenteByEmail(String email) throws SQLException;
-    boolean insertUtente(Utente utente) throws SQLException;
+    Utente getUtenteByCF(String cf) throws SQLException;
+    void insert(Utente utente) throws SQLException;
 
     Utente getUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
 

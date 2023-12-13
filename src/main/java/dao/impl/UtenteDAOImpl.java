@@ -13,10 +13,10 @@ import java.util.List;
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
-    public Utente getUtenteByEmail(String email) throws SQLException {
+    public Utente getUtenteByCF(String cf) throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Utente> query = session.createQuery("FROM Utente WHERE email = :email", Utente.class);
-            query.setParameter("email", email);
+            Query<Utente> query = session.createQuery("FROM Utente WHERE CODICE_FISCALE_PK = :cf", Utente.class);
+            query.setParameter("cf", cf);
             return query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,13 +25,12 @@ public class UtenteDAOImpl implements UtenteDAO {
     }
 
     @Override
-    public boolean insertUtente(Utente utente) throws SQLException {
+    public void insert(Utente utente) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(utente);
             transaction.commit();
-            return true;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

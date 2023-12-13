@@ -18,11 +18,11 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public Utente login(String email, String password) throws SQLException, UserException {
+    public Utente login(String cf, String password) throws SQLException, UserException {
 
-        Utente u = utenteDAO.getUtenteByEmail(email);
+        Utente u = utenteDAO.getUtenteByCF(cf);
         if(u == null) {
-            throw new UserException(UserError.INCORRECT_EMAIL);
+            throw new UserException(UserError.INCORRECT_CF);
         }
 
         if(!u.getPassword().equals(password)) {
@@ -34,8 +34,13 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public boolean register(Utente utente) {
-        return false;
+    public void register(Utente utente) throws SQLException, UserException {
+        Utente u = utenteDAO.getUtenteByCF(utente.getCodiceFiscalePk());
+        if(u != null) {
+            throw new UserException(UserError.USER_ALREADY_REGISTERED);
+        }
+
+        utenteDAO.insert(utente);
     }
 
     @Override

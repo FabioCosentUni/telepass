@@ -24,16 +24,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
+        String cf = request.getParameter("codice_fiscale");
         String password = request.getParameter("password");
-        Utente u = null;
+        Utente u;
         try {
-            u = utenteService.login(email, password);
+            u = utenteService.login(cf, password);
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (UserException e) {
             request.setAttribute("error", e.getErrorCause());
-            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));
             request.setAttribute("password", request.getParameter("password"));
             request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } catch (Exception e) {

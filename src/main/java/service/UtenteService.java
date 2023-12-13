@@ -9,7 +9,7 @@ public interface UtenteService {
 
      Utente login(String email, String password) throws SQLException, UserException;
 
-     boolean register(Utente utente);
+     void register(Utente utente) throws SQLException, UserException;
 
      boolean richiediNuovoVeicoloTransponder(String targa);
 

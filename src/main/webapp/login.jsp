@@ -26,9 +26,9 @@
                         <p class="text-center fw-bold mx-3 mb-0">Sign in</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= UserError.INCORRECT_EMAIL.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="email_login" type="email" placeholder="name@example.com" name="email" value="<%=request.getAttribute("email") != null ? request.getAttribute("email") : ""%>" />
-                        <label for="email_login">Email address</label>
-                        <div class="invalid-feedback" id="invalidEmail"><%= UserError.INCORRECT_EMAIL.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <input class="form-control <%= UserError.INCORRECT_CF.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="cf_login" type="text" placeholder="name@example.com" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" />
+                        <label for="cf_login">Codice Fiscale</label>
+                        <div class="invalid-feedback" id="invalidEmail"><%= UserError.INCORRECT_CF.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
 
 
