@@ -130,7 +130,6 @@
                 <br />
                 Start fast.
             </h2>
-            <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="https://startbootstrap.com/theme/new-age" target="_blank">Download for free</a>
         </div>
     </div>
 </section>
