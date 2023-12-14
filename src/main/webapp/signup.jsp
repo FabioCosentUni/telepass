@@ -26,7 +26,7 @@
                         <p class="text-center fw-bold mx-3 mb-0">Sign up</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="cf_signup" type="text" placeholder="Codice Fiscale" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
+                        <input class="form-control <%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="cf_signup" type="text" placeholder="Codice Fiscale" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
                         <label for="cf_signup">Codice Fiscale</label>
                         <div class="invalid-feedback" id="invalidCF"><%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
@@ -59,6 +59,11 @@
                         <div class="invalid-feedback" id="invalidRegion"></div>
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <input class="form-control <%= UserError.USER_EMAIL_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="email_signup" type="email" placeholder="Email" name="email" value="<%=request.getAttribute("email") != null ? request.getAttribute("email") : ""%>" required oninput=""/>
+                        <label for="email_signup">Email</label>
+                        <div class="invalid-feedback" id="invalidEmail"><%= UserError.USER_EMAIL_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                    </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="password" type="password" placeholder="password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>" required/>
                         <label for="password">Enter password</label>

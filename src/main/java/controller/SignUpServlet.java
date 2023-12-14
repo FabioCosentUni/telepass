@@ -30,6 +30,7 @@ public class SignUpServlet extends HttpServlet {
             Utente u = new Utente(
                     request.getParameter("codice_fiscale"),
                     request.getParameter("name"),
+                    request.getParameter("email"),
                     request.getParameter("surname"),
                     request.getParameter("password"),
                     request.getParameter("address"),
@@ -46,6 +47,7 @@ public class SignUpServlet extends HttpServlet {
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));
             request.setAttribute("name", request.getParameter("name"));
+            request.setAttribute("email", request.getParameter("email"));
             request.setAttribute("surname", request.getParameter("surname"));
             request.setAttribute("email", request.getParameter("email"));
             request.setAttribute("password", request.getParameter("password"));

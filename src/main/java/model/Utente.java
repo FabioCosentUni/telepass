@@ -14,6 +14,10 @@ public class Utente {
     private String codiceFiscalePk;
     @Column(name="NOME", nullable = false)
     private String nome;
+
+    @Column(name="EMAIL", nullable = false, unique = true)
+    private String email;
+
     @Column(name="COGNOME", nullable = false, unique = true)
     private String cognome;
 
@@ -40,9 +44,10 @@ public class Utente {
     public Utente() {
     }
 
-    public Utente(String codiceFiscalePk, String nome, String cognome, String password, String indirizzoFatt, String cittaFatt, String regioneFatt) {
+    public Utente(String codiceFiscalePk, String nome, String email, String cognome, String password, String indirizzoFatt, String cittaFatt, String regioneFatt) {
         this.codiceFiscalePk = codiceFiscalePk;
         this.nome = nome;
+        this.email = email;
         this.cognome = cognome;
         this.password = password;
         this.indirizzoFatt = indirizzoFatt;
@@ -122,6 +127,14 @@ public class Utente {
         this.transponderList = transponderList;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,6 +146,7 @@ public class Utente {
         if (!Objects.equals(codiceFiscalePk, utente.codiceFiscalePk))
             return false;
         if (!Objects.equals(nome, utente.nome)) return false;
+        if (!Objects.equals(email, utente.email)) return false;
         if (!Objects.equals(cognome, utente.cognome)) return false;
         if (!Objects.equals(password, utente.password)) return false;
         if (!Objects.equals(indirizzoFatt, utente.indirizzoFatt))
@@ -146,6 +160,7 @@ public class Utente {
     public int hashCode() {
         int result = codiceFiscalePk != null ? codiceFiscalePk.hashCode() : 0;
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (cognome != null ? cognome.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (indirizzoFatt != null ? indirizzoFatt.hashCode() : 0);
@@ -161,6 +176,7 @@ public class Utente {
         final StringBuilder sb = new StringBuilder("Utente{");
         sb.append("codiceFiscalePk='").append(codiceFiscalePk).append('\'');
         sb.append(", nome='").append(nome).append('\'');
+        sb.append(", email='").append(email).append('\'');
         sb.append(", cognome='").append(cognome).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", indirizzoFatt='").append(indirizzoFatt).append('\'');

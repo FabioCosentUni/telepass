@@ -20,7 +20,7 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public Utente login(String cf, String password) throws SQLException, UserException {
 
-        Utente u = utenteDAO.getUtenteByCF(cf);
+        Utente u = utenteDAO.getUtenteByCodiceFiscale(cf);
         if(u == null) {
             throw new UserException(UserError.INCORRECT_CF);
         }
@@ -35,9 +35,12 @@ public class UtenteServiceImpl implements UtenteService {
 
     @Override
     public void register(Utente utente) throws SQLException, UserException {
-        Utente u = utenteDAO.getUtenteByCF(utente.getCodiceFiscalePk());
-        if(u != null) {
+        if(utenteDAO.getUtenteByCodiceFiscale(utente.getCodiceFiscalePk()) != null) {
             throw new UserException(UserError.USER_ALREADY_REGISTERED);
+        }
+
+        if(utenteDAO.getUtenteByEmail(utente.getEmail()) != null) {
+            throw new UserException(UserError.USER_EMAIL_ALREADY_REGISTERED);
         }
 
         utenteDAO.insert(utente);

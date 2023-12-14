@@ -13,10 +13,10 @@ import java.util.List;
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
-    public Utente getUtenteByCF(String cf) throws SQLException {
+    public Utente getUtenteByEmail(String email) throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Utente> query = session.createQuery("FROM Utente WHERE CODICE_FISCALE_PK = :cf", Utente.class);
-            query.setParameter("cf", cf);
+            Query<Utente> query = session.createQuery("FROM Utente WHERE EMAIL = :email", Utente.class);
+            query.setParameter("email", email);
             return query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
