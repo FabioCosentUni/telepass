@@ -12,6 +12,8 @@ public interface CaselloDAO {
 
     List<Casello> getAllCaselli() throws SQLException;
 
+    List<String> getAllAutostrade() throws SQLException;
+
     boolean updateCasello(Casello casello) throws SQLException;
 
     boolean deleteCaselloById(long caselloId) throws SQLException;

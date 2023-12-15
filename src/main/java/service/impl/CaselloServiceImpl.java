@@ -40,6 +40,16 @@ public class CaselloServiceImpl implements CaselloService {
     }
 
     @Override
+    public List<String> getAllAutostrade() {
+        try {
+            return caselloDAO.getAllAutostrade();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
     public boolean updateCasello(Utente utente, Casello casello) {
         try{
             if (utente.getAmministratore()==1) {

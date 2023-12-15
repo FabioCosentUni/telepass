@@ -52,6 +52,17 @@ public class CaselloDAOImpl implements CaselloDAO {
         }
     }
 
+    @Override
+    public List<String> getAllAutostrade() throws SQLException {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            Query<String> query = session.createQuery("SELECT DISTINCT autostrada FROM Casello", String.class);
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
 
     @Override
     public boolean updateCasello(Casello casello) throws SQLException {

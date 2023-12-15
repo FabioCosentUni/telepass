@@ -11,6 +11,8 @@ public interface CaselloService {
 
          List<Casello> getAllCaselli();
 
+         List<String> getAllAutostrade();
+
          boolean updateCasello(Utente utente, Casello casello);
 
          boolean deleteCaselloById(Utente utente, long caselloId);
