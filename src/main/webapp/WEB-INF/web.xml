@@ -20,6 +20,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>controller.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>SignUpServlet</servlet-name>
     <servlet-class>controller.SignUpServlet</servlet-class>
   </servlet>
@@ -27,6 +37,16 @@
   <servlet-mapping>
     <servlet-name>SignUpServlet</servlet-name>
     <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AssignVehicle</servlet-name>
+    <servlet-class>controller.AssignVehicle</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AssignVehicle</servlet-name>
+    <url-pattern>/assignVehicle</url-pattern>
   </servlet-mapping>
 
   <servlet>

@@ -12,7 +12,17 @@ public class VeicoloServiceImpl implements VeicoloService {
     @Override
     public boolean insertVeicolo(Veicolo veicolo) {
         try {
-            return veicoloDAO.insertVeicolo(veicolo);
+            if(veicolo.getTipologiaVe().equals("CLASSE A")
+            || veicolo.getTipologiaVe().equals("CLASSE B")
+            || veicolo.getTipologiaVe().equals("CLASSE 3")
+            || veicolo.getTipologiaVe().equals("CLASSE 4")
+            || veicolo.getTipologiaVe().equals("CLASSE 5"))
+            {
+                return veicoloDAO.insertVeicolo(veicolo);
+            }
+            //gestire i vari casi di eccezione
+            return false;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 
 public class SignUpServlet extends HttpServlet {
@@ -24,6 +23,7 @@ public class SignUpServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -41,7 +41,7 @@ public class SignUpServlet extends HttpServlet {
             utenteService.register(u);
 
             request.getSession().setAttribute("utente", u);
-            request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
         } catch (UserException e) {
             e.printStackTrace();
             request.setAttribute("error", e.getErrorCause());
