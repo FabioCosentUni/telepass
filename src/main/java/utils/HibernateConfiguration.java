@@ -38,6 +38,7 @@ public class HibernateConfiguration {
                 configuration.addAnnotatedClass(Utente.class);
                 configuration.addAnnotatedClass(Transponder.class);
                 configuration.addAnnotatedClass(Viaggio.class);
+                configuration.addAnnotatedClass(MethodPayment.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

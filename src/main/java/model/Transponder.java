@@ -17,11 +17,11 @@ public class Transponder implements Serializable {
     private long codiceTranspPk;
 
     @OneToOne
-    @JoinColumn(name="CODICE_FISCALE_PK", nullable = false)
+    @JoinColumn(name="CF_UTENTE_FK", nullable = false)
     private Utente utente;
 
-    @ManyToOne
-    @JoinColumn(name="NUM_CARTA_PK")
+    @OneToOne
+    @JoinColumn(name="METODO_PAG")
     private MethodPayment metodoPag;
 
     @Max(value=1, message="Il flag 'attivo' può assumere solo i valori 0 o 1")
