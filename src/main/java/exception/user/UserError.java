@@ -8,6 +8,8 @@ public enum UserError {
 
     USER_EMAIL_ALREADY_REGISTERED("TP004", "Attenzione! Email già associata ad un altro utente."),
 
+    TRANSPONDER_NOT_AVAILABLE("TP004", "Attenzione! Non ci sono attualmente disponibili transponder."),
+
     PAYMENT_OPTION_NOT_FOUND("TP005", "Attenzione! Opzione di pagamento non trovata.");
 
     private final String errorCode;

@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.TransponderDAO;
 import model.Transponder;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -89,6 +90,21 @@ public class TransponderDAOImpl implements TransponderDAO {
             }
             e.printStackTrace();
             throw new SQLException("Errore durante l'eliminazione del transponder.", e);
+        }
+    }
+
+    @Override
+    public Transponder getDisponibilita() throws SQLException {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            // Query per ottenere il transponder con Attivo = 0
+            Query<Transponder> query = session.createQuery("FROM Transponder t WHERE t.attivo = 0", Transponder.class);
+            query.setMaxResults(1);  // Limita la query a restituire solo un risultato
+
+            List<Transponder> result = query.getResultList();
+            return result.isEmpty() ? null : result.get(0);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            throw new SQLException("Errore durante il recupero della disponibilità del transponder.", e);
         }
     }
 

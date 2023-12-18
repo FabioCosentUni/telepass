@@ -15,4 +15,6 @@ public interface TransponderDAO {
     boolean updateTransponder(Transponder transponder) throws SQLException;
 
     boolean deleteTransponderById(long codice) throws SQLException;
+
+    Transponder getDisponibilita() throws SQLException;
 }

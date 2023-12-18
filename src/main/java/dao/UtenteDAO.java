@@ -14,7 +14,7 @@ public interface UtenteDAO {
 
     List<Utente> getAllUtenti() throws SQLException;
 
-    boolean updateUtente(Utente utente) throws SQLException;
+    Utente updateUtente(Utente utente) throws SQLException;
 
     boolean deleteUtenteByCodiceFiscale(String codiceFiscale) throws SQLException;
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table (name="TB_METODO_PAG")
-public class Metodo_pagamento implements Serializable {
+public class Method_payment implements Serializable {
 
     @Id
     @Column(name="NUM_CARTA_PK", nullable = false)
@@ -30,7 +30,7 @@ public class Metodo_pagamento implements Serializable {
     @Column(name="TIPOLOGIA", nullable = false)
     private String tipologia;
 
-    public Metodo_pagamento(long num_carta_pk, String nome_prp, String cognome_prp, Date scadenza, int cvc, String tipologia) {
+    public Method_payment(long num_carta_pk, String nome_prp, String cognome_prp, Date scadenza, int cvc, String tipologia) {
         this.num_carta_pk = num_carta_pk;
         this.nome_prp = nome_prp;
         this.cognome_prp = cognome_prp;
@@ -39,8 +39,7 @@ public class Metodo_pagamento implements Serializable {
         this.tipologia = tipologia;
     }
 
-    public Metodo_pagamento() {
-
+    public Method_payment() {
     }
 
     public long getNum_carta_pk() {
