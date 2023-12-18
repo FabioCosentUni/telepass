@@ -39,6 +39,9 @@ public class Utente implements Serializable {
     @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
     private Transponder transponder;
 
+    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    private MethodPayment methodPayment;
+
     // Costruttore vuoto
     public Utente() {
     }

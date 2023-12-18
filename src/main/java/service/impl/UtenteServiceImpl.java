@@ -2,8 +2,8 @@ package service.impl;
 
 import dao.UtenteDAO;
 import dao.impl.UtenteDAOImpl;
-import exception.user.UserError;
-import exception.user.UserException;
+import exception.TelepassError;
+import exception.TelepassException;
 import model.Utente;
 import service.UtenteService;
 
@@ -18,15 +18,15 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public Utente login(String cf, String password) throws SQLException, UserException {
+    public Utente login(String cf, String password) throws SQLException, TelepassException {
 
         Utente u = utenteDAO.getUtenteByCodiceFiscale(cf);
         if(u == null) {
-            throw new UserException(UserError.INCORRECT_CF);
+            throw new TelepassException(TelepassError.INCORRECT_CF);
         }
 
         if(!u.getPassword().equals(password)) {
-            throw new UserException(UserError.INCORRECT_PASSWORD);
+            throw new TelepassException(TelepassError.INCORRECT_PASSWORD);
         }
 
         System.out.println("Utente recuperato: " + u.getCodiceFiscalePk());
@@ -34,13 +34,13 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public void register(Utente utente) throws SQLException, UserException {
+    public void register(Utente utente) throws SQLException, TelepassException {
         if(utenteDAO.getUtenteByCodiceFiscale(utente.getCodiceFiscalePk()) != null) {
-            throw new UserException(UserError.USER_ALREADY_REGISTERED);
+            throw new TelepassException(TelepassError.USER_ALREADY_REGISTERED);
         }
 
         if(utenteDAO.getUtenteByEmail(utente.getEmail()) != null) {
-            throw new UserException(UserError.USER_EMAIL_ALREADY_REGISTERED);
+            throw new TelepassException(TelepassError.USER_EMAIL_ALREADY_REGISTERED);
         }
 
         /*if(paymentOption == null) {

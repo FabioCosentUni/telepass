@@ -1,6 +1,6 @@
-package exception.user;
+package exception;
 
-public enum UserError {
+public enum TelepassError {
 
     INCORRECT_CF("TP001", "Nessun utente associato a questo Codice Fiscale."),
     INCORRECT_PASSWORD("TP002", "Password non valida."),
@@ -12,12 +12,20 @@ public enum UserError {
 
     CARD_EXPIRED("TP006", "Attenzione! Carta scaduta. Inserire una carta valida"),
 
-    PAYMENT_OPTION_NOT_FOUND("TP005", "Attenzione! Opzione di pagamento non trovata.");
+    PAYMENT_OPTION_NOT_FOUND("TP007", "Attenzione! Opzione di pagamento non trovata."),
+
+    VIEW_NOT_PERMITTED("TP008", "Attenzione! Non hai i permessi per visualizzare questa pagina."),
+
+    NON_EXISTENT_TYPOLOGY("TP009", "Tipologia veicolo non valida."),
+    VEHICLE_ALREADY_REGISTERED("TP011", "Veicolo già associato a un altro utente."),
+
+    TELEPASS_ALREADY_REGISTERED("TP012", "Telepass già presente nel sistema."),
+    GENERIC_ERROR("TP999", "Inserimento non andato a buon fine.");
 
     private final String errorCode;
     private final String errorMessage;
 
-    UserError(String errorCode, String errorMessage) {
+    TelepassError(String errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }

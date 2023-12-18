@@ -1,6 +1,6 @@
 package controller;
 
-import exception.user.UserException;
+import exception.TelepassException;
 import model.Utente;
 import service.UtenteService;
 import service.impl.UtenteServiceImpl;
@@ -43,7 +43,7 @@ public class SignUpServlet extends HttpServlet {
 
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
-        } catch (UserException e) {
+        } catch (TelepassException e) {
             e.printStackTrace();
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="exception.user.UserError" %><%--
+<%@ page import="exception.TelepassError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 12/12/2023

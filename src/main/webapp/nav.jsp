@@ -27,7 +27,7 @@
                     <c:when test="${utente != null}">
                         <c:choose>
                         <c:when test="${utente.getAmministratore() == 1}">
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/gestione">Gestione Dispositivi</a></li>
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/admin">Gestione Dispositivi</a></li>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/logout">Logout</a></li>
                         </c:when>
                         <c:otherwise>

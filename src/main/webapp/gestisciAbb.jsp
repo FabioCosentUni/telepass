@@ -1,4 +1,4 @@
-<%@ page import="exception.user.UserError" %><%--
+<%@ page import="exception.TelepassError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 10/12/2023

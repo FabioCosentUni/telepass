@@ -15,7 +15,7 @@ public class TransponderDAOImpl implements TransponderDAO {
 
 
     @Override
-    public boolean insertTransponder(Transponder transponder) throws SQLException {
+    public boolean insert(Transponder transponder) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -26,18 +26,19 @@ public class TransponderDAOImpl implements TransponderDAO {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
-            throw new SQLException("Errore durante l'inserimento del transponder.", e);
+            throw e;
         }
     }
 
     @Override
-    public Transponder getTransponderByCodice(long transponderId) throws SQLException {
+    public Transponder getTransponderByCodice(String codice) {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(Transponder.class, transponderId);
+            Query<Transponder> query = session.createQuery("FROM Transponder t where t.codiceTransponder = :cod ", Transponder.class);
+            query.setParameter("cod", codice);
+            return query.uniqueResult();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 

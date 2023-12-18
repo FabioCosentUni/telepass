@@ -2,8 +2,8 @@ package service.impl;
 
 import dao.VeicoloDAO;
 import dao.impl.VeicoloDAOImpl;
-import exception.user.VehicleError;
-import exception.user.VehicleException;
+import exception.TelepassError;
+import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
 import service.VeicoloService;
@@ -14,10 +14,10 @@ import java.util.List;
 public class VeicoloServiceImpl implements VeicoloService {
     private VeicoloDAO veicoloDAO=new VeicoloDAOImpl();
     @Override
-    public Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, VehicleException {
+    public Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, TelepassException {
         try {
             if(veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk()) != null)
-                throw new VehicleException(VehicleError.VEHICLE_ALREADY_REGISTERED);
+                throw new TelepassException(TelepassError.VEHICLE_ALREADY_REGISTERED);
 
             if(veicolo.getTipologiaVe().equals("CLASSE A")
             || veicolo.getTipologiaVe().equals("CLASSE B")
@@ -29,10 +29,10 @@ public class VeicoloServiceImpl implements VeicoloService {
                 if(veicoloDAO.insertVeicolo(veicolo)){
                     return veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk());
                 } else {
-                    throw new VehicleException(VehicleError.GENERIC_ERROR);
+                    throw new TelepassException(TelepassError.GENERIC_ERROR);
                 }
             } else {
-                throw new VehicleException(VehicleError.NON_EXISTENT_TYPOLOGY);
+                throw new TelepassException(TelepassError.NON_EXISTENT_TYPOLOGY);
             }
         } catch (Exception e) {
             e.printStackTrace();

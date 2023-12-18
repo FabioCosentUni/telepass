@@ -1,4 +1,4 @@
-<%@ page import="exception.user.UserError" %><%--
+<%@ page import="exception.TelepassError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 10/12/2023
@@ -26,16 +26,16 @@
                         <p class="text-center fw-bold mx-3 mb-0">Sign in</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= UserError.INCORRECT_CF.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="cf_login" type="text" placeholder="name@example.com" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" />
+                        <input class="form-control <%= TelepassError.INCORRECT_CF.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="cf_login" type="text" placeholder="name@example.com" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" />
                         <label for="cf_login">Codice Fiscale</label>
-                        <div class="invalid-feedback" id="invalidEmail"><%= UserError.INCORRECT_CF.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <div class="invalid-feedback" id="invalidEmail"><%= TelepassError.INCORRECT_CF.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
 
 
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= UserError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="password" type="password" placeholder="password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>"/>
+                        <input class="form-control <%= TelepassError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="password" type="password" placeholder="password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>"/>
                         <label for="password">Enter password</label>
-                        <div class="invalid-feedback"><%= UserError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <div class="invalid-feedback"><%= TelepassError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">

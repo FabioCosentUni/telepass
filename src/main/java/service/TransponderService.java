@@ -1,13 +1,15 @@
 package service;
 
+import exception.TelepassException;
 import model.Transponder;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface TransponderService {
 
         //Può essere usato per la registrazione transponder fatta dall'amministratore
-        boolean insertTransponder(Transponder transponder);
+        void insert(Transponder transponder) throws TelepassException;
 
         List<Transponder> getAllTransponders();
 
@@ -16,5 +18,5 @@ public interface TransponderService {
 
         boolean deleteTransponderById(long id);
 
-        Transponder getTransponderByCodice(long id);
+        Transponder getTransponderByCodice(String codice) throws SQLException;
 }

@@ -1,7 +1,7 @@
 package controller;
 
-import exception.user.UserError;
-import exception.user.UserException;
+import exception.TelepassError;
+import exception.TelepassException;
 import model.MethodPayment;
 import model.Utente;
 import service.MethodPaymentService;
@@ -31,7 +31,7 @@ public class MethodPaymentServlet extends HttpServlet {
         try {
             PaymentOption p = PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption")));
             if(p == null) {
-                throw new UserException(UserError.PAYMENT_OPTION_NOT_FOUND);
+                throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
             }
 
             Utente u = (Utente) request.getSession().getAttribute("utente");
@@ -41,14 +41,15 @@ public class MethodPaymentServlet extends HttpServlet {
                     request.getParameter("cognome_prp"),
                     Date.valueOf(request.getParameter("scadenza")),
                     request.getParameter("cvc"),
-                    p.getName()
+                    p.getName(),
+                    u
             );
 
             methodPaymentService.saveMethodPayment(m, u);
 
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-        } catch (UserException e){
+        } catch (TelepassException e){
             e.printStackTrace();
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("numero_carta", request.getParameter("numero_carta"));

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface TransponderDAO {
-    boolean insertTransponder(Transponder transponder) throws SQLException;
+    boolean insert(Transponder transponder) throws SQLException;
 
-    Transponder getTransponderByCodice(long codice) throws SQLException;
+    Transponder getTransponderByCodice(String codice);
 
     List<Transponder> getAllTransponders() throws SQLException;
 

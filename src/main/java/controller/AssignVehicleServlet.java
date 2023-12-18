@@ -1,7 +1,7 @@
 package controller;
 
-import exception.user.VehicleError;
-import exception.user.VehicleException;
+import exception.TelepassError;
+import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
 import service.VeicoloService;
@@ -40,12 +40,12 @@ public class AssignVehicleServlet extends HttpServlet{
 
             v = veicoloService.insertVeicolo(v, u);
             if(v == null) {
-                throw new VehicleException(VehicleError.GENERIC_ERROR);
+                throw new TelepassException(TelepassError.GENERIC_ERROR);
             } else {
                 request.getSession().setAttribute("veicolo", v);
                 request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
             }
-        } catch (VehicleException e){
+        } catch (TelepassException e){
             e.printStackTrace();
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("targa", request.getParameter("targa_veicolo"));

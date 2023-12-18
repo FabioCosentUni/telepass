@@ -1,6 +1,6 @@
 package service;
 
-import exception.user.VehicleException;
+import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VeicoloService {
 
-             Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, VehicleException;
+             Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, TelepassException;
 
              List<Veicolo> getAllVeicoli();
 

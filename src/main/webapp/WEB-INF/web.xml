@@ -70,6 +70,26 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>HandleDeviceServlet</servlet-name>
+    <servlet-class>controller.HandleDeviceServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HandleDeviceServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddTransponderServlet</servlet-name>
+    <servlet-class>controller.AddTransponderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AddTransponderServlet</servlet-name>
+    <url-pattern>/admin/aggiungiTransponder</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>index</servlet-name>
     <jsp-file>/index.jsp</jsp-file>
   </servlet>

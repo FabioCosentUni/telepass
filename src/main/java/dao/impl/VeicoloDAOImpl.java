@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
-import utils.VeicoloWithoutTrans;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,11 +15,9 @@ public class VeicoloDAOImpl implements VeicoloDAO {
     @Override
     public boolean insertVeicolo(Veicolo veicolo) throws SQLException {
         Transaction transaction = null;
-        VeicoloWithoutTrans v = new VeicoloWithoutTrans();
-        v.copyVeicolo(veicolo);
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(v);
+            session.save(veicolo);
             transaction.commit();
             return true;
         } catch (Exception e) {

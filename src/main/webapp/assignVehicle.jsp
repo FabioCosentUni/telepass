@@ -1,5 +1,5 @@
-<%@ page import="exception.user.UserError" %>
-<%@ page import="exception.user.VehicleError" %><%--
+<%@ page import="exception.TelepassError" %>
+<%@ page import="exception.VehicleError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 12/12/2023
@@ -29,7 +29,7 @@
                     <div class="form-floating mb-3">
                         <input class="form-control <%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("targa_veicolo") != null ? request.getAttribute("targa_veicolo") : ""%>" required oninput=""/>
                         <label for="targa_assign">Targa</label>
-                        <div class="invalid-feedback" id="invalidTarga"><%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <div class="invalid-feedback" id="invalidTarga"><%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="modello_assign" type="text" placeholder="Modello" name="modello_veicolo" value="<%=request.getAttribute("modello_veicolo") != null ? request.getAttribute("modello_veicolo") : ""%>" required oninput=""/>

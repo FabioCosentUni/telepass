@@ -1,9 +1,6 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,13 +10,13 @@ public class MethodPayment implements Serializable {
 
     @Id
     @Column(name="NUM_CARTA_PK", nullable = false)
-    private String num_carta_pk;
+    private String numCartaPK;
 
     @Column(name="NOME_PRP", nullable = false)
-    private String nome_prp;
+    private String nomeProp;
 
     @Column(name="COGNOME_PRP", nullable = false)
-    private String cognome_prp;
+    private String cognomePrp;
 
     @Column(name="SCADENZA", nullable = false)
     private Date scadenza;
@@ -30,41 +27,45 @@ public class MethodPayment implements Serializable {
     @Column(name="TIPOLOGIA", nullable = false)
     private String tipologia;
 
-    public MethodPayment(String num_carta_pk, String nome_prp, String cognome_prp, Date scadenza, String cvc, String tipologia) {
-        this.num_carta_pk = num_carta_pk;
-        this.nome_prp = nome_prp;
-        this.cognome_prp = cognome_prp;
+    @OneToOne
+    @JoinColumn(name="CF_UTENTE_FK", nullable = false)
+    private Utente utente;
+
+
+    public MethodPayment(String numCartaPK, String nomePrp, String cognomePrp, Date scadenza, String cvc, String tipologia, Utente utente) {
+        this.numCartaPK = numCartaPK;
+        this.nomeProp = nomePrp;
+        this.cognomePrp = cognomePrp;
         this.scadenza = scadenza;
         this.cvc = cvc;
         this.tipologia = tipologia;
+        this.utente = utente;
     }
 
-    public MethodPayment() {
+    public MethodPayment() {}
 
+    public String getNumCartaPK() {
+        return numCartaPK;
     }
 
-    public String getNum_carta_pk() {
-        return num_carta_pk;
+    public void setNumCartaPK(String num_carta_pk) {
+        this.numCartaPK = num_carta_pk;
     }
 
-    public void setNum_carta_pk(String num_carta_pk) {
-        this.num_carta_pk = num_carta_pk;
+    public String getNomeProp() {
+        return nomeProp;
     }
 
-    public String getNome_prp() {
-        return nome_prp;
+    public void setNomeProp(String nome_prp) {
+        this.nomeProp = nome_prp;
     }
 
-    public void setNome_prp(String nome_prp) {
-        this.nome_prp = nome_prp;
+    public String getCognomePrp() {
+        return cognomePrp;
     }
 
-    public String getCognome_prp() {
-        return cognome_prp;
-    }
-
-    public void setCognome_prp(String cognome_prp) {
-        this.cognome_prp = cognome_prp;
+    public void setCognomePrp(String cognome_prp) {
+        this.cognomePrp = cognome_prp;
     }
 
     public Date getScadenza() {
@@ -89,5 +90,13 @@ public class MethodPayment implements Serializable {
 
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 }
