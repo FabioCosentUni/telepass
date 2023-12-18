@@ -1,12 +1,15 @@
 package service;
 
+import exception.user.VehicleException;
+import model.Utente;
 import model.Veicolo;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface VeicoloService {
 
-             boolean insertVeicolo(Veicolo veicolo);
+             Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, VehicleException;
 
              List<Veicolo> getAllVeicoli();
 

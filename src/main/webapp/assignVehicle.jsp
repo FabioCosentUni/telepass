@@ -1,4 +1,5 @@
-<%@ page import="exception.user.UserError" %><%--
+<%@ page import="exception.user.UserError" %>
+<%@ page import="exception.user.VehicleError" %><%--
   Created by IntelliJ IDEA.
   User: fabio
   Date: 12/12/2023
@@ -26,27 +27,27 @@
                         <p class="text-center fw-bold mx-3 mb-0">Step 2 - Associa un veicolo al tuo Telepass</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
+                        <input class="form-control <%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("targa_veicolo") != null ? request.getAttribute("targa_veicolo") : ""%>" required oninput=""/>
                         <label for="targa_assign">Targa</label>
-                        <div class="invalid-feedback" id="invalidTarga"><%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <div class="invalid-feedback" id="invalidTarga"><%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="modello_assign" type="text" placeholder="Modello" name="modello_veicolo" value="<%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%>" required oninput=""/>
+                        <input class="form-control" id="modello_assign" type="text" placeholder="Modello" name="modello_veicolo" value="<%=request.getAttribute("modello_veicolo") != null ? request.getAttribute("modello_veicolo") : ""%>" required oninput=""/>
                         <label for="modello_assign">Modello</label>
                         <div class="invalid-feedback" id="invalidModello"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="brand_assign" type="text" placeholder="Brand" name="brand" value="<%=request.getAttribute("surname") != null ? request.getAttribute("surname") : ""%>" required/>
+                        <input class="form-control" id="brand_assign" type="text" placeholder="Brand" name="brand" value="<%=request.getAttribute("brand") != null ? request.getAttribute("brand") : ""%>" required/>
                         <label for="brand_assign">Brand</label>
                         <div class="invalid-feedback" id="invalidBrand"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="tipologia_assign" type="text" placeholder="Tipologia" name="tipologia" value="<%=request.getAttribute("surname") != null ? request.getAttribute("surname") : ""%>" required/>
+                        <input class="form-control" id="tipologia_assign" type="text" placeholder="Tipologia" name="tipologia" value="<%=request.getAttribute("tipologia") != null ? request.getAttribute("tipologia") : ""%>" required/>
                         <label for="tipologia_assign">Tipologia</label>
                         <div class="invalid-feedback" id="invalidTipologia"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="colore_assign" type="text" placeholder="Colore" name="colore" value="<%=request.getAttribute("address") != null ? request.getAttribute("address") : ""%>" required/>
+                        <input class="form-control" id="colore_assign" type="text" placeholder="Colore" name="colore" value="<%=request.getAttribute("colore") != null ? request.getAttribute("colore") : ""%>" required/>
                         <label for="colore_assign">Colore</label>
                         <div class="invalid-feedback" id="invalidColore"></div>
                     </div>

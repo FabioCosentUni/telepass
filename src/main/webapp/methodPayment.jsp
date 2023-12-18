@@ -52,6 +52,22 @@
                         <div class="invalid-feedback" id="invalidCvc"></div>
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <p>Metodo di pagamento</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="credit_card" value="0">
+                            <label class="form-check-label" for="credit_card">
+                                Carta di Credito
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="bancomat" value="1" checked>
+                            <label class="form-check-label" for="bancomat">
+                                Bancomat
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg disabled" id="confirmButton" type="confirm">Conferma</button></div>
                     </div>

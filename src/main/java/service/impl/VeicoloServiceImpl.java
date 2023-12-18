@@ -2,30 +2,41 @@ package service.impl;
 
 import dao.VeicoloDAO;
 import dao.impl.VeicoloDAOImpl;
+import exception.user.VehicleError;
+import exception.user.VehicleException;
+import model.Utente;
 import model.Veicolo;
 import service.VeicoloService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class VeicoloServiceImpl implements VeicoloService {
     private VeicoloDAO veicoloDAO=new VeicoloDAOImpl();
     @Override
-    public boolean insertVeicolo(Veicolo veicolo) {
+    public Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, VehicleException {
         try {
+            if(veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk()) != null)
+                throw new VehicleException(VehicleError.VEHICLE_ALREADY_REGISTERED);
+
             if(veicolo.getTipologiaVe().equals("CLASSE A")
             || veicolo.getTipologiaVe().equals("CLASSE B")
             || veicolo.getTipologiaVe().equals("CLASSE 3")
             || veicolo.getTipologiaVe().equals("CLASSE 4")
             || veicolo.getTipologiaVe().equals("CLASSE 5"))
             {
-                return veicoloDAO.insertVeicolo(veicolo);
+                veicolo.setTransponderDTO(utente.getTransponder());
+                if(veicoloDAO.insertVeicolo(veicolo)){
+                    return veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk());
+                } else {
+                    throw new VehicleException(VehicleError.GENERIC_ERROR);
+                }
+            } else {
+                throw new VehicleException(VehicleError.NON_EXISTENT_TYPOLOGY);
             }
-            //gestire i vari casi di eccezione
-            return false;
-
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

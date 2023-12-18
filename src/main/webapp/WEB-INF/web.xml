@@ -41,7 +41,7 @@
 
   <servlet>
     <servlet-name>AssignVehicle</servlet-name>
-    <servlet-class>controller.AssignVehicle</servlet-class>
+    <servlet-class>controller.AssignVehicleServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>

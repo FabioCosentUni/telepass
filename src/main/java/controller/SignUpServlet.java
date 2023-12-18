@@ -1,7 +1,6 @@
 package controller;
 
 import exception.user.UserException;
-import model.Transponder;
 import model.Utente;
 import service.UtenteService;
 import service.impl.UtenteServiceImpl;
@@ -40,8 +39,9 @@ public class SignUpServlet extends HttpServlet {
                     request.getParameter("region")
             );
 
-            utenteService.register(u, PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption"))));
-
+            //utenteService.register(u, PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption"))));
+            utenteService.register(u);
+            request.getSession().setAttribute("paymentOption", PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption"))));
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
         } catch (UserException e) {
