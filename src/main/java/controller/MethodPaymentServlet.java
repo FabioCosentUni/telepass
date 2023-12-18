@@ -1,5 +1,6 @@
 package controller;
 
+import exception.user.UserError;
 import exception.user.UserException;
 import model.MethodPayment;
 import model.Utente;
@@ -29,13 +30,17 @@ public class MethodPaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             PaymentOption p = PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption")));
+            if(p == null) {
+                throw new UserException(UserError.PAYMENT_OPTION_NOT_FOUND);
+            }
+
             Utente u = (Utente) request.getSession().getAttribute("utente");
             MethodPayment m = new MethodPayment(
-                    Long.parseLong(request.getParameter("numero_carta")),
+                    request.getParameter("numero_carta"),
                     request.getParameter("nome_prp"),
                     request.getParameter("cognome_prp"),
                     Date.valueOf(request.getParameter("scadenza")),
-                    Integer.parseInt(request.getParameter("cvc")),
+                    request.getParameter("cvc"),
                     p.getName()
             );
 

@@ -13,7 +13,7 @@ public class MethodPayment implements Serializable {
 
     @Id
     @Column(name="NUM_CARTA_PK", nullable = false)
-    private long num_carta_pk;
+    private String num_carta_pk;
 
     @Column(name="NOME_PRP", nullable = false)
     private String nome_prp;
@@ -25,12 +25,12 @@ public class MethodPayment implements Serializable {
     private Date scadenza;
 
     @Column(name="CVC", nullable = false)
-    private int cvc;
+    private String cvc;
 
     @Column(name="TIPOLOGIA", nullable = false)
     private String tipologia;
 
-    public MethodPayment(long num_carta_pk, String nome_prp, String cognome_prp, Date scadenza, int cvc, String tipologia) {
+    public MethodPayment(String num_carta_pk, String nome_prp, String cognome_prp, Date scadenza, String cvc, String tipologia) {
         this.num_carta_pk = num_carta_pk;
         this.nome_prp = nome_prp;
         this.cognome_prp = cognome_prp;
@@ -40,13 +40,14 @@ public class MethodPayment implements Serializable {
     }
 
     public MethodPayment() {
+
     }
 
-    public long getNum_carta_pk() {
+    public String getNum_carta_pk() {
         return num_carta_pk;
     }
 
-    public void setNum_carta_pk(long num_carta_pk) {
+    public void setNum_carta_pk(String num_carta_pk) {
         this.num_carta_pk = num_carta_pk;
     }
 
@@ -74,11 +75,11 @@ public class MethodPayment implements Serializable {
         this.scadenza = scadenza;
     }
 
-    public int getCvc() {
+    public String getCvc() {
         return cvc;
     }
 
-    public void setCvc(int cvc) {
+    public void setCvc(String cvc) {
         this.cvc = cvc;
     }
 
