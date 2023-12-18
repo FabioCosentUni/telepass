@@ -25,7 +25,7 @@ public class VeicoloServiceImpl implements VeicoloService {
             || veicolo.getTipologiaVe().equals("CLASSE 4")
             || veicolo.getTipologiaVe().equals("CLASSE 5"))
             {
-                veicolo.setTransponderDTO(utente.getTransponder());
+                //veicolo.setTransponderDTO(utente.getTransponder());
                 if(veicoloDAO.insertVeicolo(veicolo)){
                     return veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk());
                 } else {

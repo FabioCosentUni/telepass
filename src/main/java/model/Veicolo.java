@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,6 +22,7 @@ public class Veicolo implements Serializable {
     private String colore;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="TRANSPONDER_FK", nullable = false)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Transponder transponder;
 
     // Costruttore vuoto
