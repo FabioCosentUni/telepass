@@ -1,7 +1,7 @@
 package controller;
 
 import exception.user.UserException;
-import model.Method_payment;
+import model.MethodPayment;
 import model.Utente;
 import service.MethodPaymentService;
 import service.impl.MethodPaymentServiceImpl;
@@ -30,7 +30,7 @@ public class MethodPaymentServlet extends HttpServlet {
         try {
             PaymentOption p = PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption")));
             Utente u = (Utente) request.getSession().getAttribute("utente");
-            Method_payment m = new Method_payment(
+            MethodPayment m = new MethodPayment(
                     Long.parseLong(request.getParameter("numero_carta")),
                     request.getParameter("nome_prp"),
                     request.getParameter("cognome_prp"),

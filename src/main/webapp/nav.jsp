@@ -32,7 +32,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/simulation">Simulazione</a></li>
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/profile">Profilo</a></li>
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/gestisciAbb">Gestisci abbonamento</a></li>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/logout">Logout</a></li>
                         </c:otherwise>
                         </c:choose>

@@ -22,7 +22,7 @@ public class Transponder implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="NUM_CARTA_PK")
-    private Method_payment metodoPag;
+    private MethodPayment metodoPag;
 
     @Max(value=1, message="Il flag 'attivo' può assumere solo i valori 0 o 1")
     @Column(name="ATTIVO", nullable = false)
@@ -36,7 +36,7 @@ public class Transponder implements Serializable {
     private List<Veicolo> veicoloList = new ArrayList<>();
 
 
-    public Transponder(Utente utente, Method_payment metodoPag) {
+    public Transponder(Utente utente, MethodPayment metodoPag) {
         this.utente = utente;
         this.metodoPag = metodoPag;
     }
@@ -59,11 +59,11 @@ public class Transponder implements Serializable {
         this.utente = utente;
     }
 
-    public Method_payment getMetodoPag() {
+    public MethodPayment getMetodoPag() {
         return metodoPag;
     }
 
-    public void setMetodoPag(Method_payment metodoPag) {
+    public void setMetodoPag(MethodPayment metodoPag) {
         this.metodoPag = metodoPag;
     }
 

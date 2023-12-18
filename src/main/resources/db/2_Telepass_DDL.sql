@@ -59,6 +59,22 @@ CREATE SEQUENCE seq_casello
     CONSTRAINT CHECK_AMMINISTRATORE CHECK (AMMINISTRATORE IN (0,1)),
     CONSTRAINT CHECK_CF CHECK (REGEXP_LIKE (CODICE_FISCALE_PK, '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$'))
     );
+
+--------------------------------------------------------
+--  DDL for Table TB_METODO_PAG
+--------------------------------------------------------
+    CREATE TABLE TELEPASS.TB_METODO_PAG (
+        NUM_CARTA_PK NUMBER(16,0) PRIMARY KEY NOT NULL,
+        NOME_PRP VARCHAR(30) NOT NULL,
+        COGNOME_PRP VARCHAR(30) NOT NULL,
+        SCADENZA DATE NOT NULL,
+        CVC NUMBER(3,0),
+        TIPOLOGIA VARCHAR(30) NOT NULL,
+
+        CONSTRAINT TIPOLOGIA_CARTE_AMMESSE CHECK (UPPER(TIPOLOGIA) IN (
+           'BANCOMAT', 'CARTA DI CREDITO'
+        ))
+    );
 --------------------------------------------------------
 --  DDL for Table TB_TRANSPONDER
 --------------------------------------------------------
@@ -111,21 +127,3 @@ CREATE SEQUENCE seq_casello
     CONSTRAINT CHECK_DATE_VIAGGIO CHECK (TIME_ENTRY < TIME_EXIT),
     CONSTRAINT CHECK_PAGATO CHECK (PAGATO_FLAG IN (0,1))
    );
-
---------------------------------------------------------
-
-    CREATE TABLE TELEPASS.TB_METODO_PAG (
-     NUM_CARTA_PK NUMBER(16,0) PRIMARY KEY NOT NULL,
-     NOME_PRP VARCHAR(30) NOT NULL,
-     COGNOME_PRP VARCHAR(30) NOT NULL,
-     SCADENZA DATE NOT NULL,
-     CVC NUMBER(3,0),
-     TIPOLOGIA VARCHAR(30) NOT NULL,
-
-     CONSTRAINT CHECK_DATE_CC CHECK (SCADENZA > SYSDATE),
-     CONSTRAINT TIPOLOGIA_CARTE_AMMESSE CHECK (UPPER(TIPOLOGIA) IN (
-            'BANCOMAT', 'CARTA DI CREDITO'
-         ))
-    );
-
-

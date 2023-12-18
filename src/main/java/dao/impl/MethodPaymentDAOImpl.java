@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.MethodPaymentDAO;
-import model.Method_payment;
+import model.MethodPayment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -13,7 +13,7 @@ import java.util.List;
 public class MethodPaymentDAOImpl implements MethodPaymentDAO {
 
     @Override
-    public void saveMetodoPagamento(Method_payment metodoPagamento) throws SQLException {
+    public void saveMetodoPagamento(MethodPayment metodoPagamento) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -29,9 +29,9 @@ public class MethodPaymentDAOImpl implements MethodPaymentDAO {
     }
 
     @Override
-    public Method_payment getMetodoPagamentoByNumeroCarta(long numeroCarta) {
+    public MethodPayment getMetodoPagamentoByNumeroCarta(long numeroCarta) {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(Method_payment.class, numeroCarta);
+            return session.get(MethodPayment.class, numeroCarta);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -39,9 +39,9 @@ public class MethodPaymentDAOImpl implements MethodPaymentDAO {
     }
 
     @Override
-    public List<Method_payment> getAllMetodiPagamento() throws SQLException {
+    public List<MethodPayment> getAllMetodiPagamento() throws SQLException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Method_payment> query = session.createQuery("FROM Method_payment", Method_payment.class);
+            Query<MethodPayment> query = session.createQuery("FROM MethodPayment", MethodPayment.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class MethodPaymentDAOImpl implements MethodPaymentDAO {
     }
 
     @Override
-    public void updateMetodoPagamento(Method_payment metodoPagamento) throws SQLException {
+    public void updateMetodoPagamento(MethodPayment metodoPagamento) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -71,7 +71,7 @@ public class MethodPaymentDAOImpl implements MethodPaymentDAO {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            Method_payment metodoPagamento = session.get(Method_payment.class, numeroCarta);
+            MethodPayment metodoPagamento = session.get(MethodPayment.class, numeroCarta);
             if (metodoPagamento != null) {
                 session.delete(metodoPagamento);
             }

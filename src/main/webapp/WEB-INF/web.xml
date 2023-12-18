@@ -50,6 +50,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>GestisciAbb</servlet-name>
+    <servlet-class>controller.GestisciAbbServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GestisciAbb</servlet-name>
+    <url-pattern>/GestisciAbb</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>SimulationServlet</servlet-name>
     <servlet-class>controller.SimulationServlet</servlet-class>
   </servlet>
