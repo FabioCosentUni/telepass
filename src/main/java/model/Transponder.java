@@ -2,19 +2,21 @@ package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_transponder")
-public class Transponder {
+public class Transponder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transponder_generator")
     @SequenceGenerator(name="transponder_generator", sequenceName = "seq_transponder", allocationSize = 1)
     @Column(name="CODICE_TRANSP_PK", nullable = false)
     private long codiceTranspPk;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="CF_UTENTE_FK", nullable = false)
     private Utente utente;
 
@@ -23,14 +25,21 @@ public class Transponder {
 
     @Max(value=1, message="Il flag 'attivo' può assumere solo i valori 0 o 1")
     @Column(name="ATTIVO", nullable = false)
-    private int attivo;
+    private int attivo = 1;
 
     @Max(value=1, message="Il flag 'plus' può assumere solo i valori 0 o 1")
     @Column(name="PLUS", nullable = false)
-    private int plus;
+    private int plus = 0;
 
-    @OneToMany(mappedBy = "transponder")
-    private List<Veicolo> veicoloList;
+    @OneToMany(mappedBy = "transponder", fetch = FetchType.EAGER)
+    private List<Veicolo> veicoloList = new ArrayList<>();
+
+    public Transponder(Utente utente, String metodoPag) {
+        this.utente = utente;
+        this.metodoPag = metodoPag;
+    }
+
+    public Transponder() {}
 
     public long getCodiceTranspPk() {
         return codiceTranspPk;

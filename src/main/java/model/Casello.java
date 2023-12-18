@@ -2,11 +2,12 @@ package model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_casello")
-public class Casello {
+public class Casello implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "casello_generator")
     @SequenceGenerator(name="casello_generator", sequenceName = "seq_casello", allocationSize = 1)

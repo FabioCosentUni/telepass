@@ -1,11 +1,12 @@
 package model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_veicolo")
-public class Veicolo {
+public class Veicolo implements Serializable {
     @Id
     @Column(name="TARGA_PK", nullable = false)
     private String targaPk;

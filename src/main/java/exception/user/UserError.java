@@ -6,7 +6,9 @@ public enum UserError {
     INCORRECT_PASSWORD("TP002", "Password non valida."),
     USER_ALREADY_REGISTERED("TP003", "Attenzione! Codice Fiscale già associata ad un altro utente."),
 
-    USER_EMAIL_ALREADY_REGISTERED("TP004", "Attenzione! Email già associata ad un altro utente.");
+    USER_EMAIL_ALREADY_REGISTERED("TP004", "Attenzione! Email già associata ad un altro utente."),
+
+    PAYMENT_OPTION_NOT_FOUND("TP005", "Attenzione! Opzione di pagamento non trovata.");
 
     private final String errorCode;
     private final String errorMessage;

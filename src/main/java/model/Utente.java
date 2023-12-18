@@ -1,14 +1,13 @@
 package model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_utente")
-public class Utente {
+public class Utente implements Serializable {
     @Id
     @Column(name="CODICE_FISCALE_PK", nullable = false, length = 16)
     private String codiceFiscalePk;
@@ -37,8 +36,8 @@ public class Utente {
     @Column(name="AMMINISTRATORE", nullable = false)
     private int amministratore = 0;
 
-    @OneToMany(mappedBy = "utente")
-    private List<Transponder> transponderList;
+    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    private Transponder transponder;
 
     // Costruttore vuoto
     public Utente() {
@@ -119,20 +118,20 @@ public class Utente {
         this.amministratore = amministratore;
     }
 
-    public List<Transponder> getTransponderList() {
-        return transponderList;
-    }
-
-    public void setTransponderList(List<Transponder> transponderList) {
-        this.transponderList = transponderList;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Transponder getTransponder() {
+        return transponder;
+    }
+
+    public void setTransponder(Transponder transponder) {
+        this.transponder = transponder;
     }
 
     @Override
@@ -153,7 +152,7 @@ public class Utente {
             return false;
         if (!Objects.equals(cittaFatt, utente.cittaFatt)) return false;
         if (!Objects.equals(regioneFatt, utente.regioneFatt)) return false;
-        return Objects.equals(transponderList, utente.transponderList);
+        return Objects.equals(transponder, utente.transponder);
     }
 
     @Override
@@ -167,7 +166,7 @@ public class Utente {
         result = 31 * result + (cittaFatt != null ? cittaFatt.hashCode() : 0);
         result = 31 * result + (regioneFatt != null ? regioneFatt.hashCode() : 0);
         result = 31 * result + amministratore;
-        result = 31 * result + (transponderList != null ? transponderList.hashCode() : 0);
+        result = 31 * result + (transponder != null ? transponder.hashCode() : 0);
         return result;
     }
 
@@ -183,7 +182,7 @@ public class Utente {
         sb.append(", cittaFatt='").append(cittaFatt).append('\'');
         sb.append(", regioneFatt='").append(regioneFatt).append('\'');
         sb.append(", amministratore=").append(amministratore);
-        sb.append(", transponderList=").append(transponderList);
+        sb.append(", transponder=").append(transponder);
         sb.append('}');
         return sb.toString();
     }

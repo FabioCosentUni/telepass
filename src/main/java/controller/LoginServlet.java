@@ -30,6 +30,12 @@ public class LoginServlet extends HttpServlet {
         try {
             u = utenteService.login(cf, password);
             request.getSession().setAttribute("utente", u);
+
+            if(u.getTransponder() != null && u.getTransponder().getVeicoloList().isEmpty()) {
+                request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
+                return;
+            }
+
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (UserException e) {
             request.setAttribute("error", e.getErrorCause());

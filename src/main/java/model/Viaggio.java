@@ -2,12 +2,13 @@ package model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name="tb_viaggio")
-public class Viaggio {
+public class Viaggio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "viaggio_generator")
     @SequenceGenerator(name="viaggio_generator", sequenceName = "seq_viaggio", allocationSize = 1)

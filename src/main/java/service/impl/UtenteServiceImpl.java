@@ -4,8 +4,10 @@ import dao.UtenteDAO;
 import dao.impl.UtenteDAOImpl;
 import exception.user.UserError;
 import exception.user.UserException;
+import model.Transponder;
 import model.Utente;
 import service.UtenteService;
+import utils.PaymentOption;
 
 import java.sql.SQLException;
 
@@ -34,7 +36,7 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public void register(Utente utente) throws SQLException, UserException {
+    public void register(Utente utente, PaymentOption paymentOption) throws SQLException, UserException {
         if(utenteDAO.getUtenteByCodiceFiscale(utente.getCodiceFiscalePk()) != null) {
             throw new UserException(UserError.USER_ALREADY_REGISTERED);
         }
@@ -42,6 +44,13 @@ public class UtenteServiceImpl implements UtenteService {
         if(utenteDAO.getUtenteByEmail(utente.getEmail()) != null) {
             throw new UserException(UserError.USER_EMAIL_ALREADY_REGISTERED);
         }
+
+        if(paymentOption == null) {
+            throw new UserException(UserError.PAYMENT_OPTION_NOT_FOUND);
+        }
+
+        Transponder transponder = new Transponder(utente, paymentOption.getName());
+        utente.setTransponder(transponder);
 
         utenteDAO.insert(utente);
     }

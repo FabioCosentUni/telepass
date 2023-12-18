@@ -23,7 +23,7 @@
                 <form action="signup" method="POST" id="formSignup" onsubmit="return validateRequest()">
 
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0">Sign up</p>
+                        <p class="text-center fw-bold mx-3 mb-0">Step 1</p>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control <%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="cf_signup" type="text" placeholder="Codice Fiscale" name="codice_fiscale" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
@@ -59,6 +59,8 @@
                         <div class="invalid-feedback" id="invalidRegion"></div>
                     </div>
 
+
+
                     <div class="form-floating mb-3">
                         <input class="form-control <%= UserError.USER_EMAIL_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="email_signup" type="email" placeholder="Email" name="email" value="<%=request.getAttribute("email") != null ? request.getAttribute("email") : ""%>" required oninput=""/>
                         <label for="email_signup">Email</label>
@@ -68,6 +70,22 @@
                         <input class="form-control" id="password" type="password" placeholder="password" name="password" value="<%=request.getAttribute("password") != null ? request.getAttribute("password") : ""%>" required/>
                         <label for="password">Enter password</label>
                         <div class="invalid-feedback"><%= UserError.INCORRECT_PASSWORD.equals(request.getAttribute("error")) ? ((UserError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <p>Metodo di pagamento</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="credit_card" value="0">
+                            <label class="form-check-label" for="credit_card">
+                                Carta di Credito
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentOption" id="bancomat" value="1" checked>
+                            <label class="form-check-label" for="bancomat">
+                                Bancomat
+                            </label>
+                        </div>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">

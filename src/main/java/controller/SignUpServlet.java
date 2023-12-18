@@ -1,9 +1,11 @@
 package controller;
 
 import exception.user.UserException;
+import model.Transponder;
 import model.Utente;
 import service.UtenteService;
 import service.impl.UtenteServiceImpl;
+import utils.PaymentOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +40,7 @@ public class SignUpServlet extends HttpServlet {
                     request.getParameter("region")
             );
 
-            utenteService.register(u);
+            utenteService.register(u, PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption"))));
 
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);

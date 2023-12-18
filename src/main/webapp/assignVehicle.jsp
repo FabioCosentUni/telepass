@@ -23,7 +23,7 @@
                 <form action="assignVehicle" method="POST" id="formSignup" onsubmit="return validateRequest()">
 
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0">Assegna veicolo</p>
+                        <p class="text-center fw-bold mx-3 mb-0">Step 2 - Associa un veicolo al tuo Telepass</p>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control <%= UserError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
