@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="nav.jsp" />
 
-<section id="methodPayment" class="pb-3">
+<section id="register" class="pb-3">
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-5 col-lg-6 col-xl-5">
@@ -20,7 +20,7 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 offset-xl-1 pt-5">
-                <form action="methodPayment" method="POST" id="formSignup" onsubmit="return validateRequest()">
+                <form action="register" method="POST" id="formSignup" onsubmit="return validateRequest()">
 
                     <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0">Metodo di pagamento</p>
