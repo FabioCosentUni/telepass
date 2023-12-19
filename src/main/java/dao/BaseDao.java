@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import utils.HibernateConfiguration;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BaseDao<T, ID extends Serializable> {
 
@@ -51,7 +52,7 @@ public class BaseDao<T, ID extends Serializable> {
         }
     }
 
-    public void delete(T entity) {
+    public void delete(T entity) throws DaoException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -62,6 +63,17 @@ public class BaseDao<T, ID extends Serializable> {
                 transaction.rollback();
             }
             e.printStackTrace();
+            throw new DaoException("Errore durante l'eliminazione dell'entità ", e);
         }
     }
+
+
+    public List<T> findAll() throws DaoException {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            return session.createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
+        } catch (Exception e) {
+            throw new DaoException("Errore durante il recupero di tutte le entità ", e);
+        }
+    }
+
 }
