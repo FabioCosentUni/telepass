@@ -20,6 +20,8 @@ public enum TelepassError {
     VEHICLE_ALREADY_REGISTERED("TP011", "Veicolo già associato a un altro utente."),
 
     TELEPASS_ALREADY_REGISTERED("TP012", "Telepass già presente nel sistema."),
+
+    TELEPASS_NOT_FOUND("TP013", "Telepass non trovato."),
     GENERIC_ERROR("TP999", "Inserimento non andato a buon fine.");
 
     private final String errorCode;

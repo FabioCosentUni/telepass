@@ -1,9 +1,11 @@
 package controller;
 
+import com.google.gson.Gson;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Transponder;
 import model.Utente;
+import model.dto.DeleteTransponderResponseDTO;
 import service.TransponderService;
 import service.impl.TransponderServiceImpl;
 import utils.PermissionFilter;
@@ -13,14 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
-public class AddTransponderServlet extends HttpServlet {
+public class RevokeTransponderServlet extends HttpServlet {
 
     private TransponderService transponderService;
 
     @Override
     public void init() throws ServletException {
-        super.init();
         this.transponderService = new TransponderServiceImpl();
     }
 
@@ -30,31 +33,38 @@ public class AddTransponderServlet extends HttpServlet {
 
         if(!PermissionFilter.checkAdmin(u)) {
             req.setAttribute("error", TelepassError.VIEW_NOT_PERMITTED);
-            req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/revokeTransponder.jsp").forward(req, resp);
             return;
         }
 
-        req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
+        List<Transponder> transponderList = transponderService.getTrasponders();
+
+        req.setAttribute("transponders", transponderList);
+
+        req.getServletContext().getRequestDispatcher("/revokeTransponder.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Transponder transponder = new Transponder(
-                req.getParameter("codice_transponder"),
-                null,
-                0
-        );
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Gson gson = new Gson();
 
         try {
-            transponderService.insert(transponder);
+            transponderService.deleteTransponderById(Long.parseLong(req.getParameter("transponder_id")));
 
-            req.setAttribute("success", "Transponder aggiunto con successo");
-            req.setAttribute("codice_transponder", transponder.getCodiceTransponder());
-            req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
+            DeleteTransponderResponseDTO dto = new DeleteTransponderResponseDTO();
+            dto.setTransponderId(req.getParameter("transponder_id"));
+
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(gson.toJson(dto));
         } catch (TelepassException e) {
-            e.printStackTrace();
-            req.setAttribute("transponderError", e.getErrorCause());
-            req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
+            throw new RuntimeException(e);
         }
+
     }
 }

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface TransponderDAO {
+
+    Transponder getById(long id);
     boolean insert(Transponder transponder) throws SQLException;
 
     Transponder getTransponderByCodice(String codice);
@@ -14,7 +16,7 @@ public interface TransponderDAO {
 
     boolean updateTransponder(Transponder transponder) throws SQLException;
 
-    boolean deleteTransponderById(long codice) throws SQLException;
+    boolean delete(long id) throws SQLException;
 
     Transponder getDisponibilita() throws SQLException;
 }

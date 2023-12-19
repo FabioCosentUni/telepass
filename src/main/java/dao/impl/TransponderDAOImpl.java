@@ -15,6 +15,14 @@ public class TransponderDAOImpl implements TransponderDAO {
 
 
     @Override
+    public Transponder getById(long id) {
+
+        Session session = HibernateConfiguration.getSessionFactory().openSession();
+
+        return session.get(Transponder.class, id);
+    }
+
+    @Override
     public boolean insert(Transponder transponder) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
@@ -67,24 +75,27 @@ public class TransponderDAOImpl implements TransponderDAO {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
-            throw new SQLException("Errore durante l'aggiornamento del transponder.", e);
+            throw e;
         }
     }
 
 
     @Override
-    public boolean deleteTransponderById(long transponderId) throws SQLException {
+    public boolean delete(long id) throws SQLException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            Transponder transponder = session.get(Transponder.class, transponderId);
-            if (transponder != null) {
-                session.delete(transponder);
+            Transponder t = session.get(Transponder.class, id);
+
+            if(t != null) {
+                session.delete(t);
+                transaction.commit();
+                return true;
             }
-            transaction.commit();
-            return true;
+
+            return false;
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TransponderServiceImpl implements TransponderService {
-    public TransponderDAO transponderDAO = new TransponderDAOImpl();
+    private final TransponderDAO transponderDAO = new TransponderDAOImpl();
 
     @Override
     public void insert(Transponder transponder) throws TelepassException {
@@ -28,7 +28,7 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public List<Transponder> getAllTransponders() {
+    public List<Transponder> getTrasponders() {
         try {
             return transponderDAO.getAllTransponders();
         } catch (Exception e) {
@@ -48,13 +48,17 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public boolean deleteTransponderById(long id) {
+    public void deleteTransponderById(long id) throws TelepassException {
         try {
-            return transponderDAO.deleteTransponderById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            boolean deleted = transponderDAO.delete(id);
+
+            if (!deleted) {
+                throw new TelepassException(TelepassError.TELEPASS_NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
+
     }
 
     @Override

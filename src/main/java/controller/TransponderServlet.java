@@ -33,7 +33,7 @@ public class TransponderServlet extends HttpServlet {
 
         switch (action) {
             case "/":
-                List<Transponder> transponders = transponderService.getAllTransponders();
+                List<Transponder> transponders = transponderService.getTrasponders();
                 request.setAttribute("transponders", transponders);
                 request.getRequestDispatcher("/WEB-INF/views/transponder/list.jsp").forward(request, response);
                 break;
