@@ -28,6 +28,7 @@ public class BaseDao<T, ID extends Serializable> {
             }
             throw new DaoException("Errore durante l'inserimento dell'entità ", e);
         }
+        return false;
     }
 
     public T findById(ID id) throws DaoException {
@@ -50,6 +51,7 @@ public class BaseDao<T, ID extends Serializable> {
             }
             throw new DaoException("Errore durante l'aggiornamento dell'entità ", e);
         }
+        return false;
     }
 
     public boolean delete(T entity) throws DaoException {

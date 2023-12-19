@@ -1,6 +1,5 @@
 package service.impl;
 
-import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
 import model.Casello;
 import model.Utente;
@@ -10,13 +9,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class CaselloServiceImpl implements CaselloService {
-    private CaselloDAO caselloDAO = new CaselloDAOImpl();
+    private final CaselloDAOImpl caselloDAO = new CaselloDAOImpl();
 
     @Override
     public boolean insertCasello(Utente utente, Casello casello) {
         try {
             if (utente.getAmministratore()==1) {
-                caselloDAO.insertCasello(casello);
+                caselloDAO.save(casello);
                 return true;
             } else {
                 System.out.println("Non sei autorizzato ad eseguire questa operazione");
@@ -31,7 +30,7 @@ public class CaselloServiceImpl implements CaselloService {
     @Override
     public List<Casello> getAllCaselli() {
         try {
-            return caselloDAO.getAllCaselli();
+            return caselloDAO.findAll();
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -53,7 +52,7 @@ public class CaselloServiceImpl implements CaselloService {
     public boolean updateCasello(Utente utente, Casello casello) {
         try{
             if (utente.getAmministratore()==1) {
-                caselloDAO.updateCasello(casello);
+                caselloDAO.update(casello);
                 return true;
             } else {
                 System.out.println("Non sei autorizzato ad eseguire questa operazione");
@@ -69,7 +68,7 @@ public class CaselloServiceImpl implements CaselloService {
     public boolean deleteCaselloById(Utente utente, long caselloId) {
         try{
             if (utente.getAmministratore()==1) {
-                caselloDAO.deleteCaselloById(caselloId);
+                caselloDAO.delete(caselloDAO.findById(caselloId));
                 return true;
             } else {
                 System.out.println("Non sei autorizzato ad eseguire questa operazione");
@@ -84,7 +83,7 @@ public class CaselloServiceImpl implements CaselloService {
     @Override
     public Casello getCaselloById(long caselloId) {
         try {
-            return caselloDAO.getCaselloById(caselloId);
+            return caselloDAO.findById(caselloId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

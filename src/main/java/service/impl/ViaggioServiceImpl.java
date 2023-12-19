@@ -1,6 +1,5 @@
 package service.impl;
 
-import dao.ViaggioDAO;
 import dao.impl.ViaggioDAOImpl;
 import model.Viaggio;
 import service.ViaggioService;
@@ -8,11 +7,11 @@ import service.ViaggioService;
 import java.util.List;
 
 public class ViaggioServiceImpl implements ViaggioService {
-    private ViaggioDAO viaggioDAO= new ViaggioDAOImpl();
+    private ViaggioDAOImpl viaggioDAO= new ViaggioDAOImpl();
     @Override
     public boolean insertViaggio(Viaggio viaggio) {
         try {
-            return viaggioDAO.insertViaggio(viaggio);
+            return viaggioDAO.save(viaggio);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -22,7 +21,7 @@ public class ViaggioServiceImpl implements ViaggioService {
     @Override
     public List<Viaggio> getAllViaggi() {
         try {
-            return viaggioDAO.getAllViaggi();
+            return viaggioDAO.findAll();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -32,7 +31,7 @@ public class ViaggioServiceImpl implements ViaggioService {
     @Override
     public boolean updateViaggio(Viaggio viaggio) {
         try {
-            return viaggioDAO.updateViaggio(viaggio);
+            return viaggioDAO.update(viaggio);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -42,7 +41,7 @@ public class ViaggioServiceImpl implements ViaggioService {
     @Override
     public boolean deleteViaggioById(long viaggioId) {
         try {
-            return viaggioDAO.deleteViaggioById(viaggioId);
+            return viaggioDAO.delete(viaggioDAO.findById(viaggioId));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -52,7 +51,7 @@ public class ViaggioServiceImpl implements ViaggioService {
     @Override
     public Viaggio getViaggioById(long viaggioId) {
         try {
-            return viaggioDAO.getViaggioById(viaggioId);
+            return viaggioDAO.findById(viaggioId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

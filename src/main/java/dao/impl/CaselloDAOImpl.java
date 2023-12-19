@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class CaselloDAOImpl extends BaseDao<Casello, String> implements CaselloDAO {
+public class CaselloDAOImpl extends BaseDao<Casello, Long> implements CaselloDAO {
 
 
     public CaselloDAOImpl() {
