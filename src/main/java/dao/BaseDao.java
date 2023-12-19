@@ -16,7 +16,7 @@ public class BaseDao<T, ID extends Serializable> {
         this.entityClass = entityClass;
     }
 
-    public void save(T entity) throws DaoException {
+    public boolean save(T entity) throws DaoException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -38,7 +38,7 @@ public class BaseDao<T, ID extends Serializable> {
         }
     }
 
-    public void update(T entity) throws DaoException {
+    public boolean update(T entity) throws DaoException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -52,7 +52,7 @@ public class BaseDao<T, ID extends Serializable> {
         }
     }
 
-    public void delete(T entity) throws DaoException {
+    public boolean delete(T entity) throws DaoException {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -65,6 +65,7 @@ public class BaseDao<T, ID extends Serializable> {
             e.printStackTrace();
             throw new DaoException("Errore durante l'eliminazione dell'entità ", e);
         }
+        return false;
     }
 
 

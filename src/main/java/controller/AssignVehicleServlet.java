@@ -30,15 +30,11 @@ public class AssignVehicleServlet extends HttpServlet{
         try {
             Veicolo v = new Veicolo(
                     request.getParameter("targa_veicolo"),
-                    request.getParameter("modello_veicolo"),
-                    request.getParameter("brand"),
                     request.getParameter("tipologia"),
-                    request.getParameter("colore"),
                     null
             );
-            Utente u = (Utente) request.getSession().getAttribute("utente");
+            Utente u = (Utente) request.getSession().getAttribute("utenteProv");
 
-            v = veicoloService.insertVeicolo(v, u);
             if(v == null) {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);
             } else {
@@ -49,10 +45,7 @@ public class AssignVehicleServlet extends HttpServlet{
             e.printStackTrace();
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("targa", request.getParameter("targa_veicolo"));
-            request.setAttribute("modello", request.getParameter("modello_veicolo"));
-            request.setAttribute("brand", request.getParameter("brand"));
             request.setAttribute("tipologia", request.getParameter("tipologia"));
-            request.setAttribute("colore", request.getParameter("colore"));
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

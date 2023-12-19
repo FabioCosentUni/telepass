@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="cvc_assign" type="text" placeholder="Cvc" name="cvc" value="<%=request.getAttribute("address") != null ? request.getAttribute("address") : ""%>" required/>
-                        <label for="cvc_assign">Colore</label>
+                        <label for="cvc_assign">Cvc</label>
                         <div class="invalid-feedback" id="invalidCvc"></div>
                     </div>
 

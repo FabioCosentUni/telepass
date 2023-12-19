@@ -1,6 +1,5 @@
 package service.impl;
 
-import dao.VeicoloDAO;
 import dao.impl.VeicoloDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -12,11 +11,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class VeicoloServiceImpl implements VeicoloService {
-    private VeicoloDAO veicoloDAO=new VeicoloDAOImpl();
+    private final VeicoloDAOImpl veicoloDAO=new VeicoloDAOImpl();
     @Override
     public Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, TelepassException {
         try {
-            if(veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk()) != null)
+            if(veicoloDAO.findById(veicolo.getTargaPk()) != null)
                 throw new TelepassException(TelepassError.VEHICLE_ALREADY_REGISTERED);
 
             if(veicolo.getTipologiaVe().equals("CLASSE A")
@@ -26,8 +25,8 @@ public class VeicoloServiceImpl implements VeicoloService {
             || veicolo.getTipologiaVe().equals("CLASSE 5"))
             {
                 //veicolo.setTransponderDTO(utente.getTransponder());
-                if(veicoloDAO.insertVeicolo(veicolo)){
-                    return veicoloDAO.getVeicoloByTarga(veicolo.getTargaPk());
+                if(veicoloDAO.save(veicolo)){
+                    return veicoloDAO.findById(veicolo.getTargaPk());
                 } else {
                     throw new TelepassException(TelepassError.GENERIC_ERROR);
                 }
@@ -43,7 +42,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     @Override
     public List<Veicolo> getAllVeicoli() {
         try {
-            return veicoloDAO.getAllVeicoli();
+            return veicoloDAO.findAll();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -53,7 +52,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     @Override
     public boolean updateVeicolo(Veicolo veicolo) {
         try {
-            return veicoloDAO.updateVeicolo(veicolo);
+            return veicoloDAO.update(veicolo);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -73,7 +72,7 @@ public class VeicoloServiceImpl implements VeicoloService {
     @Override
     public Veicolo getVeicoloByTarga(String targa) {
         try {
-            return veicoloDAO.getVeicoloByTarga(targa);
+            return veicoloDAO.findById(targa);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
