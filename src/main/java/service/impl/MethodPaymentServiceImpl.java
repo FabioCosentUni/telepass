@@ -23,8 +23,10 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
 
     private UtenteDAO utenteDAO;
 
+
     @Override
     public Utente saveMethodPayment(MethodPayment methodPayment, Utente u) throws SQLException, TelepassException {
+        /*
         // Formattatore per la conversione della stringa in LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try
@@ -50,6 +52,9 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
             e.printStackTrace();
             return null;
         }
+
+         */
+        return null;
     }
 
     @Override

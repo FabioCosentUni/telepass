@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class RevokeTransponderServlet extends HttpServlet {
@@ -37,7 +36,12 @@ public class RevokeTransponderServlet extends HttpServlet {
             return;
         }
 
-        List<Transponder> transponderList = transponderService.getTrasponders();
+        List<Transponder> transponderList = null;
+        try {
+            transponderList = transponderService.getActiveTrasponders();
+        } catch (TelepassException e) {
+            //errore generico --> redirect ad una pagina di errore generico
+        }
 
         req.setAttribute("transponders", transponderList);
 
@@ -46,25 +50,6 @@ public class RevokeTransponderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Gson gson = new Gson();
-
-        try {
-            transponderService.deleteTransponderById(Long.parseLong(req.getParameter("transponder_id")));
-
-            DeleteTransponderResponseDTO dto = new DeleteTransponderResponseDTO();
-            dto.setTransponderId(req.getParameter("transponder_id"));
-
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(gson.toJson(dto));
-        } catch (TelepassException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 }

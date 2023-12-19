@@ -26,39 +26,34 @@
     <div class="container h-custom">
         <div class="row justify-content-center">
             <div class="col-md-10">
+                <%if(request.getAttribute("transponders") != null) { %>
                 <h2>Elenco Transponder</h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Codice Transponder</th>
                             <th>CF UTENTE</th>
-                            <th>ATTIVO</th>
                             <th>PLUS</th>
                         </tr>
                         </thead>
                         <tbody>
                         <%-- Loop attraverso i transponder qui --%>
                         <% for (Transponder t : (List<Transponder>)request.getAttribute("transponders")) { %>
-                        <tr data-id = "<%=t.getCodiceTranspPk()%>">
-                            <td><%= t.getCodiceTranspPk() %></td>
+                        <tr data-id = "<%=t.getCodiceTransponder()%>">
                             <td><%= t.getCodiceTransponder() %></td>
-                            <td><%= (t.getUtente() != null) ? t.getUtente().getCodiceFiscalePk() : "" %></td>
-                            <td><%= t.getAttivo() %></td>
+                            <td><%= t.getUtente().getCodiceFiscalePk() %></td>
                             <td><%= t.getPlus() %></td>
                             <td>
-                                <button class="btn btn-danger revoke-btn" data-transponder-id="<%= t.getCodiceTranspPk() %>" data-code="<%=t.getCodiceTransponder()%>">Revoca</button>
+                                <button class="btn btn-danger revoke-btn" data-transponder-id="<%= t.getCodiceTransponder() %>" data-code="<%=t.getCodiceTransponder()%>">Revoca</button>
                             </td>
                         </tr>
                         <% } %>
                         </tbody>
                     </table>
                 </div>
-                <%-- Paginazione qui, se necessario --%>
-                <%-- Esempio: Visualizzazione di 5 elementi per pagina --%>
-                <%-- Pagina 1 | Pagina 2 | Pagina 3 ... --%>
             </div>
+            <% } else { }%>
         </div>
     </div>
 </section>

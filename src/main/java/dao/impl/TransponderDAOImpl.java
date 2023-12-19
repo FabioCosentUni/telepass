@@ -1,124 +1,35 @@
 package dao.impl;
 
+import dao.BaseDao;
 import dao.TransponderDAO;
+import exception.DaoException;
 import model.Transponder;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class TransponderDAOImpl implements TransponderDAO {
+public class TransponderDAOImpl extends BaseDao<Transponder, String> implements TransponderDAO {
 
 
-    @Override
-    public Transponder getById(long id) {
-
-        Session session = HibernateConfiguration.getSessionFactory().openSession();
-
-        return session.get(Transponder.class, id);
-    }
-
-    @Override
-    public boolean insert(Transponder transponder) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(transponder);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw e;
-        }
-    }
-
-    @Override
-    public Transponder getTransponderByCodice(String codice) {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Transponder> query = session.createQuery("FROM Transponder t where t.codiceTransponder = :cod ", Transponder.class);
-            query.setParameter("cod", codice);
-            return query.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public TransponderDAOImpl() {
+        super(Transponder.class);
     }
 
 
     @Override
-    public List<Transponder> getAllTransponders() throws SQLException {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Transponder> query = session.createQuery("FROM Transponder", Transponder.class);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("Errore durante il recupero di tutti i transponder.", e);
-        }
-    }
+    public List<Transponder> getActiveTransponders() throws DaoException {
+        List<Transponder> activeTransponders;
 
-
-    @Override
-    public boolean updateTransponder(Transponder transponder) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(transponder);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            throw e;
-        }
-    }
-
-
-    @Override
-    public boolean delete(long id) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-
-            Transponder t = session.get(Transponder.class, id);
-
-            if(t != null) {
-                session.delete(t);
-                transaction.commit();
-                return true;
-            }
-
-            return false;
-
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            throw new SQLException("Errore durante l'eliminazione del transponder.", e);
-        }
-    }
-
-    @Override
-    public Transponder getDisponibilita() throws SQLException {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            // Query per ottenere il transponder con Attivo = 0
-            Query<Transponder> query = session.createQuery("FROM Transponder t WHERE t.attivo = 0", Transponder.class);
-            query.setMaxResults(1);  // Limita la query a restituire solo un risultato
-
-            List<Transponder> result = query.getResultList();
-            return result.isEmpty() ? null : result.get(0);
+        try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            Query<Transponder> query = session.createQuery("FROM Transponder t WHERE t.utente is not null", Transponder.class);
+            activeTransponders = query.list();
         } catch (HibernateException e) {
-            e.printStackTrace();
-            throw new SQLException("Errore durante il recupero della disponibilità del transponder.", e);
+            throw new DaoException("Errore durante il recupero dei transponder attivi", e);
         }
+
+        return activeTransponders;
     }
-
-
 }

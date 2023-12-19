@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             u = utenteService.login(cf, password);
             request.getSession().setAttribute("utente", u);
 
-            if(u.getTransponder() != null && u.getTransponder().getVeicoloList().isEmpty()) {
+            if(u.getTransponder() != null && u.getAmministratore()==0 && u.getTransponder().getVeicoloList().isEmpty()) {
                 request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
                 return;
             }

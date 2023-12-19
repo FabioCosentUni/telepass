@@ -1,11 +1,4 @@
 <%@ page import="exception.TelepassError" %>
-<%@ page import="exception.VehicleError" %><%--
-  Created by IntelliJ IDEA.
-  User: fabio
-  Date: 12/12/2023
-  Time: 11:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%--Head--%>
@@ -27,9 +20,9 @@
                         <p class="text-center fw-bold mx-3 mb-0">Step 2 - Associa un veicolo al tuo Telepass</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("targa_veicolo") != null ? request.getAttribute("targa_veicolo") : ""%>" required oninput=""/>
+                        <input class="form-control <%= TelepassError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("targa_veicolo") != null ? request.getAttribute("targa_veicolo") : ""%>" required oninput=""/>
                         <label for="targa_assign">Targa</label>
-                        <div class="invalid-feedback" id="invalidTarga"><%= VehicleError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
+                        <div class="invalid-feedback" id="invalidTarga"><%= TelepassError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" id="modello_assign" type="text" placeholder="Modello" name="modello_veicolo" value="<%=request.getAttribute("modello_veicolo") != null ? request.getAttribute("modello_veicolo") : ""%>" required oninput=""/>
