@@ -27,6 +27,9 @@ public class MethodPayment implements Serializable {
     @Column(name="TIPOLOGIA", nullable = false)
     private String tipologia;
 
+    @OneToOne(mappedBy = "methodPayment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Utente utente;
+
 
     public MethodPayment(String numCartaPK, String nomePrp, String cognomePrp, Date scadenza, String cvc, String tipologia) {
         this.numCartaPK = numCartaPK;
@@ -85,5 +88,13 @@ public class MethodPayment implements Serializable {
 
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 }

@@ -32,10 +32,11 @@ public class Utente implements Serializable {
     @Column(name="AMMINISTRATORE", nullable = false)
     private int amministratore = 0;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Transponder transponder;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="NUM_CARTA_FK")
     private MethodPayment methodPayment;
 
     // Costruttore vuoto

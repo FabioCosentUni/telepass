@@ -46,10 +46,10 @@ public class UtenteServiceImpl implements UtenteService {
             throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
         }
         if(!v.getTipologiaVe().equals("CLASSE A")
-                || !v.getTipologiaVe().equals("CLASSE B")
-                || !v.getTipologiaVe().equals("CLASSE 3")
-                || !v.getTipologiaVe().equals("CLASSE 4")
-                || !v.getTipologiaVe().equals("CLASSE 5"))
+                && !v.getTipologiaVe().equals("CLASSE B")
+                && !v.getTipologiaVe().equals("CLASSE 3")
+                && !v.getTipologiaVe().equals("CLASSE 4")
+                && !v.getTipologiaVe().equals("CLASSE 5"))
         {
             throw new TelepassException(TelepassError.NON_EXISTENT_TYPOLOGY);
         }
@@ -64,7 +64,7 @@ public class UtenteServiceImpl implements UtenteService {
         if(utente.getMethodPayment() == null) {
             throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
         }
-        Transponder t = transponderDAO.getActiveTransponders().stream().findFirst().orElse(null);
+        Transponder t = transponderDAO.findFreeTransponder();
         if(t == null) {
             throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);
         }

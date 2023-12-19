@@ -13,15 +13,6 @@ CREATE SEQUENCE seq_viaggio
     NOCYCLE
   NOCACHE;
 
-CREATE SEQUENCE seq_transponder
-    START WITH 0
-    INCREMENT BY 1
-    MINVALUE 0
-    MAXVALUE 9999
-    NOCYCLE
-  NOCACHE;
-
-
 CREATE SEQUENCE seq_casello
     START WITH 0
     INCREMENT BY 1
@@ -42,6 +33,22 @@ CREATE SEQUENCE seq_casello
    );
 
 --------------------------------------------------------
+--  DDL for Table TB_METODO_PAG
+----------------------------------------------------------
+    CREATE TABLE TELEPASS.TB_METODO_PAG (
+    NUM_CARTA_PK VARCHAR(16) PRIMARY KEY NOT NULL,
+    NOME_PRP VARCHAR(30) NOT NULL,
+    COGNOME_PRP VARCHAR(30) NOT NULL,
+    SCADENZA DATE NOT NULL,
+    CVC VARCHAR(3) NOT NULL,
+    TIPOLOGIA VARCHAR(30) NOT NULL,
+
+    CONSTRAINT TIPOLOGIA_CARTE_AMMESSE CHECK (UPPER(TIPOLOGIA) IN (
+        'BANCOMAT', 'CARTA DI CREDITO'
+    ))
+    );
+
+--------------------------------------------------------
 --  DDL for Table TB_UTENTE
 --------------------------------------------------------
     CREATE TABLE TELEPASS.TB_UTENTE(
@@ -52,30 +59,16 @@ CREATE SEQUENCE seq_casello
     SESSO CHAR(1) NOT NULL,
     PASSWORD VARCHAR(40) NOT NULL,
     AMMINISTRATORE NUMBER(1,0) DEFAULT 0 NOT NULL,
+    NUM_CARTA_FK VARCHAR(16),
 
     CONSTRAINT CHECK_SESSO CHECK (SESSO IN ('M','F')),
+    CONSTRAINT FK_TB_UTENTE_TB_METODO_PAG FOREIGN KEY (NUM_CARTA_FK) REFERENCES TB_METODO_PAG(NUM_CARTA_PK) ON DELETE SET NULL,
     CONSTRAINT CHECK_EMAIL CHECK (REGEXP_LIKE (EMAIL, '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$')),
     CONSTRAINT CHECK_AMMINISTRATORE CHECK (AMMINISTRATORE IN (0,1)),
     CONSTRAINT CHECK_CF CHECK (REGEXP_LIKE (CODICE_FISCALE_PK, '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$'))
     );
 
---------------------------------------------------------
---  DDL for Table TB_METODO_PAG
---------------------------------------------------------
-    CREATE TABLE TELEPASS.TB_METODO_PAG (
-        NUM_CARTA_PK VARCHAR(16) PRIMARY KEY NOT NULL,
-        NOME_PRP VARCHAR(30) NOT NULL,
-        COGNOME_PRP VARCHAR(30) NOT NULL,
-        SCADENZA DATE NOT NULL,
-        CVC VARCHAR(3) NOT NULL,
-        TIPOLOGIA VARCHAR(30) NOT NULL,
-        CF_UTENTE_FK VARCHAR(16) NOT NULL,
 
-        CONSTRAINT TIPOLOGIA_CARTE_AMMESSE CHECK (UPPER(TIPOLOGIA) IN (
-           'BANCOMAT', 'CARTA DI CREDITO'
-        )),
-        CONSTRAINT FK_TB_MET_PAG_UTENTE FOREIGN KEY (CF_UTENTE_FK) REFERENCES TB_UTENTE(CODICE_FISCALE_PK) ON DELETE CASCADE
-    );
 --------------------------------------------------------
 --  DDL for Table TB_TRANSPONDER
 --------------------------------------------------------
