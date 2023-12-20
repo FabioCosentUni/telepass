@@ -12,9 +12,6 @@ import model.Utente;
 import model.Veicolo;
 import service.UtenteService;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UtenteServiceImpl implements UtenteService {
@@ -67,7 +64,7 @@ public class UtenteServiceImpl implements UtenteService {
 
             t.setUtente(utente);
             utente.setTransponder(t);
-            v.setTransponderDTO(t);
+            v.setTransponderDTO(t);//TODO correggere nome del set rimuovendo DTO
             utente.getTransponder().setVeicoloList(List.of(v));
 
             utenteDAO.save(utente);

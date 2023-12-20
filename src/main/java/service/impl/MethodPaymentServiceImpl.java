@@ -37,7 +37,6 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
             MethodPayment mp = methodPaymentDAO.findById(methodPayment.getNumCartaPK());
             if(mp != null) {
                 if(!mp.equals(methodPayment)) {
-
                     throw new TelepassException(TelepassError.METHOD_PAYMENT_DIFFERENT);
                 }
             }

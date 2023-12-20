@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class RegisterServlet extends HttpServlet {
 
@@ -60,10 +58,16 @@ public class RegisterServlet extends HttpServlet {
 
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 //TODO handle default page error
+                //Rimandare all'index con messaggio di errore generico e invitare a riprovare
                 return;
             }
 
             //TODO handle default trasponder not avaiabile page.
+            if(TelepassError.TRANSPONDER_NOT_AVAILABLE.equals(e.getErrorCause())){
+                //TODO handle TRANSPONDER_NOT_AVAILABLE page
+                //Informare il cliente con un messaggio che non appena ci sarà disponibilità verrà avvisato per email
+                return;
+            }
 
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("numero_carta", request.getParameter("numero_carta"));
@@ -74,6 +78,7 @@ public class RegisterServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
         } catch (Exception e) {
             //TODO DEFAULT PAGE
+            //Rimandare all'index con messaggio di errore generico e invitare a riprovare
         }
     }
 
