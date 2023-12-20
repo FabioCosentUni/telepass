@@ -4,7 +4,7 @@ import dao.BaseDao;
 import dao.VeicoloDAO;
 import model.Veicolo;
 
-public class VeicoloDAOImpl extends BaseDao<Veicolo, String> implements VeicoloDAO {
+public class VeicoloDAOImpl extends BaseDaoImpl<Veicolo, String> implements VeicoloDAO {
 
 
     public VeicoloDAOImpl() {

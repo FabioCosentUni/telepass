@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import utils.HibernateConfiguration;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 
@@ -67,6 +68,15 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<T> findAll() throws DaoException {
+        try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            return session.createQuery("FROM " + entityClass.getName(), entityClass).list();
+        } catch (Exception e) {
+            throw new DaoException("Errore durante il recupero delle entità ", e);
         }
     }
 }

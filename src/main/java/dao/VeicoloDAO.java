@@ -1,6 +1,8 @@
 package dao;
 
-public interface VeicoloDAO {
+import model.Veicolo;
+
+public interface VeicoloDAO extends BaseDao<Veicolo, String> {
 
     boolean deleteVeicoloByTarga(String targa);
 }

@@ -1,6 +1,6 @@
 package service.impl;
 
-import dao.impl.TransponderDAOImplImpl;
+import dao.impl.TransponderDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TransponderServiceImpl implements TransponderService {
 
-    private final TransponderDAOImplImpl dao = new TransponderDAOImplImpl();
+    private final TransponderDAOImpl dao = new TransponderDAOImpl();
 
     @Override
     public void insert(Transponder transponder) throws TelepassException {

@@ -10,10 +10,10 @@ import utils.HibernateConfiguration;
 
 import java.util.List;
 
-public class TransponderDAOImplImpl extends BaseDaoImpl<Transponder, String> implements TransponderDAO {
+public class TransponderDAOImpl extends BaseDaoImpl<Transponder, String> implements TransponderDAO {
 
 
-    public TransponderDAOImplImpl() {
+    public TransponderDAOImpl() {
         super(Transponder.class);
     }
 

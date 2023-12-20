@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.TransponderDAO;
 import dao.impl.TransponderDAOImpl;
 import dao.impl.UtenteDAOImpl;
 import exception.DaoException;
@@ -17,7 +18,7 @@ import java.util.List;
 public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteDAOImpl utenteDAO;
-    private final TransponderDAOImpl transponderDAO;
+    private final TransponderDAO transponderDAO;
 
     public UtenteServiceImpl() {
         this.utenteDAO = new UtenteDAOImpl();

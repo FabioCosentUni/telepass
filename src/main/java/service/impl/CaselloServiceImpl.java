@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
 import model.Casello;
 import model.Utente;
@@ -9,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CaselloServiceImpl implements CaselloService {
-    private final CaselloDAOImpl caselloDAO = new CaselloDAOImpl();
+    private final CaselloDAO caselloDAO = new CaselloDAOImpl();
 
     @Override
     public boolean insertCasello(Utente utente, Casello casello) {

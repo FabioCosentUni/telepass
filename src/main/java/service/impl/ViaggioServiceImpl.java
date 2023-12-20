@@ -10,12 +10,16 @@ public class ViaggioServiceImpl implements ViaggioService {
     private ViaggioDAOImpl viaggioDAO= new ViaggioDAOImpl();
     @Override
     public boolean insertViaggio(Viaggio viaggio) {
+        /*
         try {
             return viaggioDAO.save(viaggio);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
+         */
+        return false;
     }
 
     @Override
@@ -30,22 +34,30 @@ public class ViaggioServiceImpl implements ViaggioService {
 
     @Override
     public boolean updateViaggio(Viaggio viaggio) {
+        /*
         try {
             return viaggioDAO.update(viaggio);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
+         */
+        return false;
     }
 
     @Override
     public boolean deleteViaggioById(long viaggioId) {
+        /*
         try {
             return viaggioDAO.delete(viaggioDAO.findById(viaggioId));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
+         */
+        return false;
     }
 
     @Override

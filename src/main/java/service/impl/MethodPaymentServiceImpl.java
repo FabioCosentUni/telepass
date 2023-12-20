@@ -3,6 +3,9 @@ package service.impl;
 import dao.MethodPaymentDAO;
 import dao.TransponderDAO;
 import dao.UtenteDAO;
+import dao.impl.MethodPaymentDAOImpl;
+import dao.impl.TransponderDAOImpl;
+import dao.impl.UtenteDAOImpl;
 import exception.TelepassException;
 import model.MethodPayment;
 import model.Utente;
@@ -18,6 +21,12 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
     private TransponderDAO transponderDAO;
 
     private UtenteDAO utenteDAO;
+
+    public MethodPaymentServiceImpl() {
+        methodPaymentDAO = new MethodPaymentDAOImpl();
+        transponderDAO = new TransponderDAOImpl();
+        utenteDAO = new UtenteDAOImpl();
+    }
 
 
     @Override

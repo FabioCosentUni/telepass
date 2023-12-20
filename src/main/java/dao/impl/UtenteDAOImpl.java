@@ -10,7 +10,7 @@ import utils.HibernateConfiguration;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UtenteDAOImpl extends BaseDao<Utente, String> implements UtenteDAO {
+public class UtenteDAOImpl extends BaseDaoImpl<Utente, String> implements UtenteDAO {
 
     public UtenteDAOImpl() {
         super(Utente.class);
