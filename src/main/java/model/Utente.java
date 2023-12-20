@@ -35,7 +35,7 @@ public class Utente implements Serializable {
     @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Transponder transponder;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="NUM_CARTA_FK")
     private MethodPayment methodPayment;
 
