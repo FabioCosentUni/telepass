@@ -23,7 +23,7 @@ public class Transponder implements Serializable {
     @Column(name="PLUS", nullable = false)
     private int plus = 0;
 
-    @OneToMany(mappedBy = "transponder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transponder", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Veicolo> veicoloList = new ArrayList<>();
 
     public Transponder(String codiceTransponder, Utente utente, int plus) {

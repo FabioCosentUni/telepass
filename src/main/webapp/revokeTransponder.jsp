@@ -87,14 +87,15 @@
 <script>
     $(document).ready(function() {
         $('.revoke-btn').on('click', function () {
+            var code = $(this).data('code');
 
             $.ajax({
-                type: 'DELETE',
-                url: 'revocaTransponder?transponder_id=' + $(this).data('transponder-id'),
-                success: function (response) {
+                type: 'PUT',
+                url: 'revocaTransponder?code=' + code,
+                success: function () {
                     $('#successModal').modal('show');
-                    $('#modalMessage').text('Il transponder ' + $('tr[data-id="' + response.transponderId + '"] td:nth-child(2)').text() + ' è stato rimosso con successo.');
-                    $('tr[data-id="' + response.transponderId + '"]').remove();
+                    $('#modalMessage').text('Il transponder ' + $('tr[data-id="' + code + '"] td:nth-child(1)').text() + ' è stato revocato con successo');
+                    $('tr[data-id="' + code + '"]').remove();
                 },
                 error: function (response) {
                 }

@@ -9,7 +9,9 @@ public interface TransponderService {
 
         void insert(Transponder transponder) throws TelepassException;
 
-        List<Transponder> getActiveTrasponders() throws TelepassException;
+        List<Transponder> getActiveTransponders() throws TelepassException;
 
         void updateTransponder(Transponder transponder);
+
+        void revokeTransponder(String transponderCode) throws TelepassException;
 }

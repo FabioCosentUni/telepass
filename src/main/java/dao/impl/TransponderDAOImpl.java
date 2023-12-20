@@ -47,4 +47,33 @@ public class TransponderDAOImpl extends BaseDaoImpl<Transponder, String> impleme
         }
         return t;
     }
+
+    @Override
+    public void revokeTransponder(String transponderCode) throws DaoException {
+        /*
+        Transaction transaction = null;
+
+        try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            Transponder transponder = session.get(Transponder.class, transponderCode);
+
+            transponder.setUtente(null);
+            transponder.setVeicoloList(null);
+
+            session.update(transponder);
+
+            transaction.commit();
+
+        } catch (HibernateException e) {
+
+            if (transaction != null) {
+                transaction.rollback();
+            }
+
+            throw new DaoException("Errore durante la revoca del transponder", e);
+        }
+
+         */
+    }
 }

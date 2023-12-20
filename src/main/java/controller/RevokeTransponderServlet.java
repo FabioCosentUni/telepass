@@ -5,7 +5,6 @@ import exception.TelepassError;
 import exception.TelepassException;
 import model.Transponder;
 import model.Utente;
-import model.dto.DeleteTransponderResponseDTO;
 import service.TransponderService;
 import service.impl.TransponderServiceImpl;
 import utils.PermissionFilter;
@@ -38,7 +37,7 @@ public class RevokeTransponderServlet extends HttpServlet {
 
         List<Transponder> transponderList = null;
         try {
-            transponderList = transponderService.getActiveTrasponders();
+            transponderList = transponderService.getActiveTransponders();
         } catch (TelepassException e) {
             //errore generico --> redirect ad una pagina di errore generico
         }
@@ -50,6 +49,18 @@ public class RevokeTransponderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String transponderCode = req.getParameter("code");
+
+        try {
+            transponderService.revokeTransponder(transponderCode);
+        } catch (TelepassException e) {
+            //errore generico --> redirect ad una pagina di errore generico
+        }
 
     }
 }

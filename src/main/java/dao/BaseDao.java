@@ -13,6 +13,8 @@ public interface BaseDao <T, ID extends Serializable> {
 
     void update(T entity) throws DaoException;
 
+    void merge(T entity) throws DaoException;
+
     void delete(T entity) throws DaoException;
 
     List<T> findAll() throws DaoException;

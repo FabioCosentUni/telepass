@@ -57,6 +57,21 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
     }
 
     @Override
+    public void merge(T entity) throws DaoException {
+        Transaction transaction = null;
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.merge(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException("Errore durante l'aggiornamento dell'entità ", e);
+        }
+    }
+
+    @Override
     public void delete(T entity) {
         Transaction transaction = null;
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
