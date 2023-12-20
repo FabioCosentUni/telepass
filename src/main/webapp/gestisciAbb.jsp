@@ -28,6 +28,7 @@
                     <tr>
                         <th scope="col">Targa</th>
                         <th scope="col">Tipologia</th>
+                        <th scope="col">Pedaggi pagati</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,10 +37,11 @@
                             <td colspan="2">Non hai ancora registrato nessun veicolo</td>
                         </tr>
                     </c:if>
-                    <c:forEach var="veicolo" items="${utente.getTransponder().getVeicoloList()}">
+                    <c:forEach var="veicolo" items="${pedaggiViaggi}">
                         <tr>
-                            <td>${veicolo.getTargaPk()}</td>
-                            <td>${veicolo.getTipologiaVe()}</td>
+                            <td>${veicolo.get1st().getTargaPk()}</td>
+                            <td>${veicolo.get1st().getTipologiaVe()}</td>
+                            <td>${veicolo.get2nd().intValue()}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

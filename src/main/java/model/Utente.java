@@ -147,7 +147,7 @@ public class Utente implements Serializable {
         result = 31 * result + (sesso != null ? sesso.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + amministratore;
-        result = 31 * result + (transponder != null ? transponder.hashCode() : 0);
+        /*result = 31 * result + (transponder != null ? transponder.hashCode() : 0);*/
         return result;
     }
 

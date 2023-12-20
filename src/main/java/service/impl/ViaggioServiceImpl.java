@@ -1,9 +1,16 @@
 package service.impl;
 
 import dao.impl.ViaggioDAOImpl;
+import exception.DaoException;
+import exception.TelepassError;
+import exception.TelepassException;
+import model.Utente;
+import model.Veicolo;
 import model.Viaggio;
+import oracle.ucp.util.Pair;
 import service.ViaggioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViaggioServiceImpl implements ViaggioService {
@@ -69,4 +76,31 @@ public class ViaggioServiceImpl implements ViaggioService {
             return null;
         }
     }
+
+    public List<Pair<Veicolo, Integer>> getImportoTotalePagatoPerVeicolo(Utente u) throws TelepassException {
+        List<Pair<Veicolo, Integer>> importoTotaleList = new ArrayList<>();
+        try {
+            for (Veicolo v : u.getTransponder().getVeicoloList()) {
+
+                if (viaggioDAO.checkVeicoloViaggi(v.getTargaPk())) {
+                    List<Integer> importiViaggi = viaggioDAO.getViaggiByVeicolo(v.getTargaPk());
+                    Integer importoTotale = importiViaggi.stream().reduce(0, Integer::sum);
+
+                    importoTotaleList.add(new Pair<>(v, importoTotale));
+                } else {
+                    importoTotaleList.add(new Pair<>(v, 0));
+                }
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+
+        return importoTotaleList;
+    }
+
 }
