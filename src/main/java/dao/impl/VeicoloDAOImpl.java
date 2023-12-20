@@ -1,96 +1,28 @@
 package dao.impl;
 
+import dao.BaseDao;
 import dao.VeicoloDAO;
 import model.Veicolo;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import utils.HibernateConfiguration;
 
-import java.sql.SQLException;
-import java.util.List;
+public class VeicoloDAOImpl extends BaseDao<Veicolo, String> implements VeicoloDAO {
 
-public class VeicoloDAOImpl implements VeicoloDAO {
 
-    @Override
-    public boolean insertVeicolo(Veicolo veicolo) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(veicolo);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            throw new SQLException("Errore durante l'inserimento del veicolo.", e);
-        }
+    public VeicoloDAOImpl() {
+        super(Veicolo.class);
     }
 
-
     @Override
-    public Veicolo getVeicoloByTarga(String targa) {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            return session.get(Veicolo.class, targa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    @Override
-    public List<Veicolo> getAllVeicoli() throws SQLException {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Veicolo> query = session.createQuery("FROM Veicolo", Veicolo.class);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("Errore durante il recupero di tutti i veicoli.", e);
-        }
-    }
-
-
-    @Override
-    public boolean updateVeicolo(Veicolo veicolo) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(veicolo);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            throw new SQLException("Errore durante l'aggiornamento del veicolo.", e);
-        }
-    }
-
-
-    @Override
-    public boolean deleteVeicoloByTarga(String targa) throws SQLException {
-        Transaction transaction = null;
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-
-            Veicolo veicolo = session.get(Veicolo.class, targa);
+    public boolean deleteVeicoloByTarga(String targa) {
+        try {
+            Veicolo veicolo = findById(targa);
             if (veicolo != null) {
-                session.delete(veicolo);
+                delete(veicolo);
+                return true;
             }
-
-            transaction.commit();
-            return true;
+            return false;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-            throw new SQLException("Errore durante l'eliminazione del veicolo.", e);
+            return false;
         }
     }
-
 }

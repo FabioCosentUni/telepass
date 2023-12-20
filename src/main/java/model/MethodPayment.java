@@ -27,19 +27,17 @@ public class MethodPayment implements Serializable {
     @Column(name="TIPOLOGIA", nullable = false)
     private String tipologia;
 
-    @OneToOne
-    @JoinColumn(name="CF_UTENTE_FK", nullable = false)
+    @OneToOne(mappedBy = "methodPayment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Utente utente;
 
 
-    public MethodPayment(String numCartaPK, String nomePrp, String cognomePrp, Date scadenza, String cvc, String tipologia, Utente utente) {
+    public MethodPayment(String numCartaPK, String nomePrp, String cognomePrp, Date scadenza, String cvc, String tipologia) {
         this.numCartaPK = numCartaPK;
         this.nomeProp = nomePrp;
         this.cognomePrp = cognomePrp;
         this.scadenza = scadenza;
         this.cvc = cvc;
         this.tipologia = tipologia;
-        this.utente = utente;
     }
 
     public MethodPayment() {}

@@ -17,18 +17,14 @@ public class Utente implements Serializable {
     @Column(name="EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name="COGNOME", nullable = false, unique = true)
+    @Column(name="COGNOME", nullable = false)
     private String cognome;
+
+    @Column(name="SESSO", nullable = false)
+    private Character sesso;
 
     @Column(name="PASSWORD", nullable = false)
     private String password;
-
-    @Column(name="INDIRIZZO_FATT", nullable = false)
-    private String indirizzoFatt;
-    @Column(name="CITTA_FATT", nullable = false)
-    private String cittaFatt;
-    @Column(name="REGIONE_FATT", nullable = false)
-    private String regioneFatt;
 
     //default value = 0
 
@@ -36,25 +32,24 @@ public class Utente implements Serializable {
     @Column(name="AMMINISTRATORE", nullable = false)
     private int amministratore = 0;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Transponder transponder;
 
-    @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="NUM_CARTA_FK")
     private MethodPayment methodPayment;
 
     // Costruttore vuoto
     public Utente() {
     }
 
-    public Utente(String codiceFiscalePk, String nome, String email, String cognome, String password, String indirizzoFatt, String cittaFatt, String regioneFatt) {
+    public Utente(String codiceFiscalePk, String nome, String email, String cognome,Character sesso, String password) {
         this.codiceFiscalePk = codiceFiscalePk;
         this.nome = nome;
         this.email = email;
         this.cognome = cognome;
+        this.sesso = sesso;
         this.password = password;
-        this.indirizzoFatt = indirizzoFatt;
-        this.cittaFatt = cittaFatt;
-        this.regioneFatt = regioneFatt;
     }
 
     public String getCodiceFiscalePk() {
@@ -81,36 +76,16 @@ public class Utente implements Serializable {
         this.cognome = cognome;
     }
 
+    public char getSesso() {return sesso; }
+
+    public void setSesso(char sesso) {this.sesso = sesso; }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getIndirizzoFatt() {
-        return indirizzoFatt;
-    }
-
-    public void setIndirizzoFatt(String indirizzoFatt) {
-        this.indirizzoFatt = indirizzoFatt;
-    }
-
-    public String getCittaFatt() {
-        return cittaFatt;
-    }
-
-    public void setCittaFatt(String cittaFatt) {
-        this.cittaFatt = cittaFatt;
-    }
-
-    public String getRegioneFatt() {
-        return regioneFatt;
-    }
-
-    public void setRegioneFatt(String regioneFatt) {
-        this.regioneFatt = regioneFatt;
     }
 
     public int getAmministratore() {
@@ -137,6 +112,14 @@ public class Utente implements Serializable {
         this.transponder = transponder;
     }
 
+    public MethodPayment getMethodPayment() {
+        return methodPayment;
+    }
+
+    public void setMethodPayment(MethodPayment methodPayment) {
+        this.methodPayment = methodPayment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -150,11 +133,8 @@ public class Utente implements Serializable {
         if (!Objects.equals(nome, utente.nome)) return false;
         if (!Objects.equals(email, utente.email)) return false;
         if (!Objects.equals(cognome, utente.cognome)) return false;
+        if (!Objects.equals(sesso, utente.sesso)) return false;
         if (!Objects.equals(password, utente.password)) return false;
-        if (!Objects.equals(indirizzoFatt, utente.indirizzoFatt))
-            return false;
-        if (!Objects.equals(cittaFatt, utente.cittaFatt)) return false;
-        if (!Objects.equals(regioneFatt, utente.regioneFatt)) return false;
         return Objects.equals(transponder, utente.transponder);
     }
 
@@ -164,10 +144,8 @@ public class Utente implements Serializable {
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (cognome != null ? cognome.hashCode() : 0);
+        result = 31 * result + (sesso != null ? sesso.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (indirizzoFatt != null ? indirizzoFatt.hashCode() : 0);
-        result = 31 * result + (cittaFatt != null ? cittaFatt.hashCode() : 0);
-        result = 31 * result + (regioneFatt != null ? regioneFatt.hashCode() : 0);
         result = 31 * result + amministratore;
         result = 31 * result + (transponder != null ? transponder.hashCode() : 0);
         return result;
@@ -180,10 +158,8 @@ public class Utente implements Serializable {
         sb.append(", nome='").append(nome).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", cognome='").append(cognome).append('\'');
+        sb.append(", sesso='").append(sesso).append('\'');
         sb.append(", password='").append(password).append('\'');
-        sb.append(", indirizzoFatt='").append(indirizzoFatt).append('\'');
-        sb.append(", cittaFatt='").append(cittaFatt).append('\'');
-        sb.append(", regioneFatt='").append(regioneFatt).append('\'');
         sb.append(", amministratore=").append(amministratore);
         sb.append(", transponder=").append(transponder);
         sb.append('}');

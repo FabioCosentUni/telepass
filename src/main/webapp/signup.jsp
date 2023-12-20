@@ -42,24 +42,20 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="address_signup" type="text" placeholder="Address" name="address" value="<%=request.getAttribute("address") != null ? request.getAttribute("address") : ""%>" required/>
-                        <label for="address_signup">Address</label>
-                        <div class="invalid-feedback" id="invalidAddress"></div>
+                        <p>Sesso</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sesso" id="credit_card" value="M">
+                            <label class="form-check-label" for="credit_card">
+                                Uomo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sesso" id="donna" value="F" checked>
+                            <label class="form-check-label" for="donna">
+                                Donna
+                            </label>
+                        </div>
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <input class="form-control" id="city_signup" type="text" placeholder="City" name="city" value="<%=request.getAttribute("city") != null ? request.getAttribute("city") : ""%>" required/>
-                        <label for="city_signup">City</label>
-                        <div class="invalid-feedback" id="invalidCity"></div>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input class="form-control" id="region_signup" type="text" placeholder="Region" name="region" value="<%=request.getAttribute("region") != null ? request.getAttribute("region") : ""%>" required/>
-                        <label for="region_signup">Region</label>
-                        <div class="invalid-feedback" id="invalidRegion"></div>
-                    </div>
-
-
 
                     <div class="form-floating mb-3">
                         <input class="form-control <%= TelepassError.USER_EMAIL_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="email_signup" type="email" placeholder="Email" name="email" value="<%=request.getAttribute("email") != null ? request.getAttribute("email") : ""%>" required oninput=""/>

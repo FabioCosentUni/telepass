@@ -3,16 +3,12 @@ package service.impl;
 import dao.MethodPaymentDAO;
 import dao.TransponderDAO;
 import dao.UtenteDAO;
-import exception.TelepassError;
 import exception.TelepassException;
 import model.MethodPayment;
-import model.Transponder;
 import model.Utente;
 import service.MethodPaymentService;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -59,6 +55,26 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
 
     @Override
     public MethodPayment getMethodPaymentByNumeroCarta(long numeroCarta) {
+        return null;
+    }
+
+    @Override
+    public List<MethodPayment> getAllMethodPayments() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void updateMethodPayment(MethodPayment methodPayment) throws SQLException {
+
+    }
+
+    @Override
+    public void deleteMethodPayment(long numeroCarta) throws SQLException {
+
+    }
+/*
+    @Override
+    public MethodPayment getMethodPaymentByNumeroCarta(long numeroCarta) {
         return methodPaymentDAO.getMetodoPagamentoByNumeroCarta(numeroCarta);
     }
 
@@ -75,5 +91,5 @@ public class MethodPaymentServiceImpl implements MethodPaymentService {
     @Override
     public void deleteMethodPayment(long numeroCarta) throws SQLException {
         methodPaymentDAO.deleteMetodoPagamento(numeroCarta);
-    }
+    }*/
 }

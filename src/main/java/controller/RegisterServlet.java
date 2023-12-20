@@ -1,11 +1,11 @@
 package controller;
 
-import exception.TelepassError;
 import exception.TelepassException;
 import model.MethodPayment;
 import model.Utente;
-import service.MethodPaymentService;
-import service.impl.MethodPaymentServiceImpl;
+import model.Veicolo;
+import service.UtenteService;
+import service.impl.UtenteServiceImpl;
 import utils.PaymentOption;
 
 import javax.servlet.ServletException;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
-public class MethodPaymentServlet extends HttpServlet {
-    private MethodPaymentService methodPaymentService;
+public class RegisterServlet extends HttpServlet {
+    private UtenteService utenteService;
 
     public void init() {
         try {
             super.init();
-            methodPaymentService = new MethodPaymentServiceImpl();
+            utenteService = new UtenteServiceImpl();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,24 +29,19 @@ public class MethodPaymentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            Utente u = (Utente) request.getSession().getAttribute("utenteProv");
+            Veicolo v = (Veicolo) request.getSession().getAttribute("veicolo");
             PaymentOption p = PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption")));
-            if(p == null) {
-                throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
-            }
 
-            Utente u = (Utente) request.getSession().getAttribute("utente");
-            MethodPayment m = new MethodPayment(
+            u.setMethodPayment(new MethodPayment(
                     request.getParameter("numero_carta"),
                     request.getParameter("nome_prp"),
                     request.getParameter("cognome_prp"),
                     Date.valueOf(request.getParameter("scadenza")),
                     request.getParameter("cvc"),
-                    p.getName(),
-                    u
-            );
-
-            methodPaymentService.saveMethodPayment(m, u);
-
+                    p.getName()
+            ));
+            utenteService.register(u, v);
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (TelepassException e){

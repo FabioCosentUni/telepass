@@ -1,6 +1,5 @@
 package controller;
 
-import exception.TelepassException;
 import model.Utente;
 import service.UtenteService;
 import service.impl.UtenteServiceImpl;
@@ -32,30 +31,11 @@ public class SignUpServlet extends HttpServlet {
                     request.getParameter("name"),
                     request.getParameter("email"),
                     request.getParameter("surname"),
-                    request.getParameter("password"),
-                    request.getParameter("address"),
-                    request.getParameter("city"),
-                    request.getParameter("region")
+                    request.getParameter("sesso").charAt(0),
+                    request.getParameter("password")
             );
-
-            //utenteService.register(u, PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption"))));
-            utenteService.register(u);
-
-            request.getSession().setAttribute("utente", u);
+            request.getSession().setAttribute("utenteProv", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
-        } catch (TelepassException e) {
-            e.printStackTrace();
-            request.setAttribute("error", e.getErrorCause());
-            request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));
-            request.setAttribute("name", request.getParameter("name"));
-            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("surname", request.getParameter("surname"));
-            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("password", request.getParameter("password"));
-            request.setAttribute("address", request.getParameter("address"));
-            request.setAttribute("city", request.getParameter("city"));
-            request.setAttribute("region", request.getParameter("region"));
-            request.getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(500, e.getMessage());

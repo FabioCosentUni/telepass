@@ -2,7 +2,6 @@ package controller;
 
 import dao.CaselloDAO;
 import dao.impl.CaselloDAOImpl;
-import model.Casello;
 import service.ViaggioService;
 import service.impl.ViaggioServiceImpl;
 
@@ -11,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SimulationServlet extends HttpServlet {
 
@@ -50,7 +46,7 @@ public class SimulationServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+        /*try {
             List<Casello> caselli = new ArrayList<Casello>();
             List<String> autostrade = new ArrayList<String>();
             caselli= caselloDAO.getAllCaselli();
@@ -63,6 +59,6 @@ public class SimulationServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/simulation.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 }

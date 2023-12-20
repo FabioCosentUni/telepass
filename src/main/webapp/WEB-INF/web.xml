@@ -50,6 +50,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>controller.RegisterServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>GestisciAbb</servlet-name>
     <servlet-class>controller.GestisciAbbServlet</servlet-class>
   </servlet>

@@ -15,7 +15,7 @@ public class Transponder implements Serializable {
     @Column(name="CODICE_TRANSPONDER", nullable = false)
     private String codiceTransponder;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CF_UTENTE_FK")
     private Utente utente;
 
@@ -23,7 +23,7 @@ public class Transponder implements Serializable {
     @Column(name="PLUS", nullable = false)
     private int plus = 0;
 
-    @OneToMany(mappedBy = "transponder", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "transponder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Veicolo> veicoloList = new ArrayList<>();
 
     public Transponder(String codiceTransponder, Utente utente, int plus) {
