@@ -1,6 +1,5 @@
 package dao.impl;
 
-import dao.BaseDao;
 import dao.TransponderDAO;
 import exception.DaoException;
 import model.Transponder;
@@ -11,10 +10,10 @@ import utils.HibernateConfiguration;
 
 import java.util.List;
 
-public class TransponderDAOImpl extends BaseDao<Transponder, String> implements TransponderDAO {
+public class TransponderDAOImplImpl extends BaseDaoImpl<Transponder, String> implements TransponderDAO {
 
 
-    public TransponderDAOImpl() {
+    public TransponderDAOImplImpl() {
         super(Transponder.class);
     }
 
