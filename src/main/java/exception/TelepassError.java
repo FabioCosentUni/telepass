@@ -8,11 +8,13 @@ public enum TelepassError {
 
     USER_EMAIL_ALREADY_REGISTERED("TP004", "Attenzione! Email già associata ad un altro utente."),
 
-    TRANSPONDER_NOT_AVAILABLE("TP005", "Attenzione! Non ci sono attualmente disponibili transponder."),
+    TRANSPONDER_NOT_AVAILABLE("TP005", "Attenzione! Non ci sono attualmente transponder disponibili."),
 
     CARD_EXPIRED("TP006", "Attenzione! Carta scaduta. Inserire una carta valida"),
 
     PAYMENT_OPTION_NOT_FOUND("TP007", "Attenzione! Opzione di pagamento non trovata."),
+
+    METHOD_PAYMENT_DIFFERENT("TP014", "Attenzione! Numero di carta già presente. Le informazioni del metodo di pagamento sono diverse da quelle presenti nel sistema."),
 
     VIEW_NOT_PERMITTED("TP008", "Attenzione! Non hai i permessi per visualizzare questa pagina."),
 

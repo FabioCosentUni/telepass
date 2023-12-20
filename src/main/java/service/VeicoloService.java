@@ -9,17 +9,19 @@ import java.util.List;
 
 public interface VeicoloService {
 
-             Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, TelepassException;
+    void validateVeicolo(Veicolo veicolo) throws TelepassException;
 
-             List<Veicolo> getAllVeicoli();
+    Veicolo insertVeicolo(Veicolo veicolo, Utente utente) throws SQLException, TelepassException;
 
-             boolean updateVeicolo(Veicolo veicolo);
+    List<Veicolo> getAllVeicoli();
 
-             boolean deleteVeicoloByTarga(String targa);
+    boolean updateVeicolo(Veicolo veicolo);
 
-             Veicolo getVeicoloByTarga(String targa);
+    boolean deleteVeicoloByTarga(String targa);
 
-             void entraNelCasello(Veicolo veicolo, long idCasello);
+    Veicolo getVeicoloByTarga(String targa);
 
-             void esceDalCasello(Veicolo veicolo, long idCasello);
+    void entraNelCasello(Veicolo veicolo, long idCasello);
+
+    void esceDalCasello(Veicolo veicolo, long idCasello);
 }

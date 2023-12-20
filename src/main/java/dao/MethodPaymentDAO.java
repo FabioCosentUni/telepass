@@ -1,4 +1,6 @@
 package dao;
 
-public interface MethodPaymentDAO {
+import model.MethodPayment;
+
+public interface MethodPaymentDAO extends BaseDao<MethodPayment, String> {
 }

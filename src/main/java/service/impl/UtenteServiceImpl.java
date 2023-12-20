@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.TransponderDAO;
+import dao.UtenteDAO;
 import dao.impl.TransponderDAOImpl;
 import dao.impl.UtenteDAOImpl;
 import exception.DaoException;
@@ -13,11 +14,12 @@ import service.UtenteService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    private final UtenteDAOImpl utenteDAO;
+    private final UtenteDAO utenteDAO;
     private final TransponderDAO transponderDAO;
 
     public UtenteServiceImpl() {
@@ -26,15 +28,21 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public Utente login(String cf, String password) throws SQLException, TelepassException, DaoException {
+    public Utente login(String cf, String password) throws TelepassException {
+        Utente u;
 
-        Utente u = utenteDAO.findById(cf);
-        if(u == null) {
-            throw new TelepassException(TelepassError.INCORRECT_CF);
-        }
+        try {
+            u = utenteDAO.findById(cf);
 
-        if(!u.getPassword().equals(password)) {
-            throw new TelepassException(TelepassError.INCORRECT_PASSWORD);
+            if (u == null) {
+                throw new TelepassException(TelepassError.INCORRECT_CF);
+            }
+
+            if (!u.getPassword().equals(password)) {
+                throw new TelepassException(TelepassError.INCORRECT_PASSWORD);
+            }
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
 
         System.out.println("Utente recuperato: " + u.getCodiceFiscalePk());
@@ -42,40 +50,31 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public void register(Utente utente, Veicolo v) throws SQLException, TelepassException, DaoException {
-        if(v == null || utente == null){
-            throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
-        }
-        if(!v.getTipologiaVe().equals("CLASSE A")
-                && !v.getTipologiaVe().equals("CLASSE B")
-                && !v.getTipologiaVe().equals("CLASSE 3")
-                && !v.getTipologiaVe().equals("CLASSE 4")
-                && !v.getTipologiaVe().equals("CLASSE 5"))
-        {
-            throw new TelepassException(TelepassError.NON_EXISTENT_TYPOLOGY);
-        }
-        List<Veicolo> veicoli = new ArrayList<>();
-        veicoli.add(v);
-        if(utenteDAO.findById(utente.getCodiceFiscalePk()) != null) {
-            throw new TelepassException(TelepassError.USER_ALREADY_REGISTERED);
-        }
-        if(utenteDAO.getUtenteByEmail(utente.getEmail()) != null) {
-            throw new TelepassException(TelepassError.USER_EMAIL_ALREADY_REGISTERED);
-        }
-        if(utente.getMethodPayment() == null) {
-            throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
-        }
-        Transponder t = transponderDAO.findFreeTransponder();
-        if(t == null) {
-            throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);
-        }
-        utente.setTransponder(t);
-        utente.getTransponder().setVeicoloList(veicoli);
-        if(utente.getMethodPayment() == null) {
-            throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
-        }
+    public void register(Utente utente, Veicolo v) throws TelepassException {
+        try {
+            if (v == null || utente == null) {
+                throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
+            }
 
-        utenteDAO.save(utente);
+            Transponder t = transponderDAO.findFreeTransponder();
+
+            if (t == null) {
+                throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);
+            }
+            if (utente.getMethodPayment() == null) {
+                throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
+            }
+
+            t.setUtente(utente);
+            utente.setTransponder(t);
+            v.setTransponderDTO(t);
+            utente.getTransponder().setVeicoloList(List.of(v));
+
+            utenteDAO.save(utente);
+
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
 
     }
 
@@ -87,5 +86,21 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public boolean richiediTelepassPlus(long idTransponder) {
         return false;
+    }
+
+    @Override
+    public void validateUser(Utente u) throws TelepassException {
+        try {
+
+            if (utenteDAO.findById(u.getCodiceFiscalePk()) != null) {
+                throw new TelepassException(TelepassError.USER_ALREADY_REGISTERED);
+            }
+            if (utenteDAO.getUtenteByEmail(u.getEmail()) != null) {
+                throw new TelepassException(TelepassError.USER_EMAIL_ALREADY_REGISTERED);
+            }
+
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
     }
 }

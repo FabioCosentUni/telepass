@@ -28,28 +28,28 @@ public class AssignVehicleServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+
             Veicolo v = new Veicolo(
                     request.getParameter("targa_veicolo"),
-                    request.getParameter("tipologia"),
+                    request.getParameter("tipologia_veicolo"),
                     null
             );
-            Utente u = (Utente) request.getSession().getAttribute("utenteProv");
 
-            if(v == null) {
-                throw new TelepassException(TelepassError.GENERIC_ERROR);
-            } else {
-                request.getSession().setAttribute("veicolo", v);
-                request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
-            }
+            veicoloService.validateVeicolo(v);
+
+            request.getSession().setAttribute("veicolo", v);
+            request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
         } catch (TelepassException e){
-            e.printStackTrace();
+
+            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                //TODO handle default page error
+                return;
+            }
+
             request.setAttribute("error", e.getErrorCause());
-            request.setAttribute("targa", request.getParameter("targa_veicolo"));
-            request.setAttribute("tipologia", request.getParameter("tipologia"));
+            request.setAttribute("targa_veicolo", request.getParameter("targa_veicolo"));
+            request.setAttribute("tipologia_veicolo", request.getParameter("tipologia"));
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, e.getMessage());
         }
     }
 

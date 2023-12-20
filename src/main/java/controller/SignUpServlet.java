@@ -1,5 +1,7 @@
 package controller;
 
+import exception.TelepassError;
+import exception.TelepassException;
 import model.Utente;
 import service.UtenteService;
 import service.impl.UtenteServiceImpl;
@@ -34,11 +36,26 @@ public class SignUpServlet extends HttpServlet {
                     request.getParameter("sesso").charAt(0),
                     request.getParameter("password")
             );
+
+            utenteService.validateUser(u);
+
             request.getSession().setAttribute("utenteProv", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, e.getMessage());
+        } catch (TelepassException e) {
+
+            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                //handle default page error
+                return;
+            }
+
+            request.setAttribute("error", e.getErrorCause());
+            request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));
+            request.setAttribute("name", request.getParameter("name"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("surname", request.getParameter("surname"));
+            request.setAttribute("sesso", request.getParameter("sesso"));
+            request.setAttribute("password", request.getParameter("password"));
+            request.getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);
         }
     }
 

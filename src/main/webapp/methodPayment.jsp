@@ -20,34 +20,38 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 offset-xl-1 pt-5">
+                <%if (request.getAttribute("error") != null) {%>
+                    <div class="alert alert-danger" role="alert">
+                        <p class="text-center"><%=((TelepassError)request.getAttribute("error")).getErrorMessage()%></p>
+                    </div>
+                <%}%>
                 <form action="register" method="POST" id="formSignup" onsubmit="return validateRequest()">
 
                     <div class="divider d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0">Metodo di pagamento</p>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control <%= TelepassError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="nome_assign" type="text" placeholder="AA111AA" name="nome_prp" value="<%=request.getAttribute("codice_fiscale") != null ? request.getAttribute("codice_fiscale") : ""%>" required oninput=""/>
+                        <input class="form-control" id="nome_assign" type="text" placeholder="AA111AA" name="nome_prp" value="<%=request.getAttribute("nome_prp") != null ? request.getAttribute("nome_prp") : ""%>" required oninput=""/>
                         <label for="nome_assign">Nome</label>
-                        <div class="invalid-feedback" id="invalidNomePrp"><%= TelepassError.USER_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="cognome_assign" type="text" placeholder="Cognome" name="cognome_prp" value="<%=request.getAttribute("name") != null ? request.getAttribute("name") : ""%>" required oninput=""/>
+                        <input class="form-control" id="cognome_assign" type="text" placeholder="Cognome" name="cognome_prp" value="<%=request.getAttribute("cognome_prp") != null ? request.getAttribute("cognome_prp") : ""%>" required oninput=""/>
                         <label for="cognome_assign">Cognome</label>
                         <div class="invalid-feedback" id="invalidCognome"></div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="numero_carta_assign" type="text" placeholder="Numero_carta" name="numero_carta" value="<%=request.getAttribute("surname") != null ? request.getAttribute("surname") : ""%>" required/>
+                        <input class="form-control" id="numero_carta_assign" type="text" placeholder="Numero_carta" name="numero_carta" value="<%=request.getAttribute("numero_carta") != null ? request.getAttribute("numero_carta") : ""%>" required/>
                         <label for="numero_carta_assign">Numero carta</label>
                         <div class="invalid-feedback" id="invalidNumeroCarta"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="scadenza_assign" type="date" placeholder="Scadenza" name="scadenza" value="<%=request.getAttribute("surname") != null ? request.getAttribute("surname") : ""%>" required/>
+                        <input class="form-control" id="scadenza_assign" type="date" placeholder="Scadenza" name="scadenza" value="<%=request.getAttribute("scadenza") != null ? request.getAttribute("scadenza") : ""%>" required/>
                         <label for="scadenza_assign">Scadenza</label>
                         <div class="invalid-feedback" id="invalidScadenza"></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="cvc_assign" type="text" placeholder="Cvc" name="cvc" value="<%=request.getAttribute("address") != null ? request.getAttribute("address") : ""%>" required/>
+                        <input class="form-control" id="cvc_assign" type="text" placeholder="Cvc" name="cvc" value="<%=request.getAttribute("cvc") != null ? request.getAttribute("cvc") : ""%>" required/>
                         <label for="cvc_assign">Cvc</label>
                         <div class="invalid-feedback" id="invalidCvc"></div>
                     </div>

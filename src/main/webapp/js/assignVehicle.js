@@ -1,17 +1,15 @@
 var regExTarga = /^[A-Z]{2}\d{3}[A-Z]{2}$/;
-var regExTipologia = /^[a-zA-Z\s]+$/;
 
 function validateRequest() {
     var targa = $('#targa_assign').val();
-    var tipologia = $('#tipologia_assign').val();
+    var tipologia = $('#tipologia_assign').find(":selected").val();
 
     var assignButton = $('#assignButton');
 
     var isValid =
         targa.trim() !== '' &&
         regExTarga.test(targa) &&
-        tipologia.trim() !== ''&&
-        regExTipologia.test(tipologia);
+        tipologia !== '-1'
 
     if (isValid) {
         assignButton.removeClass('disabled');
@@ -32,7 +30,7 @@ function validateRequest() {
     return isValid;
 }
 
-var formElements = document.querySelectorAll('#formSignup input, #formSignup textarea');
+var formElements = document.querySelectorAll('#formSignup input, #formSignup select');
 formElements.forEach(function (element) {
     element.addEventListener('input', validateRequest);
 });
@@ -42,13 +40,6 @@ $(document).ready(function () {
         if (regExTarga.test($(this).val())) {
             $(this).removeClass('is-invalid');
             $('#invalidTarga').text('');
-        }
-    });
-
-    $('#tipologia_assign').keyup(function () {
-        if (regExTipologia.test($(this).val())) {
-            $(this).removeClass('is-invalid');
-            $('#invalidTipologia').text('');
         }
     });
 });

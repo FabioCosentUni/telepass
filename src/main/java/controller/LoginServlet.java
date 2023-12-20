@@ -1,5 +1,6 @@
 package controller;
 
+import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
 import service.UtenteService;
@@ -14,8 +15,9 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
 
     private UtenteService utenteService;
+
     public void init() {
-        try{
+        try {
             super.init();
             utenteService = new UtenteServiceImpl();
         } catch (ServletException e) {
@@ -31,20 +33,24 @@ public class LoginServlet extends HttpServlet {
             u = utenteService.login(cf, password);
             request.getSession().setAttribute("utente", u);
 
-            if(u.getTransponder() != null && u.getAmministratore()==0 && u.getTransponder().getVeicoloList().isEmpty()) {
+            if (u.getTransponder() != null && u.getAmministratore() == 0 && u.getTransponder().getVeicoloList().isEmpty()) {
                 request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
                 return;
             }
 
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (TelepassException e) {
+
+            if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                e.printStackTrace();
+                response.sendError(500, e.getMessage());
+                return;
+            }
+
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("codice_fiscale", request.getParameter("codice_fiscale"));
             request.setAttribute("password", request.getParameter("password"));
             request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, e.getMessage());
         }
     }
 

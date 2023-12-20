@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.BaseDao;
 import dao.UtenteDAO;
+import exception.DaoException;
 import model.Utente;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -17,7 +18,7 @@ public class UtenteDAOImpl extends BaseDaoImpl<Utente, String> implements Utente
     }
 
     @Override
-    public Utente getUtenteByEmail(String email) throws SQLException {
+    public Utente getUtenteByEmail(String email) throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             Query<Utente> query = session.createQuery("FROM Utente u WHERE u.email = :email", Utente.class);
             query.setParameter("email", email);
@@ -26,8 +27,7 @@ public class UtenteDAOImpl extends BaseDaoImpl<Utente, String> implements Utente
             }
             return query.uniqueResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("Errore durante il recupero dell'utente.", e);
+            throw new DaoException("Errore durante il recupero dell'utente ", e);
         }
     }
 

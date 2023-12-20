@@ -1,10 +1,13 @@
 package controller;
 
+import exception.TelepassError;
 import exception.TelepassException;
 import model.MethodPayment;
 import model.Utente;
 import model.Veicolo;
+import service.MethodPaymentService;
 import service.UtenteService;
+import service.impl.MethodPaymentServiceImpl;
 import service.impl.UtenteServiceImpl;
 import utils.PaymentOption;
 
@@ -14,13 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class RegisterServlet extends HttpServlet {
+
+    private MethodPaymentService methodPaymentService;
     private UtenteService utenteService;
 
     public void init() {
         try {
             super.init();
+            methodPaymentService = new MethodPaymentServiceImpl();
             utenteService = new UtenteServiceImpl();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,19 +41,30 @@ public class RegisterServlet extends HttpServlet {
             Veicolo v = (Veicolo) request.getSession().getAttribute("veicolo");
             PaymentOption p = PaymentOption.getPaymentById(Integer.parseInt(request.getParameter("paymentOption")));
 
-            u.setMethodPayment(new MethodPayment(
+            MethodPayment methodPayment = new MethodPayment(
                     request.getParameter("numero_carta"),
                     request.getParameter("nome_prp"),
                     request.getParameter("cognome_prp"),
                     Date.valueOf(request.getParameter("scadenza")),
                     request.getParameter("cvc"),
                     p.getName()
-            ));
+            );
+
+            methodPaymentService.validateMethodPayment(methodPayment);
+            u.setMethodPayment(methodPayment);
+
             utenteService.register(u, v);
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-        } catch (TelepassException e){
-            e.printStackTrace();
+        } catch (TelepassException e) {
+
+            if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                //TODO handle default page error
+                return;
+            }
+
+            //TODO handle default trasponder not avaiabile page.
+
             request.setAttribute("error", e.getErrorCause());
             request.setAttribute("numero_carta", request.getParameter("numero_carta"));
             request.setAttribute("nome_prp", request.getParameter("nome_prp"));
@@ -54,8 +73,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("cvc", request.getParameter("cvc"));
             request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, e.getMessage());
+            //TODO DEFAULT PAGE
         }
     }
 

@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.VeicoloDAO;
 import dao.impl.VeicoloDAOImpl;
+import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
@@ -16,6 +17,18 @@ public class VeicoloServiceImpl implements VeicoloService {
 
     public VeicoloServiceImpl() {
         veicoloDAO = new VeicoloDAOImpl();
+    }
+
+    @Override
+    public void validateVeicolo(Veicolo veicolo) throws TelepassException {
+        try {
+
+            if (veicoloDAO.findById(veicolo.getTargaPk()) != null)
+                throw new TelepassException(TelepassError.VEHICLE_ALREADY_REGISTERED);
+
+        } catch(DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
     }
 
     @Override

@@ -25,9 +25,15 @@
                         <div class="invalid-feedback" id="invalidTarga"><%= TelepassError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? ((TelepassError) request.getAttribute("error")).getErrorMessage() : ""%></div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="tipologia_assign" type="text" placeholder="Tipologia" name="tipologia" value="<%=request.getAttribute("tipologia") != null ? request.getAttribute("tipologia") : ""%>" required/>
+                        <select class="form-select" id="tipologia_assign" name="tipologia_veicolo" required>
+                            <option value="-1" disabled selected>Seleziona una tipologia</option>
+                            <option value="Classe A">Classe A</option>
+                            <option value="Classe B">Classe B</option>
+                            <option value="Classe 3">Classe 3</option>
+                            <option value="Classe 4">Classe 4</option>
+                            <option value="Classe 5">Classe 5</option>
+                        </select>
                         <label for="tipologia_assign">Tipologia</label>
-                        <div class="invalid-feedback" id="invalidTipologia"></div>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">

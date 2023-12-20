@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface MethodPaymentService {
+
+    void validateMethodPayment(MethodPayment methodPayment) throws TelepassException;
     Utente saveMethodPayment(MethodPayment methodPayment, Utente u) throws SQLException, TelepassException;
 
     MethodPayment getMethodPaymentByNumeroCarta(long numeroCarta);
