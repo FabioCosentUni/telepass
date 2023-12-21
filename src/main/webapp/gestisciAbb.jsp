@@ -16,6 +16,7 @@
     <jsp:forward page="login.jsp" />
 </c:if>
 <section id="gestisciAbb" class="pb-3">
+    <button class="btn btn-outline-danger rounded-pill btn-lg position-absolute top-5 start-0 m-0" id="annullaAbbonamento">Annulla abbonamento</button>
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-4 col-lg-4 col-xl-4">
@@ -23,6 +24,10 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 offset-xl-1 pt-5">
+                <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
+                    <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="newVehicle" type="assign">Aggiungi veicolo</button></div>
+                    <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="telepassPlus" type="assign">Passa Telepass+</button></div>
+                </div>
                 <table class="table table-success table-striped">
                     <thead>
                     <tr>

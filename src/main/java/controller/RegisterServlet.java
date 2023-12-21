@@ -56,6 +56,7 @@ public class RegisterServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (TelepassException e) {
 
+            e.printStackTrace();
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 //TODO handle default page error
                 //Rimandare all'index con messaggio di errore generico e invitare a riprovare
@@ -65,7 +66,8 @@ public class RegisterServlet extends HttpServlet {
             //TODO handle default trasponder not avaiabile page.
             if(TelepassError.TRANSPONDER_NOT_AVAILABLE.equals(e.getErrorCause())){
                 //TODO handle TRANSPONDER_NOT_AVAILABLE page
-                //Informare il cliente con un messaggio che non appena ci sarà disponibilità verrà avvisato per email
+                request.setAttribute("error", e.getErrorCause() + " Appena disponibile verrai contattato");
+                request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
                 return;
             }
 

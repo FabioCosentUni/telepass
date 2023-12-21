@@ -5,6 +5,12 @@
 <body id="page-top">
 <!-- Navigation-->
 <jsp:include page="nav.jsp" />
+
+<%if (request.getAttribute("error") != null && !request.getAttribute("error").toString().isEmpty()) { %>
+<script>
+    alert("<%= request.getAttribute("error") %>");
+</script>
+<% } %>
 <!-- Mashead header-->
 <header class="masthead">
     <div class="container px-5">

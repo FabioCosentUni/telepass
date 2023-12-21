@@ -37,7 +37,7 @@ public class GestisciAbbServlet extends HttpServlet{
             if(pedaggiViaggi == null) {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);
             } else {
-                request.getSession().setAttribute("pedaggiViaggi", pedaggiViaggi);
+                request.setAttribute("pedaggiViaggi", pedaggiViaggi);
             }
             request.getServletContext().getRequestDispatcher("/gestisciAbb.jsp").forward(request, response);
         } catch (TelepassException e) {
