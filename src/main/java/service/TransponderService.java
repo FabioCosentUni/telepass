@@ -11,7 +11,7 @@ public interface TransponderService {
 
         List<Transponder> getActiveTransponders() throws TelepassException;
 
-        void updateTransponder(Transponder transponder);
+        void makePlus(Transponder transponder) throws TelepassException;
 
         void revokeTransponder(String transponderCode) throws TelepassException;
 }

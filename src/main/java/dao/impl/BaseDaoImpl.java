@@ -9,10 +9,22 @@ import utils.HibernateConfiguration;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Implementazione di base dell'interfaccia BaseDao per operazioni CRUD
+ * usando Hibernate per l'interazione con il database.
+ *
+ * @param <T>  Tipo dell'entità
+ * @param <ID> Tipo dell'identificatore dell'entità
+ */
 public class BaseDaoImpl<T, ID extends Serializable> implements BaseDao<T, ID> {
 
     private final Class<T> entityClass;
 
+    /**
+     * Costruttore per l'implementazione del DAO.
+     *
+     * @param entityClass Classe dell'entità gestita da questo DAO
+     */
     public BaseDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }

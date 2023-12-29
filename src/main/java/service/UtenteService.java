@@ -13,10 +13,8 @@ public interface UtenteService {
 
      void register(Utente utente, Veicolo v) throws TelepassException;
 
-     boolean richiediNuovoVeicoloTransponder(String targa);
-
-     boolean richiediTelepassPlus(long idTransponder);
-
      void validateUser(Utente u) throws TelepassException;
+
+     Utente getUtenteByCF(String cf) throws TelepassException;
 
 }

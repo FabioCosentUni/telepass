@@ -47,7 +47,14 @@ public class TransponderServiceImpl implements TransponderService {
     }
 
     @Override
-    public void updateTransponder(Transponder transponder) {
+    public void makePlus(Transponder transponder) throws TelepassException {
+        try {
+            transponder.setPlus(1);
+            dao.merge(transponder);
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+
     }
 
     @Override

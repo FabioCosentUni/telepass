@@ -5,7 +5,9 @@ import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
 import oracle.ucp.util.Pair;
+import service.UtenteService;
 import service.ViaggioService;
+import service.impl.UtenteServiceImpl;
 import service.impl.ViaggioServiceImpl;
 
 import javax.servlet.ServletException;
@@ -13,17 +15,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class GestisciAbbServlet extends HttpServlet{
+public class GestisciAbbServlet extends HttpServlet {
 
     private ViaggioService viaggioService;
+    private UtenteService utenteService;
 
     public void init() {
         try {
             super.init();
             viaggioService = new ViaggioServiceImpl();
+            utenteService = new UtenteServiceImpl();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,17 +34,40 @@ public class GestisciAbbServlet extends HttpServlet{
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente utente = (Utente) request.getSession().getAttribute("utente");
-        List<Pair<Veicolo, Integer>> pedaggiViaggi = new ArrayList<>();
+
         try {
+            utente = utenteService.getUtenteByCF(utente.getCodiceFiscalePk());
+
+            if(utente == null || utente.getTransponder() == null){
+                //L'amministratore ha revocato il transponder all'utente
+                throw new TelepassException(TelepassError.TRANSPONDER_REVOKED);
+            }
+
+            //Aggiorno l'utente in sessione
+            request.getSession().setAttribute("utente", utente);
+
+            List<Pair<Veicolo, Integer>> pedaggiViaggi;
             pedaggiViaggi = viaggioService.getImportoTotalePagatoPerVeicolo(utente);
-            if(pedaggiViaggi == null) {
+
+            if (pedaggiViaggi == null) {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);
             } else {
                 request.setAttribute("pedaggiViaggi", pedaggiViaggi);
             }
+
             request.getServletContext().getRequestDispatcher("/gestisciAbb.jsp").forward(request, response);
+
         } catch (TelepassException e) {
-            throw new RuntimeException(e);
+            if(TelepassError.TRANSPONDER_REVOKED.equals(e.getErrorCause())){
+                request.setAttribute("error", e.getErrorCause());
+                request.getServletContext().getRequestDispatcher("/gestisciAbb.jsp").forward(request, response);
+                return;
+            }
+
+            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                //TODO: gestire eccezione con redirect a pagina di errore
+            }
+
         }
     }
 

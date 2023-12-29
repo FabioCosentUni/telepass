@@ -76,16 +76,6 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public boolean richiediNuovoVeicoloTransponder(String targa) {
-        return false;
-    }
-
-    @Override
-    public boolean richiediTelepassPlus(long idTransponder) {
-        return false;
-    }
-
-    @Override
     public void validateUser(Utente u) throws TelepassException {
         try {
 
@@ -96,6 +86,15 @@ public class UtenteServiceImpl implements UtenteService {
                 throw new TelepassException(TelepassError.USER_EMAIL_ALREADY_REGISTERED);
             }
 
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+    }
+
+    @Override
+    public Utente getUtenteByCF(String cf) throws TelepassException {
+        try {
+            return utenteDAO.findById(cf);
         } catch (DaoException e) {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }

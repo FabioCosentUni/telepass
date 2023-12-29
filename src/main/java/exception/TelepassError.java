@@ -24,6 +24,9 @@ public enum TelepassError {
     TELEPASS_ALREADY_REGISTERED("TP012", "Telepass già presente nel sistema."),
 
     TELEPASS_NOT_FOUND("TP013", "Telepass non trovato."),
+
+    TRANSPONDER_REVOKED("TP014","Attenzione. Non risulta associato nessun transponder. Contattare l'help desk per maggiori dettagli."),
+
     GENERIC_ERROR("TP999", "Inserimento non andato a buon fine.");
 
     private final String errorCode;

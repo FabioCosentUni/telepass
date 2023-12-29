@@ -1,4 +1,5 @@
 <%@ page import="exception.TelepassError" %>
+<%@ page import="model.Utente" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%--
   Created by IntelliJ IDEA.
   User: fabio
@@ -16,7 +17,6 @@
     <jsp:forward page="login.jsp" />
 </c:if>
 <section id="gestisciAbb" class="pb-3">
-    <button class="btn btn-outline-danger rounded-pill btn-lg position-absolute top-5 start-0 m-0" id="annullaAbbonamento">Annulla abbonamento</button>
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-4 col-lg-4 col-xl-4">
@@ -24,36 +24,46 @@
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 offset-xl-1 pt-5">
-                <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
-                    <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="newVehicle" type="assign">Aggiungi veicolo</button></div>
-                    <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg" id="telepassPlus" type="assign">Passa Telepass+</button></div>
+                <% if(request.getAttribute("error") != null) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Errore!</strong> <%=((TelepassError)request.getAttribute("error")).getErrorMessage()%>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <table class="table table-success table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Targa</th>
-                        <th scope="col">Tipologia</th>
-                        <th scope="col">Pedaggi pagati</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:if test="${utente.getTransponder().getVeicoloList().size() == 0}">
+                <% } else {%>
+                    <h3 class="text-center pb-3">Tipologia Abbonamento: <span><%=((Utente)request.getSession().getAttribute("utente")).getTransponder().getPlus() == 0 ? "Standard Telepass" : "Plus"%> </span></h3>
+                    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center mb-5">
+                        <div class="d-grid p-2"><button class="btn btn-primary rounded-pill btn-lg" id="newVehicle" type="assign">Aggiungi veicolo</button></div>
+                        <%if(((Utente)request.getSession().getAttribute("utente")).getTransponder().getPlus() == 0) {%>
+                            <div class="d-grid p-2"><button class="btn btn-primary rounded-pill btn-lg" type="assign"><a href="/Telepass/telepassPlus" style="color: white; text-decoration: none;">Passa a Telepass+</a></button></div>
+                        <%} %>
+                    </div>
+                    <table class="table table-success table-striped">
+                        <thead>
                         <tr>
-                            <td colspan="2">Non hai ancora registrato nessun veicolo</td>
+                            <th scope="col">Targa</th>
+                            <th scope="col">Tipologia</th>
+                            <th scope="col">Pedaggi pagati</th>
                         </tr>
-                    </c:if>
-                    <c:forEach var="veicolo" items="${pedaggiViaggi}">
-                        <tr>
-                            <td>${veicolo.get1st().getTargaPk()}</td>
-                            <td>${veicolo.get1st().getTipologiaVe()}</td>
-                            <td>${veicolo.get2nd().intValue()}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:if test="${utente.getTransponder().getVeicoloList().size() == 0}">
+                            <tr>
+                                <td colspan="2">Non hai ancora registrato nessun veicolo</td>
+                            </tr>
+                        </c:if>
+                        <c:forEach var="veicolo" items="${pedaggiViaggi}">
+                            <tr>
+                                <td>${veicolo.get1st().getTargaPk()}</td>
+                                <td>${veicolo.get1st().getTipologiaVe()}</td>
+                                <td>${veicolo.get2nd().intValue()}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+    <% } %>
 </section>
 <jsp:include page="footer.jsp" />
 <!-- Feedback Modal-->

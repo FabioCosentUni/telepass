@@ -70,6 +70,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>TelepassPlus</servlet-name>
+    <servlet-class>controller.TelepassPlusServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>TelepassPlus</servlet-name>
+    <url-pattern>/telepassPlus</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>SimulationServlet</servlet-name>
     <servlet-class>controller.SimulationServlet</servlet-class>
   </servlet>
