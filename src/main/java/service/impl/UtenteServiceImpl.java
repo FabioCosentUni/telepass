@@ -99,4 +99,15 @@ public class UtenteServiceImpl implements UtenteService {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
     }
+
+    @Override
+    public Utente addVehicle(Utente u, Veicolo v) throws TelepassException {
+        try{
+            u.getTransponder().getVeicoloList().add(v);
+            utenteDAO.merge(u);
+            return utenteDAO.findById(u.getCodiceFiscalePk());
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+    }
 }

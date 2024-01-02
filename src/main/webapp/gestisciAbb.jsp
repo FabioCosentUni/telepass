@@ -32,7 +32,7 @@
                 <% } else {%>
                     <h3 class="text-center pb-3">Tipologia Abbonamento: <span><%=((Utente)request.getSession().getAttribute("utente")).getTransponder().getPlus() == 0 ? "Standard Telepass" : "Plus"%> </span></h3>
                     <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center mb-5">
-                        <div class="d-grid p-2"><button class="btn btn-primary rounded-pill btn-lg" id="newVehicle" type="assign">Aggiungi veicolo</button></div>
+                        <div class="d-grid p-2"><button class="btn btn-primary rounded-pill btn-lg" id="newVehicle" type="assign"><a href="/Telepass/assignVehicle" style="color: white; text-decoration: none;">Aggiungi veicolo</a></button></div>
                         <%if(((Utente)request.getSession().getAttribute("utente")).getTransponder().getPlus() == 0) {%>
                             <div class="d-grid p-2"><button class="btn btn-primary rounded-pill btn-lg" type="assign"><a href="/Telepass/telepassPlus" style="color: white; text-decoration: none;">Passa a Telepass+</a></button></div>
                         <%} %>

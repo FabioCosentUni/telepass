@@ -1,5 +1,6 @@
 <%@ page import="exception.TelepassError" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <%--Head--%>
 <jsp:include page="head_html.jsp" />
@@ -17,7 +18,12 @@
                 <form action="assignVehicle" method="POST" id="formSignup" onsubmit="return validateRequest()">
 
                     <div class="divider d-flex align-items-center my-4">
-                        <p class="text-center fw-bold mx-3 mb-0">Step 2 - Associa un veicolo al tuo Telepass</p>
+                        <c:if test="${utente != null}">
+                            <p class="text-center fw-bold mx-3 mb-0">Associa un nuovo veicolo al tuo Telepass</p>
+                        </c:if>
+                        <c:if test="${utente == null}">
+                            <p class="text-center fw-bold mx-3 mb-0">Step 2 - Associa un veicolo al tuo Telepass</p>
+                        </c:if>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control <%= TelepassError.VEHICLE_ALREADY_REGISTERED.equals(request.getAttribute("error")) ? "is-invalid" : "" %>" id="targa_assign" type="text" placeholder="AA111AA" name="targa_veicolo" value="<%=request.getAttribute("targa_veicolo") != null ? request.getAttribute("targa_veicolo") : ""%>" required oninput=""/>

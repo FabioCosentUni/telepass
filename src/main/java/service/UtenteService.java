@@ -1,11 +1,8 @@
 package service;
 
-import exception.DaoException;
 import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
-
-import java.sql.SQLException;
 
 public interface UtenteService {
 
@@ -16,5 +13,7 @@ public interface UtenteService {
      void validateUser(Utente u) throws TelepassException;
 
      Utente getUtenteByCF(String cf) throws TelepassException;
+
+     Utente addVehicle(Utente u, Veicolo v) throws TelepassException;
 
 }
