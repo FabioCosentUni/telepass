@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autostrade xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xsd/Autostrade.xsd">
+    <autostrada nome="A1">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A24">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A25">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A5">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A11">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A12">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+    <autostrada nome="A13">
+        <tariffario>
+            <classe nome="A">0.1</classe>
+            <classe nome="B">0.2</classe>
+            <classe nome="C">0.3</classe>
+            <classe nome="3">0.2</classe>
+            <classe nome="4">0.2</classe>
+            <classe nome="5">0.4</classe>
+        </tariffario>
+    </autostrada>
+
+</autostrade>

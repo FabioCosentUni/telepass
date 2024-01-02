@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+    <xs:element name="autostrade">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="autostrada" type="autostrada" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="autostrada">
+        <xs:sequence>
+            <xs:element name="tariffario" type="tariffario" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="nome" type="xs:string" use="required"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="tariffario">
+        <xs:sequence>
+            <xs:element name="classe" type="classe"  maxOccurs="unbounded">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="classe">
+        <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+                <xs:attribute name="nome" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+
+</xs:schema>

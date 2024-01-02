@@ -65,8 +65,8 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-compiler-plugin</artifactId>
               <configuration>
-                  <source>17</source>
-                  <target>17</target>
+                  <source>11</source>
+                  <target>11</target>
               </configuration>
           </plugin>
           <plugin>
@@ -105,4 +105,89 @@
           </plugin>
       </plugins>
   </build>
+
+    <profiles>
+        <profile>
+            <id>XML2POJO</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jvnet.jaxb2.maven2</groupId>
+                        <artifactId>maven-jaxb2-plugin</artifactId>
+                        <version>0.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>jaxb-generate-request</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <encoding>UTF-8</encoding>
+                                    <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+                                    <schemaIncludes>
+                                        <include>xsd/Autostrade.xsd</include>
+                                    </schemaIncludes>
+                                    <bindingIncludes>
+                                        <include>xjb/Autostrade.xjb</include>
+                                    </bindingIncludes>
+                                    <generateDirectory>${project.basedir}/src/main/java/</generateDirectory>
+                                    <args>
+                                        <arg>-camelcase-always</arg>
+                                        <arg>-Xcollection-setter-injector</arg>
+                                        <arg>-Xannotate</arg>
+                                    </args>
+                                    <extension>true</extension>
+                                    <plugins>
+                                        <plugin>
+                                            <groupId>org.andromda.thirdparty.jaxb2_commons</groupId>
+                                            <artifactId>camelcase-always</artifactId>
+                                            <version>1.0</version>
+                                        </plugin>
+                                        <plugin>
+                                            <groupId>net.java.dev.jaxb2-commons</groupId>
+                                            <artifactId>jaxb-fluent-api</artifactId>
+                                            <version>2.1.8</version>
+                                        </plugin>
+                                        <plugin>
+                                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                                            <artifactId>jaxb2-basics-annotate</artifactId>
+                                            <version>0.6.3</version>
+                                        </plugin>
+                                    </plugins>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>javax.activation</groupId>
+                                <artifactId>activation</artifactId>
+                                <version>1.1.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.andromda.thirdparty.jaxb2_commons</groupId>
+                                <artifactId>collection-setter-injector</artifactId>
+                                <version>1.0</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.fasterxml.jackson.core</groupId>
+                                <artifactId>jackson-databind</artifactId>
+                                <version>2.6.6</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.fasterxml.jackson.datatype</groupId>
+                                <artifactId>jackson-datatype-jsr310</artifactId>
+                                <version>2.6.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.fasterxml.jackson.core</groupId>
+                                <artifactId>jackson-annotations</artifactId>
+                                <version>2.5.5</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

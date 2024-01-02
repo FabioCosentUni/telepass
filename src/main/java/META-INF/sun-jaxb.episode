@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.7 
+Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+Generato il: 2024.01.02 alle 04:35:52 PM CET 
+
+  -->
+  <jaxb:bindings scd="x-schema::">
+    <jaxb:schemaBindings map="false">
+      <jaxb:package name="model.pojo"/>
+    </jaxb:schemaBindings>
+    <jaxb:bindings scd="autostrade">
+      <jaxb:class ref="model.pojo.Autostrade"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~autostrada">
+      <jaxb:class ref="model.pojo.Autostrada"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~classe">
+      <jaxb:class ref="model.pojo.Classe"/>
+    </jaxb:bindings>
+    <jaxb:bindings scd="~tariffario">
+      <jaxb:class ref="model.pojo.Tariffario"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+</jaxb:bindings>
+
