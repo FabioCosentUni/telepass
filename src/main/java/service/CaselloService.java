@@ -18,6 +18,4 @@ public interface CaselloService {
          boolean deleteCaselloById(Utente utente, long caselloId);
 
          Casello getCaselloById(long caselloId);
-
-         void statisticheCasello();
 }

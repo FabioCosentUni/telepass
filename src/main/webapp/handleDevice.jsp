@@ -32,6 +32,7 @@
                     <div class="text-center">
                         <a href="admin/aggiungiTransponder" class="btn btn-primary mr-2">Aggiungi un dispositivo Telepass</a>
                         <a href="admin/revocaTransponder" class="btn btn-primary">Revoca un dispositivo Telepass</a>
+                        <a href="admin/visualizzaStatistiche" class="btn btn-primary">Visualizza Statistiche</a>
                     </div>
                 </div>
             </div>

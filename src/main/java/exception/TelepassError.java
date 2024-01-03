@@ -27,7 +27,7 @@ public enum TelepassError {
 
     TRANSPONDER_REVOKED("TP014","Attenzione. Non risulta associato nessun transponder. Contattare l'help desk per maggiori dettagli."),
 
-    GENERIC_ERROR("TP999", "Inserimento non andato a buon fine.");
+    GENERIC_ERROR("TP999", "Errore Generico");
 
     private final String errorCode;
     private final String errorMessage;

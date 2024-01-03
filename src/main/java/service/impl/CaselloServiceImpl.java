@@ -90,9 +90,4 @@ public class CaselloServiceImpl implements CaselloService {
             return null;
         }
     }
-
-    @Override
-    public void statisticheCasello() {
-
-    }
 }

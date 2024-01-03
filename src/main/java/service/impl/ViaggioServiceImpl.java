@@ -4,14 +4,18 @@ import dao.impl.ViaggioHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
+import model.Casello;
 import model.Utente;
 import model.Veicolo;
 import model.Viaggio;
+import model.bo.StatisticsBO;
 import oracle.ucp.util.Pair;
 import service.ViaggioService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ViaggioServiceImpl implements ViaggioService {
     private ViaggioHibernateDAOImpl viaggioDAO= new ViaggioHibernateDAOImpl();
@@ -101,6 +105,33 @@ public class ViaggioServiceImpl implements ViaggioService {
         }
 
         return importoTotaleList;
+    }
+
+    @Override
+    public Map<Casello, StatisticsBO> getStatisticheCaselli() throws TelepassException {
+        try {
+            Map<Casello, StatisticsBO> statisticheCaselli = new HashMap<>();
+
+            Map<Casello, Double> statisticheEntrata = viaggioDAO.getPercentualiEntrateCaselli();
+            Map<Casello, Double> statisticheUscita = viaggioDAO.getPercentualiUsciteCaselli();
+
+            for (Casello c : statisticheEntrata.keySet()) {
+                statisticheCaselli.put(c, new StatisticsBO(statisticheEntrata.get(c), 0D));
+            }
+
+            for(Casello c : statisticheUscita.keySet()) {
+                if(statisticheCaselli.get(c) != null) {
+                    statisticheCaselli.get(c).setExitPercentage(statisticheUscita.get(c));
+                } else {
+                    statisticheCaselli.put(c, new StatisticsBO(0D, statisticheUscita.get(c)));
+                }
+            }
+
+            return statisticheCaselli;
+
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
     }
 
 }

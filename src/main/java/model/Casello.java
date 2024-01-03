@@ -71,12 +71,12 @@ public class Casello implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Casello that = (Casello) o;
+        Casello casello = (Casello) o;
 
-        if (!Objects.equals(idCaselloPk, that.idCaselloPk)) return false;
-        if (!Objects.equals(km, that.km)) return false;
-        if (!Objects.equals(ingressi, that.ingressi)) return false;
-        return Objects.equals(autostrada, that.autostrada);
+        if (!Objects.equals(idCaselloPk, casello.idCaselloPk)) return false;
+        if (!Objects.equals(km, casello.km)) return false;
+        if (!Objects.equals(ingressi, casello.ingressi)) return false;
+        return Objects.equals(autostrada, casello.autostrada);
     }
 
     @Override
