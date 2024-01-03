@@ -1,7 +1,6 @@
 package dao.impl;
 
-import dao.BaseDao;
-import dao.CaselloDAO;
+import dao.CaselloHibernateDAO;
 import model.Casello;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -11,10 +10,10 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class CaselloDAOImpl extends BaseDaoImpl<Casello, Long> implements CaselloDAO {
+public class CaselloHibernateDAOImpl extends BaseHibernateDaoImpl<Casello, Long> implements CaselloHibernateDAO {
 
 
-    public CaselloDAOImpl() {
+    public CaselloHibernateDAOImpl() {
         super(Casello.class);
     }
 

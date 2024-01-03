@@ -1,6 +1,6 @@
 package service.impl;
 
-import dao.impl.ViaggioDAOImpl;
+import dao.impl.ViaggioHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViaggioServiceImpl implements ViaggioService {
-    private ViaggioDAOImpl viaggioDAO= new ViaggioDAOImpl();
+    private ViaggioHibernateDAOImpl viaggioDAO= new ViaggioHibernateDAOImpl();
     @Override
     public boolean insertViaggio(Viaggio viaggio) {
         /*

@@ -1,13 +1,12 @@
 package dao.impl;
 
-import dao.BaseDao;
-import dao.VeicoloDAO;
+import dao.VeicoloHibernateDAO;
 import model.Veicolo;
 
-public class VeicoloDAOImpl extends BaseDaoImpl<Veicolo, String> implements VeicoloDAO {
+public class VeicoloHibernateDAOImpl extends BaseHibernateDaoImpl<Veicolo, String> implements VeicoloHibernateDAO {
 
 
-    public VeicoloDAOImpl() {
+    public VeicoloHibernateDAOImpl() {
         super(Veicolo.class);
     }
 

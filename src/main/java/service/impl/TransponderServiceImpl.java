@@ -1,7 +1,7 @@
 package service.impl;
 
-import dao.TransponderDAO;
-import dao.impl.TransponderDAOImpl;
+import dao.TransponderHibernateDAO;
+import dao.impl.TransponderHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public class TransponderServiceImpl implements TransponderService {
 
-    private final TransponderDAO dao;
+    private final TransponderHibernateDAO dao;
 
     public TransponderServiceImpl() {
-        this.dao = new TransponderDAOImpl();
+        this.dao = new TransponderHibernateDAOImpl();
     }
 
     @Override

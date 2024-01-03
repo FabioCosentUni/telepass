@@ -1,6 +1,6 @@
 package dao.impl;
 
-import dao.ViaggioDAO;
+import dao.ViaggioHibernateDAO;
 import exception.DaoException;
 import model.Viaggio;
 import org.hibernate.Session;
@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViaggioDAOImpl extends BaseDaoImpl<Viaggio, Long> implements ViaggioDAO {
+public class ViaggioHibernateDAOImpl extends BaseHibernateDaoImpl<Viaggio, Long> implements ViaggioHibernateDAO {
 
-    public ViaggioDAOImpl() {
+    public ViaggioHibernateDAOImpl() {
         super(Viaggio.class);
     }
 

@@ -1,30 +1,22 @@
 package utils;
 
-import dao.CaselloDAO;
-import dao.impl.CaselloDAOImpl;
-import model.Casello;
-import service.CaselloService;
-import service.impl.CaselloServiceImpl;
+import command.CommandExecutor;
+import command.impl.GetTariffCommandExecutorImpl;
+import exception.CommandExecutorException;
+import model.bo.GetTariffInputBO;
+import model.bo.GetTariffOutputBO;
 
 import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, CommandExecutorException {
         System.out.println("Hello World!");
 
-        Casello caselloDTO = new Casello();
-        caselloDTO.setIdCaselloPk((long)1);
-        caselloDTO.setKm(100);
-        caselloDTO.setIngressi(5);
-        caselloDTO.setAutostrada("A1");
+        CommandExecutor command = new GetTariffCommandExecutorImpl();
 
-        CaselloDAO caselloDAO = new CaselloDAOImpl();
-        //caselloDAO.insertCasello(caselloDTO);
-        //caselloDAO.updateCasello(caselloDTO);
-        //caselloDAO.deleteCaselloById((long)1);
-        //caselloDAO.getAllCaselli().forEach(casello -> System.out.println(casello.getAutostrada()));
-        CaselloService caselloService = new CaselloServiceImpl();
-        caselloService.getAllCaselli().forEach(casello -> System.out.println(casello.getAutostrada()));
+        GetTariffOutputBO outputBO = (GetTariffOutputBO) command.execute(new GetTariffInputBO("A24", "B"));
+
+        System.out.println(outputBO.getTariff());
     }
 }

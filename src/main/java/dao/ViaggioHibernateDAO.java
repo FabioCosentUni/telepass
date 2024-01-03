@@ -5,7 +5,7 @@ import model.Viaggio;
 
 import java.util.List;
 
-public interface ViaggioDAO extends BaseDao<Viaggio, Long> {
+public interface ViaggioHibernateDAO extends BaseHibernateDao<Viaggio, Long> {
 
     List<Integer> getViaggiByVeicolo(String targa) throws DaoException;
 

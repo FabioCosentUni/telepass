@@ -1,11 +1,11 @@
 package service.impl;
 
-import dao.MethodPaymentDAO;
-import dao.TransponderDAO;
-import dao.UtenteDAO;
-import dao.impl.MethodPaymentDAOImpl;
-import dao.impl.TransponderDAOImpl;
-import dao.impl.UtenteDAOImpl;
+import dao.MethodPaymentHibernateDAO;
+import dao.TransponderHibernateDAO;
+import dao.UtenteHibernateDAO;
+import dao.impl.MethodPaymentHibernateDAOImpl;
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -19,15 +19,15 @@ import java.util.List;
 
 public class MethodPaymentServiceImpl implements MethodPaymentService {
 
-    private MethodPaymentDAO methodPaymentDAO;
-    private TransponderDAO transponderDAO;
+    private MethodPaymentHibernateDAO methodPaymentDAO;
+    private TransponderHibernateDAO transponderDAO;
 
-    private UtenteDAO utenteDAO;
+    private UtenteHibernateDAO utenteDAO;
 
     public MethodPaymentServiceImpl() {
-        methodPaymentDAO = new MethodPaymentDAOImpl();
-        transponderDAO = new TransponderDAOImpl();
-        utenteDAO = new UtenteDAOImpl();
+        methodPaymentDAO = new MethodPaymentHibernateDAOImpl();
+        transponderDAO = new TransponderHibernateDAOImpl();
+        utenteDAO = new UtenteHibernateDAOImpl();
     }
 
 

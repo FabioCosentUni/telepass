@@ -12,7 +12,7 @@ import java.util.List;
  * @param <T>  Tipo dell'entità
  * @param <ID> Tipo dell'identificatore dell'entità
  */
-public interface BaseDao<T, ID extends Serializable> {
+public interface BaseHibernateDao<T, ID extends Serializable> {
 
     /**
      * Salva un'entità nel database.

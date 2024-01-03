@@ -1,9 +1,9 @@
 package service.impl;
 
-import dao.TransponderDAO;
-import dao.UtenteDAO;
-import dao.impl.TransponderDAOImpl;
-import dao.impl.UtenteDAOImpl;
+import dao.TransponderHibernateDAO;
+import dao.UtenteHibernateDAO;
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -16,12 +16,12 @@ import java.util.List;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    private final UtenteDAO utenteDAO;
-    private final TransponderDAO transponderDAO;
+    private final UtenteHibernateDAO utenteDAO;
+    private final TransponderHibernateDAO transponderDAO;
 
     public UtenteServiceImpl() {
-        this.utenteDAO = new UtenteDAOImpl();
-        this.transponderDAO = new TransponderDAOImpl();
+        this.utenteDAO = new UtenteHibernateDAOImpl();
+        this.transponderDAO = new TransponderHibernateDAOImpl();
     }
 
     @Override

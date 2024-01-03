@@ -1,19 +1,15 @@
 package dao.impl;
 
-import dao.BaseDao;
-import dao.UtenteDAO;
+import dao.UtenteHibernateDAO;
 import exception.DaoException;
 import model.Utente;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-import java.sql.SQLException;
-import java.util.List;
+public class UtenteHibernateDAOImpl extends BaseHibernateDaoImpl<Utente, String> implements UtenteHibernateDAO {
 
-public class UtenteDAOImpl extends BaseDaoImpl<Utente, String> implements UtenteDAO {
-
-    public UtenteDAOImpl() {
+    public UtenteHibernateDAOImpl() {
         super(Utente.class);
     }
 

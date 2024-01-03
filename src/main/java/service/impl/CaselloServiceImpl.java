@@ -1,7 +1,7 @@
 package service.impl;
 
-import dao.CaselloDAO;
-import dao.impl.CaselloDAOImpl;
+import dao.CaselloHibernateDAO;
+import dao.impl.CaselloHibernateDAOImpl;
 import model.Casello;
 import model.Utente;
 import service.CaselloService;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CaselloServiceImpl implements CaselloService {
-    private final CaselloDAO caselloDAO = new CaselloDAOImpl();
+    private final CaselloHibernateDAO caselloDAO = new CaselloHibernateDAOImpl();
 
     @Override
     public boolean insertCasello(Utente utente, Casello casello) {

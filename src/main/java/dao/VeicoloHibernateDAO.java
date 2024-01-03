@@ -2,7 +2,7 @@ package dao;
 
 import model.Veicolo;
 
-public interface VeicoloDAO extends BaseDao<Veicolo, String> {
+public interface VeicoloHibernateDAO extends BaseHibernateDao<Veicolo, String> {
 
     boolean deleteVeicoloByTarga(String targa);
 }

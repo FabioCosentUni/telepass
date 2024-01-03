@@ -5,7 +5,7 @@ import model.Transponder;
 
 import java.util.List;
 
-public interface TransponderDAO extends BaseDao<Transponder, String> {
+public interface TransponderHibernateDAO extends BaseHibernateDao<Transponder, String> {
 
     List<Transponder> getActiveTransponders() throws DaoException;
 

@@ -1,7 +1,7 @@
 package controller;
 
-import dao.CaselloDAO;
-import dao.impl.CaselloDAOImpl;
+import dao.CaselloHibernateDAO;
+import dao.impl.CaselloHibernateDAOImpl;
 import service.ViaggioService;
 import service.impl.ViaggioServiceImpl;
 
@@ -14,13 +14,13 @@ import java.io.IOException;
 public class SimulationServlet extends HttpServlet {
 
     private ViaggioService viaggioService;
-    private CaselloDAO caselloDAO;
+    private CaselloHibernateDAO caselloDAO;
 
     public void init() {
         try{
             super.init();
             viaggioService = new ViaggioServiceImpl();
-            caselloDAO = new CaselloDAOImpl();
+            caselloDAO = new CaselloHibernateDAOImpl();
         } catch (Exception e) {
             e.printStackTrace();
         }
