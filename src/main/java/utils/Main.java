@@ -1,12 +1,8 @@
 package utils;
 
-import command.CommandExecutor;
-import command.impl.GetTariffCommandExecutorImpl;
 import exception.CommandExecutorException;
 import exception.TelepassException;
 import model.Casello;
-import model.bo.GetTariffInputBO;
-import model.bo.GetTariffOutputBO;
 import model.bo.StatisticsBO;
 import service.ViaggioService;
 import service.impl.ViaggioServiceImpl;

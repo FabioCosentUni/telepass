@@ -10,7 +10,9 @@ import model.pojo.Autostrade;
 import model.pojo.Classe;
 import utils.JAXBUtils;
 
+import javax.servlet.ServletContext;
 import java.io.File;
+import java.io.InputStream;
 
 public class GetTariffCommandExecutorImpl implements CommandExecutor {
 
@@ -27,7 +29,9 @@ public class GetTariffCommandExecutorImpl implements CommandExecutor {
 
             GetTariffOutputBO output = new GetTariffOutputBO();
 
-            Autostrade autostrade = JAXBUtils.unmarshall(new File("src/main/resources/xml/Autostrade.xml"), Autostrade.class);
+            InputStream is = this.getClass().getResourceAsStream("/xml/Autostrade.xml");
+
+            Autostrade autostrade = JAXBUtils.unmarshall(is, Autostrade.class);
 
             for (Autostrada autostrada : autostrade.getAutostrada()) {
                 if (autostrada.getNome().equals(getTariffInputBO.getAutostrada())) {

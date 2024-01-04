@@ -17,17 +17,28 @@ import model.bo.GetTariffOutputBO;
 import model.bo.StatisticsBO;
 import oracle.ucp.util.Pair;
 import service.ViaggioService;
+import utils.ClasseEnum;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ViaggioServiceImpl implements ViaggioService {
-    private ViaggioHibernateDAOImpl viaggioDAO= new ViaggioHibernateDAOImpl();
-    private CaselloHibernateDAOImpl caselloDAO = new CaselloHibernateDAOImpl();
-    private VeicoloHibernateDAOImpl veicoloDAO = new VeicoloHibernateDAOImpl();
+    private final ViaggioHibernateDAOImpl viaggioDAO;
+    private final CaselloHibernateDAOImpl caselloDAO;
+    private final VeicoloHibernateDAOImpl veicoloDAO;
+    private final CommandExecutor executor;
+
+    public ViaggioServiceImpl() {
+        this.viaggioDAO = new ViaggioHibernateDAOImpl();
+        this.caselloDAO = new CaselloHibernateDAOImpl();
+        this.veicoloDAO = new VeicoloHibernateDAOImpl();
+        this.executor = new GetTariffCommandExecutorImpl();
+    }
     @Override
     public boolean insertViaggio(Long entry, Long exit, String v) {
         try{
-            if(entry == exit){//Nel caso in cui sono stati selezionati due caselli uguali
+            if(entry.equals(exit)){
+                //Nel caso in cui sono stati selezionati due caselli uguali
                 //Configurare messaggio di errore e reindirizzare alla pagina di simulazione
                 return false;
             }
@@ -43,11 +54,11 @@ public class ViaggioServiceImpl implements ViaggioService {
             viaggio.setCaselloExitDTO(exitCasello);
             viaggio.setVeicoloDTO(veicolo);
 
-            GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), veicolo.getTipologiaVe().toUpperCase());
-            CommandExecutor getTariffCommandExecutor = new GetTariffCommandExecutorImpl();
-            GetTariffOutputBO tariffa = (GetTariffOutputBO) getTariffCommandExecutor.execute(getTariffInputBO);
+            GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
 
-            viaggio.setPedaggio(tariffa.getTariff().floatValue());
+            GetTariffOutputBO tariffa = (GetTariffOutputBO) executor.execute(getTariffInputBO);
+
+            viaggio.setPedaggio(calculatePedaggio(tariffa.getTariff(), entryCasello, exitCasello));
             viaggio.setPagatoFlag(1);
             viaggio.setTimeEntry(new Date());
             viaggio.setTimeExit(new Date());
@@ -61,6 +72,10 @@ public class ViaggioServiceImpl implements ViaggioService {
 
         /*viaggioDAO.save();*/
         return false;
+    }
+
+    private float calculatePedaggio(BigDecimal tariff, Casello entryCasello, Casello exitCasello) {
+        return Math.abs(exitCasello.getKm() - entryCasello.getKm()) * tariff.floatValue();
     }
 
     @Override
