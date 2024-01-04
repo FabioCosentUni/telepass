@@ -1,5 +1,9 @@
 package service.impl;
 
+import command.CommandExecutor;
+import command.impl.GetTariffCommandExecutorImpl;
+import dao.impl.CaselloHibernateDAOImpl;
+import dao.impl.VeicoloHibernateDAOImpl;
 import dao.impl.ViaggioHibernateDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
@@ -8,28 +12,54 @@ import model.Casello;
 import model.Utente;
 import model.Veicolo;
 import model.Viaggio;
+import model.bo.GetTariffInputBO;
+import model.bo.GetTariffOutputBO;
 import model.bo.StatisticsBO;
 import oracle.ucp.util.Pair;
 import service.ViaggioService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ViaggioServiceImpl implements ViaggioService {
     private ViaggioHibernateDAOImpl viaggioDAO= new ViaggioHibernateDAOImpl();
+    private CaselloHibernateDAOImpl caselloDAO = new CaselloHibernateDAOImpl();
+    private VeicoloHibernateDAOImpl veicoloDAO = new VeicoloHibernateDAOImpl();
     @Override
-    public boolean insertViaggio(Viaggio viaggio) {
-        /*
-        try {
-            return viaggioDAO.save(viaggio);
+    public boolean insertViaggio(Long entry, Long exit, String v) {
+        try{
+            if(entry == exit){//Nel caso in cui sono stati selezionati due caselli uguali
+                //Configurare messaggio di errore e reindirizzare alla pagina di simulazione
+                return false;
+            }
+            Casello entryCasello = caselloDAO.findById(entry);
+            Casello exitCasello = caselloDAO.findById(exit);
+            if(v == null || v.isEmpty()){//Caso in cui si prova ad eseguire una simulazione senza aver selezionato un veicolo
+                //Configurare messaggio di errore e far reindirizzare alla pagina di simulazione
+                return false;
+            }
+            Veicolo veicolo = veicoloDAO.findById(v);
+            Viaggio viaggio = new Viaggio();
+            viaggio.setCaselloEntryDTO(entryCasello);
+            viaggio.setCaselloExitDTO(exitCasello);
+            viaggio.setVeicoloDTO(veicolo);
+
+            GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), veicolo.getTipologiaVe().toUpperCase());
+            CommandExecutor getTariffCommandExecutor = new GetTariffCommandExecutorImpl();
+            GetTariffOutputBO tariffa = (GetTariffOutputBO) getTariffCommandExecutor.execute(getTariffInputBO);
+
+            viaggio.setPedaggio(tariffa.getTariff().floatValue());
+            viaggio.setPagatoFlag(1);
+            viaggio.setTimeEntry(new Date());
+            viaggio.setTimeExit(new Date());
+            viaggioDAO.save(viaggio);
+
+
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
 
-         */
+
+        /*viaggioDAO.save();*/
         return false;
     }
 

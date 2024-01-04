@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface ViaggioService {
 
-    boolean insertViaggio(Viaggio viaggio);
+    boolean insertViaggio(Long entry, Long exit, String v);
 
     List<Viaggio> getAllViaggi();
 
