@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface ViaggioService {
 
-    boolean insertViaggio(Long entry, Long exit, String v);
+    void insertViaggio(Long entry, Long exit, String v) throws TelepassException;
 
     List<Viaggio> getAllViaggi();
 

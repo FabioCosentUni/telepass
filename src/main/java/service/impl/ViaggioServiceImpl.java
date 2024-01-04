@@ -5,6 +5,7 @@ import command.impl.GetTariffCommandExecutorImpl;
 import dao.impl.CaselloHibernateDAOImpl;
 import dao.impl.VeicoloHibernateDAOImpl;
 import dao.impl.ViaggioHibernateDAOImpl;
+import exception.CommandExecutorException;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -18,11 +19,14 @@ import model.bo.StatisticsBO;
 import oracle.ucp.util.Pair;
 import service.ViaggioService;
 import utils.ClasseEnum;
+import utils.ViaggioBuilder;
+import utils.ViaggioBuilderImpl;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class ViaggioServiceImpl implements ViaggioService {
+    private static final float VELOCITA_MEDIA = 90;
     private final ViaggioHibernateDAOImpl viaggioDAO;
     private final CaselloHibernateDAOImpl caselloDAO;
     private final VeicoloHibernateDAOImpl veicoloDAO;
@@ -34,44 +38,47 @@ public class ViaggioServiceImpl implements ViaggioService {
         this.veicoloDAO = new VeicoloHibernateDAOImpl();
         this.executor = new GetTariffCommandExecutorImpl();
     }
+
     @Override
-    public boolean insertViaggio(Long entry, Long exit, String v) {
-        try{
-            if(entry.equals(exit)){
-                //Nel caso in cui sono stati selezionati due caselli uguali
-                //Configurare messaggio di errore e reindirizzare alla pagina di simulazione
-                return false;
-            }
+    public void insertViaggio(Long entry, Long exit, String v) throws TelepassException {
+        try {
             Casello entryCasello = caselloDAO.findById(entry);
             Casello exitCasello = caselloDAO.findById(exit);
-            if(v == null || v.isEmpty()){//Caso in cui si prova ad eseguire una simulazione senza aver selezionato un veicolo
+
+            if (v == null || v.isEmpty()) {
+                //TODO
+                //Caso in cui si prova ad eseguire una simulazione senza aver selezionato un veicolo
                 //Configurare messaggio di errore e far reindirizzare alla pagina di simulazione
-                return false;
             }
+
             Veicolo veicolo = veicoloDAO.findById(v);
-            Viaggio viaggio = new Viaggio();
-            viaggio.setCaselloEntryDTO(entryCasello);
-            viaggio.setCaselloExitDTO(exitCasello);
-            viaggio.setVeicoloDTO(veicolo);
 
             GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
-
             GetTariffOutputBO tariffa = (GetTariffOutputBO) executor.execute(getTariffInputBO);
 
-            viaggio.setPedaggio(calculatePedaggio(tariffa.getTariff(), entryCasello, exitCasello));
-            viaggio.setPagatoFlag(1);
-            viaggio.setTimeEntry(new Date());
-            viaggio.setTimeExit(new Date());
+            Date timeEntry = new Date();
+            ViaggioBuilder viaggioBuilder = new ViaggioBuilderImpl();
+
+            Viaggio viaggio = viaggioBuilder.setCaselloEntrata(entryCasello)
+                    .setCaselloUscita(exitCasello)
+                    .setVeicolo(veicolo)
+                    .setTimeEntry(timeEntry)
+                    .setTimeExit(new Date(timeEntry.getTime() + getTimeToExitMillis(entryCasello, exitCasello)))
+                    .setPedaggio(calculatePedaggio(tariffa.getTariff(), entryCasello, exitCasello))
+                    .setPagatoFlag(1)
+                    .build();
+
             viaggioDAO.save(viaggio);
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DaoException | CommandExecutorException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
+    }
 
+    private long getTimeToExitMillis(Casello entryCasello, Casello exitCasello) {
+        int distanceKm = Math.abs(exitCasello.getKm() - entryCasello.getKm());
 
-        /*viaggioDAO.save();*/
-        return false;
+        return (long) ((distanceKm / VELOCITA_MEDIA) * 60 * 60 * 1000);
     }
 
     private float calculatePedaggio(BigDecimal tariff, Casello entryCasello, Casello exitCasello) {
@@ -143,8 +150,7 @@ public class ViaggioServiceImpl implements ViaggioService {
         } catch (DaoException e) {
             e.printStackTrace();
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
@@ -164,8 +170,8 @@ public class ViaggioServiceImpl implements ViaggioService {
                 statisticheCaselli.put(c, new StatisticsBO(statisticheEntrata.get(c), 0D));
             }
 
-            for(Casello c : statisticheUscita.keySet()) {
-                if(statisticheCaselli.get(c) != null) {
+            for (Casello c : statisticheUscita.keySet()) {
+                if (statisticheCaselli.get(c) != null) {
                     statisticheCaselli.get(c).setExitPercentage(statisticheUscita.get(c));
                 } else {
                     statisticheCaselli.put(c, new StatisticsBO(0D, statisticheUscita.get(c)));

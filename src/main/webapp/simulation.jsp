@@ -46,11 +46,11 @@
                         </c:if>
                     </c:forEach>
                 </select>
-                <select id="uscitaSelect" name="uscitaSelect" class="form-select-font-family form-select-sm" aria-label=".form-select-sm example">
+                <select id="uscitaSelect" name="uscitaSelect" class="form-select-font-family form-select-sm" aria-label=".form-select-sm example" disabled>
                     <option selected>Uscita</option>
                     <c:forEach items="${caselli}" var="casello">
                         <c:if test="${casello.getAutostrada() eq autostradaSel}">
-                            <option value="${casello.getIdCaselloPk()}">${casello.getKm()}</option>
+                            <option value="${casello.getIdCaselloPk()}">${casello.getCitta()} - ${casello.getKm()} km</option>
                         </c:if>
                     </c:forEach>
                 </select>
