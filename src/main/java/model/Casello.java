@@ -15,8 +15,9 @@ public class Casello implements Serializable {
     private Long idCaselloPk;
     @Column(name="km")
     private Integer km;
-    @Column(name="ingressi")
-    private Integer ingressi;
+
+    @Column(name="citta")
+    private String citta;
     @Column(name="autostrada")
     private String autostrada;
 
@@ -25,14 +26,14 @@ public class Casello implements Serializable {
     }
 
     // Costruttore con parametri
-    public Casello(Long idCaselloPk, Integer km, Integer ingressi, String autostrada) {
+
+    public Casello(Long idCaselloPk, Integer km, String citta, String autostrada) {
         this.idCaselloPk = idCaselloPk;
         this.km = km;
-        this.ingressi = ingressi;
+        this.citta = citta;
         this.autostrada = autostrada;
     }
 
-    // Metodi getter e setter
     public Long getIdCaselloPk() {
         return idCaselloPk;
     }
@@ -49,12 +50,12 @@ public class Casello implements Serializable {
         this.km = km;
     }
 
-    public Integer getIngressi() {
-        return ingressi;
+    public String getCitta() {
+        return citta;
     }
 
-    public void setIngressi(Integer ingressi) {
-        this.ingressi = ingressi;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public String getAutostrada() {
@@ -65,7 +66,6 @@ public class Casello implements Serializable {
         this.autostrada = autostrada;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +75,7 @@ public class Casello implements Serializable {
 
         if (!Objects.equals(idCaselloPk, casello.idCaselloPk)) return false;
         if (!Objects.equals(km, casello.km)) return false;
-        if (!Objects.equals(ingressi, casello.ingressi)) return false;
+        if (!Objects.equals(citta, casello.citta)) return false;
         return Objects.equals(autostrada, casello.autostrada);
     }
 
@@ -83,17 +83,17 @@ public class Casello implements Serializable {
     public int hashCode() {
         int result = idCaselloPk != null ? idCaselloPk.hashCode() : 0;
         result = 31 * result + (km != null ? km.hashCode() : 0);
-        result = 31 * result + (ingressi != null ? ingressi.hashCode() : 0);
+        result = 31 * result + (citta != null ? citta.hashCode() : 0);
         result = 31 * result + (autostrada != null ? autostrada.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CaselloDTO{");
+        final StringBuilder sb = new StringBuilder("Casello{");
         sb.append("idCaselloPk=").append(idCaselloPk);
         sb.append(", km=").append(km);
-        sb.append(", ingressi=").append(ingressi);
+        sb.append(", citta='").append(citta).append('\'');
         sb.append(", autostrada='").append(autostrada).append('\'');
         sb.append('}');
         return sb.toString();

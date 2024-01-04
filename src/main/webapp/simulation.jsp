@@ -42,7 +42,7 @@
                     <option selected>Entrata</option>
                     <c:forEach items="${caselli}" var="casello">
                         <c:if test="${casello.getAutostrada() eq autostradaSel}">
-                            <option value="${casello.getIdCaselloPk()}">${casello.getKm()}</option>
+                            <option value="${casello.getIdCaselloPk()}">${casello.getCitta()} - ${casello.getKm()} km</option>
                         </c:if>
                     </c:forEach>
                 </select>
