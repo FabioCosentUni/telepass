@@ -120,6 +120,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ViewStatisticsServlet</servlet-name>
+    <servlet-class>controller.ViewStatisticsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewStatisticsServlet</servlet-name>
+    <url-pattern>/admin/visualizzaStatistiche</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>index</servlet-name>
     <jsp-file>/index.jsp</jsp-file>
   </servlet>

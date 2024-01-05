@@ -28,7 +28,7 @@
                     <img src="${pageContext.request.contextPath}/img/security.png"
                          class="img-fluid" alt="Sample image">
                 </div>
-                <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 offset-xl-1 pt-5">
+                <div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 offset-xl-1 pt-5">
                     <div class="text-center">
                         <a href="admin/aggiungiTransponder" class="btn btn-primary mr-2">Aggiungi un dispositivo Telepass</a>
                         <a href="admin/revocaTransponder" class="btn btn-primary">Revoca un dispositivo Telepass</a>
