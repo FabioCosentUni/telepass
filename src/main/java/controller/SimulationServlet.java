@@ -1,5 +1,7 @@
 package controller;
 
+import exception.TelepassError;
+import exception.TelepassException;
 import model.Casello;
 import service.CaselloService;
 import service.ViaggioService;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationServlet extends HttpServlet {
@@ -20,7 +21,7 @@ public class SimulationServlet extends HttpServlet {
     private CaselloService caselloService;
 
     public void init() {
-        try{
+        try {
             super.init();
             viaggioService = new ViaggioServiceImpl();
             caselloService = new CaselloServiceImpl();
@@ -33,29 +34,30 @@ public class SimulationServlet extends HttpServlet {
         String targaVeicolo = request.getParameter("veicoloSel");
         Long idCaselloPartenza = Long.valueOf(request.getParameter("entrataSelect"));
         Long idCaselloArrivo = Long.valueOf(request.getParameter("uscitaSelect"));
-        /*Utente u = request.getSession().getAttribute("utente") != null ? (Utente) request.getSession().getAttribute("utente") : null;
-        */
         try {
             viaggioService.insertViaggio(idCaselloPartenza, idCaselloArrivo, targaVeicolo);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
-        } /*catch (UserException e) {
-            request.setAttribute("error", e.getErrorCause());
-            request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-        }*/ catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(500, e.getMessage());
+        } catch (TelepassException e) {
+            /*request.setAttribute("error", e.getMessage());
+            doGet(request, response);
+
+             */
+            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                //TODO --> redirect ad una pagina di errore generico
+            }
+
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Casello> caselli = new ArrayList<Casello>();
-            List<String> autostrade = new ArrayList<String>();
+            List<Casello> caselli;
+            List<String> autostrade;
             String autostrada = request.getParameter("autostrada");
 
-            caselli= caselloService.getAllCaselli();
-            if(autostrada != null && !autostrada.equals("Autostrada")){
+            caselli = caselloService.getAllCaselli();
+            if (autostrada != null && !autostrada.equals("Autostrada")) {
                 request.setAttribute("autostradaSel", autostrada);
             }
             autostrade = caselloService.getAllAutostrade();

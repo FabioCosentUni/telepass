@@ -8,7 +8,6 @@ import exception.TelepassException;
 import model.Transponder;
 import service.TransponderService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransponderServiceImpl implements TransponderService {
@@ -65,7 +64,8 @@ public class TransponderServiceImpl implements TransponderService {
                 throw new TelepassException(TelepassError.TELEPASS_NOT_FOUND);
             }
             transponder.setUtente(null);
-            transponder.setVeicoloList(new ArrayList<>());
+
+            transponder.getVeicoloList().forEach(v -> v.setTransponderDTO(null));
 
             dao.merge(transponder);
 

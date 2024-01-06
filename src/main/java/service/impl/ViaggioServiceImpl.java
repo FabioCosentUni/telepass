@@ -18,7 +18,7 @@ import model.bo.GetTariffOutputBO;
 import model.bo.StatisticsBO;
 import oracle.ucp.util.Pair;
 import service.ViaggioService;
-import utils.ClasseEnum;
+import utils.ClasseVeicoloEnum;
 import utils.ViaggioBuilder;
 import utils.ViaggioBuilderImpl;
 
@@ -53,7 +53,7 @@ public class ViaggioServiceImpl implements ViaggioService {
 
             Veicolo veicolo = veicoloDAO.findById(v);
 
-            GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
+            GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseVeicoloEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
             GetTariffOutputBO tariffa = (GetTariffOutputBO) executor.execute(getTariffInputBO);
 
             Date timeEntry = new Date();
@@ -85,77 +85,30 @@ public class ViaggioServiceImpl implements ViaggioService {
         return Math.abs(exitCasello.getKm() - entryCasello.getKm()) * tariff.floatValue();
     }
 
-    @Override
-    public List<Viaggio> getAllViaggi() {
+    public Map<Veicolo, Float> getImportoTotalePagatoPerVeicolo(Utente u) throws TelepassException {
+
+        Map<Veicolo, Float> importoTotaleMap = new HashMap<>();
+
         try {
-            return viaggioDAO.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
-    @Override
-    public boolean updateViaggio(Viaggio viaggio) {
-        /*
-        try {
-            return viaggioDAO.update(viaggio);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-         */
-        return false;
-    }
-
-    @Override
-    public boolean deleteViaggioById(long viaggioId) {
-        /*
-        try {
-            return viaggioDAO.delete(viaggioDAO.findById(viaggioId));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-         */
-        return false;
-    }
-
-    @Override
-    public Viaggio getViaggioById(long viaggioId) {
-        try {
-            return viaggioDAO.findById(viaggioId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public List<Pair<Veicolo, Integer>> getImportoTotalePagatoPerVeicolo(Utente u) throws TelepassException {
-        List<Pair<Veicolo, Integer>> importoTotaleList = new ArrayList<>();
-        try {
             for (Veicolo v : u.getTransponder().getVeicoloList()) {
 
                 if (viaggioDAO.checkVeicoloViaggi(v.getTargaPk())) {
-                    List<Integer> importiViaggi = viaggioDAO.getViaggiByVeicolo(v.getTargaPk());
-                    Integer importoTotale = importiViaggi.stream().reduce(0, Integer::sum);
+                    List<Float> importiViaggi = viaggioDAO.getPedaggiPagatiByVeicolo(v.getTargaPk());
+                    Float importoTotale = importiViaggi.stream().reduce(0F, Float::sum);
 
-                    importoTotaleList.add(new Pair<>(v, importoTotale));
+                    importoTotaleMap.put(v, importoTotale);
                 } else {
-                    importoTotaleList.add(new Pair<>(v, 0));
+                    importoTotaleMap.put(v, 0F);
                 }
             }
-        } catch (DaoException e) {
-            e.printStackTrace();
-            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+
+            return importoTotaleMap;
         } catch (Exception e) {
             e.printStackTrace();
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
 
-        return importoTotaleList;
     }
 
     @Override
@@ -165,6 +118,11 @@ public class ViaggioServiceImpl implements ViaggioService {
 
             Map<Casello, Double> statisticheEntrata = viaggioDAO.getPercentualiEntrateCaselli();
             Map<Casello, Double> statisticheUscita = viaggioDAO.getPercentualiUsciteCaselli();
+
+
+            if(statisticheEntrata == null || statisticheUscita == null) {
+                return new HashMap<>();
+            }
 
             for (Casello c : statisticheEntrata.keySet()) {
                 statisticheCaselli.put(c, new StatisticsBO(statisticheEntrata.get(c), 0D));

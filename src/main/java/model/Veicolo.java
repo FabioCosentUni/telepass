@@ -15,7 +15,7 @@ public class Veicolo implements Serializable {
     @Column(name="TIPOLOGIA_VE", nullable = false)
     private String tipologiaVe;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="TRANSPONDER_FK", nullable = false)
+    @JoinColumn(name="TRANSPONDER_FK")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Transponder transponder;
 

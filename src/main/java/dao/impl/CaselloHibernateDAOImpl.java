@@ -12,13 +12,20 @@ import java.util.List;
 
 public class CaselloHibernateDAOImpl extends BaseHibernateDaoImpl<Casello, Long> implements CaselloHibernateDAO {
 
-
+    /**
+     * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.
+     */
     public CaselloHibernateDAOImpl() {
         super(Casello.class);
     }
 
+    /**
+     * Ottiene una lista di nomi di tutte le autostrade presenti nei caselli.
+     *
+     * @return Una lista di stringhe rappresentanti i nomi delle autostrade.
+     */
     @Override
-    public List<String> getAllAutostrade() throws SQLException {
+    public List<String> getAllAutostrade() {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             Query<String> query = session.createQuery("SELECT DISTINCT autostrada FROM Casello", String.class);
             return query.list();
@@ -27,5 +34,4 @@ public class CaselloHibernateDAOImpl extends BaseHibernateDaoImpl<Casello, Long>
             return Collections.emptyList();
         }
     }
-
 }

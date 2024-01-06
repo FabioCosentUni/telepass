@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class GestisciAbbServlet extends HttpServlet {
 
@@ -46,7 +47,7 @@ public class GestisciAbbServlet extends HttpServlet {
             //Aggiorno l'utente in sessione
             request.getSession().setAttribute("utente", utente);
 
-            List<Pair<Veicolo, Integer>> pedaggiViaggi;
+            Map<Veicolo, Float> pedaggiViaggi;
             pedaggiViaggi = viaggioService.getImportoTotalePagatoPerVeicolo(utente);
 
             if (pedaggiViaggi == null) {

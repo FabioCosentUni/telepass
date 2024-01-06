@@ -10,8 +10,6 @@ import model.pojo.Autostrade;
 import model.pojo.Classe;
 import utils.JAXBUtils;
 
-import javax.servlet.ServletContext;
-import java.io.File;
 import java.io.InputStream;
 
 public class GetTariffCommandExecutorImpl implements CommandExecutor {

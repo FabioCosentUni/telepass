@@ -22,18 +22,12 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDaoImpl<Viaggio, Long>
 
 
     @Override
-    public List<Integer> getViaggiByVeicolo(String targa) throws DaoException {
+    public List<Float> getPedaggiPagatiByVeicolo(String targa) throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<BigDecimal> query = session.createQuery("SELECT v.pedaggio FROM Viaggio v WHERE v.veicolo.targaPk = :targa", BigDecimal.class);
+            Query<Float> query = session.createQuery("SELECT v.pedaggio FROM Viaggio v WHERE v.veicolo.targaPk = :targa", Float.class);
             query.setParameter("targa", targa);
 
-            List<BigDecimal> pedaggioList = query.list();
-
-            List<Integer> pedaggioIntList = new ArrayList<>();
-            for (BigDecimal pedaggio : pedaggioList) {
-                pedaggioIntList.add(pedaggio.intValue());
-            }
-            return pedaggioIntList;
+            return query.list();
         } catch (Exception e) {
             throw new DaoException("Errore durante il recupero dei pedaggi del veicolo.", e);
         }

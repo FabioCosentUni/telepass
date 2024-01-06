@@ -16,6 +16,7 @@ import java.util.List;
 
 public class UtenteServiceImpl implements UtenteService {
 
+    private static final int FIRST_INDEX = 0;
     private final UtenteHibernateDAO utenteDAO;
     private final TransponderHibernateDAO transponderDAO;
 
@@ -53,7 +54,7 @@ public class UtenteServiceImpl implements UtenteService {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
             }
 
-            Transponder t = transponderDAO.findFreeTransponder();
+            Transponder t = transponderDAO.getActiveTransponders().get(FIRST_INDEX);
 
             if (t == null) {
                 throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);

@@ -1,6 +1,5 @@
 package controller;
 
-import com.google.gson.Gson;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Transponder;
@@ -39,17 +38,12 @@ public class RevokeTransponderServlet extends HttpServlet {
         try {
             transponderList = transponderService.getActiveTransponders();
         } catch (TelepassException e) {
-            //errore generico --> redirect ad una pagina di errore generico
+            // TODO errore generico --> redirect ad una pagina di errore generico
         }
 
         req.setAttribute("transponders", transponderList);
 
         req.getServletContext().getRequestDispatcher("/revokeTransponder.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @Override

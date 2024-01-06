@@ -1,3 +1,4 @@
+<%@ page import="model.Utente" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -15,10 +16,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-                <%--<% if (request.getSession().getAttribute("utente") == null) {%>
-                <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/signup">Abbonati</a></li>
-                <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/login">Login</a></li>
-                <% }else{ %>--%>
                 <c:choose>
                     <c:when test="${utente == null}">
                         <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/signup">Abbonati</a></li>
@@ -38,15 +35,15 @@
                         </c:choose>
                     </c:when>
                 </c:choose>
-                <%--<li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/logout">Logout</a></li>--%>
-                <%--<%}%>--%>
             </ul>
+            <% if(request.getSession().getAttribute("utente") != null && ((Utente)request.getSession().getAttribute("utente")).getAmministratore() == 0){ %>
             <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                         <span class="d-flex align-items-center">
                             <i class="bi-chat-text-fill me-2"></i>
-                            <span class="small">Send Feedback</span>
+                            <span class="small">Helpdesk</span>
                         </span>
             </button>
+            <% } %>
         </div>
     </div>
 </nav>

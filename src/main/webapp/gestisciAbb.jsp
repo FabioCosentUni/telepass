@@ -53,9 +53,9 @@
                         </c:if>
                         <c:forEach var="veicolo" items="${pedaggiViaggi}">
                             <tr>
-                                <td>${veicolo.get1st().getTargaPk()}</td>
-                                <td>${veicolo.get1st().getTipologiaVe()}</td>
-                                <td>${veicolo.get2nd().intValue()}</td>
+                                <td>${veicolo.key.getTargaPk()}</td>
+                                <td>${veicolo.key.getTipologiaVe()}</td>
+                                <td>${veicolo.value}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

@@ -1,6 +1,6 @@
 package utils;
 
-public enum ClasseEnum {
+public enum ClasseVeicoloEnum {
 
     CLASSE_A("CLASSE A","A"),
     CLASSE_B("CLASSE B","B"),
@@ -11,7 +11,7 @@ public enum ClasseEnum {
     private String className;
     private String classCode;
 
-    ClasseEnum(String className, String classCode) {
+    ClasseVeicoloEnum(String className, String classCode) {
         this.className = className;
         this.classCode = classCode;
     }
@@ -24,10 +24,10 @@ public enum ClasseEnum {
         return classCode;
     }
 
-    public static ClasseEnum getClasseEnumByName(String className) {
-        for (ClasseEnum classeEnum : ClasseEnum.values()) {
-            if (classeEnum.getClassName().equals(className)) {
-                return classeEnum;
+    public static ClasseVeicoloEnum getClasseEnumByName(String className) {
+        for (ClasseVeicoloEnum classeVeicoloEnum : ClasseVeicoloEnum.values()) {
+            if (classeVeicoloEnum.getClassName().equals(className)) {
+                return classeVeicoloEnum;
             }
         }
         return null;

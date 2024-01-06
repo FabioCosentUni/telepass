@@ -44,7 +44,7 @@ public class SignUpServlet extends HttpServlet {
         } catch (TelepassException e) {
 
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //handle default page error
+                //TODO handle default page error
                 return;
             }
 
