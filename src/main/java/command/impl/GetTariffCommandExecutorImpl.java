@@ -1,6 +1,8 @@
 package command.impl;
 
 import command.CommandExecutor;
+import dao.AutostradaDAO;
+import dao.impl.AutostradaDAOImpl;
 import exception.CommandExecutorException;
 import model.BusinessObject;
 import model.bo.GetTariffInputBO;
@@ -12,25 +14,50 @@ import utils.JAXBUtils;
 
 import java.io.InputStream;
 
+/**
+ * Implementazione dell'interfaccia {@link CommandExecutor} per l'ottenimento della tariffa
+ * basata sull'input fornito.
+ */
 public class GetTariffCommandExecutorImpl implements CommandExecutor {
 
+    private final AutostradaDAO autostradaDAO;
+
+    public GetTariffCommandExecutorImpl() throws CommandExecutorException {
+        try {
+            this.autostradaDAO = new AutostradaDAOImpl();
+        } catch (Exception e) {
+            throw new CommandExecutorException(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Esegue il comando per ottenere la tariffa in base all'input fornito.
+     *
+     * @param input L'oggetto di business di input per ottenere il tariffario. Dev'essere un'istanza di {@link GetTariffInputBO}.
+     * @return L'oggetto di business di output contenente il tariffario corrispondente all'input. {@link GetTariffOutputBO}
+     * @throws CommandExecutorException se si verifica un errore durante l'esecuzione del comando.
+     */
     @Override
     public BusinessObject execute(BusinessObject input) throws CommandExecutorException {
-
         try {
-
             if (!(input instanceof GetTariffInputBO)) {
-                throw new CommandExecutorException("Wrong input");
+                throw new CommandExecutorException("Input non corretto");
             }
 
             GetTariffInputBO getTariffInputBO = (GetTariffInputBO) input;
-
             GetTariffOutputBO output = new GetTariffOutputBO();
 
-            InputStream is = this.getClass().getResourceAsStream("/xml/Autostrade.xml");
+            if(getTariffInputBO.getAutostrada() == null || getTariffInputBO.getCategoria() == null) {
+                throw new CommandExecutorException("Input non corretto");
+            }
 
-            Autostrade autostrade = JAXBUtils.unmarshall(is, Autostrade.class);
 
+            //Ottiene il file XML contenente le autostrade e le rispettive tariffe.
+            Autostrade autostrade = autostradaDAO.findAll();
+
+            //Tra tutte le autostrade presenti nel file XML, cerca quella corrispondente all'input fornito.
+            //Se l'autostrada è presente, cerca la classe del veicolo corrispondente all'input fornito.
+            //Se la classe è presente, restituisce il valore della tariffa corrispondente.
             for (Autostrada autostrada : autostrade.getAutostrada()) {
                 if (autostrada.getNome().equals(getTariffInputBO.getAutostrada())) {
                     for (Classe classe : autostrada.getTariffario().getClasse()) {
@@ -47,6 +74,5 @@ public class GetTariffCommandExecutorImpl implements CommandExecutor {
         } catch (Exception e) {
             throw new CommandExecutorException(e);
         }
-
     }
 }

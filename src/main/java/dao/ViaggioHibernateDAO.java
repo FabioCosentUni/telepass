@@ -12,7 +12,7 @@ import model.Viaggio;
 import java.util.List;
 import java.util.Map;
 
-public interface ViaggioHibernateDAO extends BaseHibernateDao<Viaggio, Long> {
+public interface ViaggioHibernateDAO extends BaseHibernateDAO<Viaggio, Long> {
 
     /**
      * Ottiene una lista di identificatori dei viaggi associati a un veicolo specifico.

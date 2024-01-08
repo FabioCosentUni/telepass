@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-public class UtenteHibernateDAOImpl extends BaseHibernateDaoImpl<Utente, String> implements UtenteHibernateDAO {
+public class UtenteHibernateDAOImpl extends BaseHibernateDAOImpl<Utente, String> implements UtenteHibernateDAO {
 
     /**
      * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.

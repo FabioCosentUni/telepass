@@ -7,5 +7,5 @@ package dao;
 
 import model.Veicolo;
 
-public interface VeicoloHibernateDAO extends BaseHibernateDao<Veicolo, String> {
+public interface VeicoloHibernateDAO extends BaseHibernateDAO<Veicolo, String> {
 }

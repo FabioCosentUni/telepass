@@ -32,11 +32,16 @@ public class ViaggioServiceImpl implements ViaggioService {
     private final VeicoloHibernateDAOImpl veicoloDAO;
     private final CommandExecutor executor;
 
-    public ViaggioServiceImpl() {
+    public ViaggioServiceImpl() throws TelepassException {
         this.viaggioDAO = new ViaggioHibernateDAOImpl();
         this.caselloDAO = new CaselloHibernateDAOImpl();
         this.veicoloDAO = new VeicoloHibernateDAOImpl();
-        this.executor = new GetTariffCommandExecutorImpl();
+
+        try {
+            this.executor = new GetTariffCommandExecutorImpl();
+        } catch (CommandExecutorException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
     }
 
     @Override

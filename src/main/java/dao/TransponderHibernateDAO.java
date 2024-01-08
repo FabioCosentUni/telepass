@@ -10,7 +10,7 @@ import model.Transponder;
 
 import java.util.List;
 
-public interface TransponderHibernateDAO extends BaseHibernateDao<Transponder, String> {
+public interface TransponderHibernateDAO extends BaseHibernateDAO<Transponder, String> {
 
     /**
      * Ottiene una lista di transponder attivi presenti nel sistema.

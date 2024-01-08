@@ -1,6 +1,6 @@
 package dao.impl;
 
-import dao.BaseHibernateDao;
+import dao.BaseHibernateDAO;
 import exception.DaoException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,7 +16,7 @@ import java.util.List;
  * @param <T>  Tipo dell'entità
  * @param <ID> Tipo dell'identificatore dell'entità
  */
-public class BaseHibernateDaoImpl<T, ID extends Serializable> implements BaseHibernateDao<T, ID> {
+public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHibernateDAO<T, ID> {
 
     private final Class<T> entityClass;
 
@@ -25,7 +25,7 @@ public class BaseHibernateDaoImpl<T, ID extends Serializable> implements BaseHib
      *
      * @param entityClass Classe dell'entità gestita da questo DAO
      */
-    public BaseHibernateDaoImpl(Class<T> entityClass) {
+    public BaseHibernateDAOImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

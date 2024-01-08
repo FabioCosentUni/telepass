@@ -10,7 +10,7 @@ import model.Casello;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CaselloHibernateDAO extends BaseHibernateDao<Casello, Long> {
+public interface CaselloHibernateDAO extends BaseHibernateDAO<Casello, Long> {
 
     /**
      * Ottiene una lista di nomi di tutte le autostrade presenti nel sistema.

@@ -8,7 +8,7 @@ package dao;
 import exception.DaoException;
 import model.Utente;
 
-public interface UtenteHibernateDAO extends BaseHibernateDao<Utente, String> {
+public interface UtenteHibernateDAO extends BaseHibernateDAO<Utente, String> {
 
     /**
      * Ottiene un utente basato sull'indirizzo email specificato.

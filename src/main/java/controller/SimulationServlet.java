@@ -60,7 +60,7 @@ public class SimulationServlet extends HttpServlet {
             if (autostrada != null && !autostrada.equals("Autostrada")) {
                 request.setAttribute("autostradaSel", autostrada);
             }
-            autostrade = caselloService.getAllAutostrade();
+            autostrade = caselloService.getAllAutostrade().getAutostrade();
             request.setAttribute("caselli", caselli);
             request.setAttribute("autostrade", autostrade);
             request.getServletContext().getRequestDispatcher("/simulation.jsp").forward(request, response);

@@ -8,13 +8,11 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ViaggioHibernateDAOImpl extends BaseHibernateDaoImpl<Viaggio, Long> implements ViaggioHibernateDAO {
+public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long> implements ViaggioHibernateDAO {
 
     public ViaggioHibernateDAOImpl() {
         super(Viaggio.class);
