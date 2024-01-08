@@ -9,18 +9,29 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 
+/**
+ * Classe di configurazione per la gestione della sessione Hibernate nel sistema Telepass.
+ * Pattern Singleton (Lazy).
+ */
 public class HibernateConfiguration {
     private static SessionFactory sessionFactory;
-    private HibernateConfiguration(){}
 
+    // Costruttore privato per impedire la creazione di un oggetto della classe
+    private HibernateConfiguration() {}
+
+    /**
+     * Ottiene l'istanza della session factory Hibernate.
+     *
+     * @return L'istanza della session factory Hibernate.
+     */
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
+                // Impostazioni di Hibernate equivalenti alle proprietà di hibernate.cfg.xml
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "oracle.jdbc.driver.OracleDriver");//oracle.jdbc.OracleDriver
+                settings.put(Environment.DRIVER, "oracle.jdbc.driver.OracleDriver");
                 settings.put(Environment.URL, "jdbc:oracle:thin:@localhost:1521:xe");
                 settings.put(Environment.USER, "TELEPASS");
                 settings.put(Environment.PASS, "telepass");

@@ -5,7 +5,21 @@
  */
 package dao;
 
+import exception.DaoException;
+import exception.TelepassException;
+import model.Utente;
 import model.Veicolo;
 
+import java.util.List;
+
 public interface VeicoloHibernateDAO extends BaseHibernateDAO<Veicolo, String> {
+
+    /**
+     * Ottiene una lista di veicoli associati ad un utente specifico.
+     * @param u
+     * @return
+     * @throws TelepassException
+     * @throws DaoException
+     */
+    List<Veicolo> getVeicoliUtente(Utente u) throws TelepassException, DaoException;
 }

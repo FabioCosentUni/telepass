@@ -125,7 +125,7 @@ public class ViaggioServiceImpl implements ViaggioService {
             Map<Casello, Double> statisticheUscita = viaggioDAO.getPercentualiUsciteCaselli();
 
 
-            if(statisticheEntrata == null || statisticheUscita == null) {
+            if (statisticheEntrata == null || statisticheUscita == null) {
                 return new HashMap<>();
             }
 
@@ -146,6 +146,22 @@ public class ViaggioServiceImpl implements ViaggioService {
         } catch (DaoException e) {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
+    }
+
+    @Override
+    public Map<Veicolo, List<Viaggio>> getViaggiPerVeicoli(List<Veicolo> veicoli) throws TelepassException {
+        Map<Veicolo, List<Viaggio>> viaggiMap = new HashMap<>();
+
+        try {
+            for (Veicolo v : veicoli) {
+                viaggiMap.put(v, viaggioDAO.getViaggiPerVeicolo(v));
+            }
+
+            return viaggiMap;
+        } catch (DaoException e) {
+            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
+        }
+
     }
 
 }

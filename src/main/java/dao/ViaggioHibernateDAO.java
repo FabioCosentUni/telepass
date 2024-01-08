@@ -7,6 +7,7 @@ package dao;
 
 import exception.DaoException;
 import model.Casello;
+import model.Veicolo;
 import model.Viaggio;
 
 import java.util.List;
@@ -47,4 +48,12 @@ public interface ViaggioHibernateDAO extends BaseHibernateDAO<Viaggio, Long> {
      * @throws DaoException se si verifica un errore durante l'accesso ai dati nel database.
      */
     Map<Casello, Double> getPercentualiUsciteCaselli() throws DaoException;
+
+    /**
+     * Ottiene una lista di viaggi associati ad un veicolo specifico.
+     * @param v
+     * @return {@link List<Viaggio>}
+     * @throws DaoException
+     */
+    List<Viaggio> getViaggiPerVeicolo(Veicolo v) throws DaoException;
 }

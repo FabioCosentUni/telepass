@@ -3,6 +3,7 @@ package dao.impl;
 import dao.ViaggioHibernateDAO;
 import exception.DaoException;
 import model.Casello;
+import model.Veicolo;
 import model.Viaggio;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -95,6 +96,18 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
 
         } catch (Exception e) {
             throw new DaoException("Errore durante il recupero delle uscite dei caselli", e);
+        }
+    }
+
+    @Override
+    public List<Viaggio> getViaggiPerVeicolo(Veicolo v) throws DaoException {
+
+        try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            Query<Viaggio> query = session.createQuery("from Viaggio where veicolo = :veicolo", Viaggio.class);
+            query.setParameter("veicolo", v);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage(), e);
         }
     }
 }

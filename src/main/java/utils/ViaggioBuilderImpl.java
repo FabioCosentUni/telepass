@@ -6,10 +6,16 @@ import model.Viaggio;
 
 import java.util.Date;
 
+/**
+ * Implementazione dell'interfaccia ViaggioBuilder per la costruzione di oggetti Viaggio.
+ */
 public class ViaggioBuilderImpl implements ViaggioBuilder {
 
-    private Viaggio viaggio;
+    private final Viaggio viaggio;
 
+    /**
+     * Costruttore che inizializza un nuovo oggetto Viaggio per la costruzione.
+     */
     public ViaggioBuilderImpl() {
         this.viaggio = new Viaggio();
     }

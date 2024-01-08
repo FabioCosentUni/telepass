@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * Lista degli errori specifici del sistema Telepass.
+ */
 public enum TelepassError {
 
     INCORRECT_CF("TP001", "Nessun utente associato a questo Codice Fiscale."),
@@ -32,14 +35,32 @@ public enum TelepassError {
     private final String errorCode;
     private final String errorMessage;
 
+    /**
+     * Costruttore per TelepassError.
+     *
+     * @param errorCode    Il codice univoco dell'errore.
+     * @param errorMessage Il messaggio associato all'errore.
+     */
+
     TelepassError(String errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Restituisce il codice di errore.
+     *
+     * @return Il codice di errore.
+     */
     public String getErrorCode() {
         return errorCode;
     }
+
+    /**
+     * Restituisce il messaggio di errore.
+     *
+     * @return Il messaggio di errore.
+     */
 
     public String getErrorMessage() {
         return errorMessage;

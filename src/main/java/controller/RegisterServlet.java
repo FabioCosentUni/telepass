@@ -56,16 +56,14 @@ public class RegisterServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (TelepassException e) {
 
-            e.printStackTrace();
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 //TODO handle default page error
                 //Rimandare all'index con messaggio di errore generico e invitare a riprovare
                 return;
             }
 
-            //TODO handle default trasponder not avaiabile page.
             if(TelepassError.TRANSPONDER_NOT_AVAILABLE.equals(e.getErrorCause())){
-                //TODO handle TRANSPONDER_NOT_AVAILABLE page
+
                 request.setAttribute("error", e.getErrorCause() + " Appena disponibile verrai contattato");
                 request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
                 return;
@@ -78,9 +76,6 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("scadenza", request.getParameter("scadenza"));
             request.setAttribute("cvc", request.getParameter("cvc"));
             request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
-        } catch (Exception e) {
-            //TODO DEFAULT PAGE
-            //Rimandare all'index con messaggio di errore generico e invitare a riprovare
         }
     }
 

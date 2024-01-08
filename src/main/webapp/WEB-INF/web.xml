@@ -130,6 +130,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ViewTransponderServlet</servlet-name>
+    <servlet-class>controller.ViewTransponderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ViewTransponderServlet</servlet-name>
+    <url-pattern>/viewTransponder</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>index</servlet-name>
     <jsp-file>/index.jsp</jsp-file>
   </servlet>
