@@ -11,12 +11,4 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CaselloHibernateDAO extends BaseHibernateDAO<Casello, Long> {
-
-    /**
-     * Ottiene una lista di nomi di tutte le autostrade presenti nel sistema.
-     *
-     * @return Una lista di stringhe rappresentanti i nomi delle autostrade.
-     * @throws SQLException se si verifica un errore durante l'accesso ai dati nel database.
-     */
-    List<String> getAllAutostrade() throws SQLException;
 }

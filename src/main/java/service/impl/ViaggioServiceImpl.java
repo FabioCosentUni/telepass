@@ -147,9 +147,9 @@ public class ViaggioServiceImpl implements ViaggioService {
         List<Viaggio> viaggi;
         try {
             for (Veicolo v : veicoli) {
-                viaggi= viaggioDAO.getViaggiPerVeicolo(v);
-                if(viaggi != null && !viaggi.isEmpty())
-                    viaggiMap.put(viaggi.get(0).getVeicoloDTO(), viaggi);
+                viaggi = viaggioDAO.getViaggiPerVeicolo(v);
+                if (viaggi != null && !viaggi.isEmpty())
+                    viaggiMap.put(v, viaggi);
             }
 
             return viaggiMap;

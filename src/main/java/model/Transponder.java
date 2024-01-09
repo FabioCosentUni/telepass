@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="tb_transponder")
+@Table(name = "tb_transponder")
 public class Transponder implements Serializable {
 
     @Id
-    @Column(name="CODICE_TRANSPONDER", nullable = false)
+    @Column(name = "CODICE_TRANSPONDER", nullable = false)
     private String codiceTransponder;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CF_UTENTE_FK")
+    @JoinColumn(name = "CF_UTENTE_FK")
     private Utente utente;
 
-    @Max(value=1, message="Il flag 'plus' può assumere solo i valori 0 o 1")
-    @Column(name="PLUS", nullable = false)
+    @Max(value = 1, message = "Il flag 'plus' può assumere solo i valori 0 o 1")
+    @Column(name = "PLUS", nullable = false)
     private int plus = 0;
 
     @OneToMany(mappedBy = "transponder", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,7 +38,9 @@ public class Transponder implements Serializable {
         this.plus = plus;
         this.veicoloList = veicoloList;
     }
-    public Transponder() {}
+
+    public Transponder() {
+    }
 
     public String getCodiceTransponder() {
         return codiceTransponder;

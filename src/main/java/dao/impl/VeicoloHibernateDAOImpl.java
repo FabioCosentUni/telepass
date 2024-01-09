@@ -4,6 +4,7 @@ import dao.VeicoloHibernateDAO;
 import exception.DaoException;
 import model.Utente;
 import model.Veicolo;
+import model.Viaggio;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -22,7 +23,13 @@ public class VeicoloHibernateDAOImpl extends BaseHibernateDAOImpl<Veicolo, Strin
     public List<Veicolo> getVeicoliUtente(Utente u) throws DaoException {
 
         try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Veicolo> query = session.createQuery("from Veicolo where transponder = :transp", Veicolo.class);
+            Query<Veicolo> query = session.createQuery(
+                    "select v from Veicolo v " +
+                            "join fetch v.transponder transp " +
+                            "join fetch transp.utente " +
+                            "where v.transponder = :transp",
+                    Veicolo.class
+            );
             query.setParameter("transp", u.getTransponder());
             return query.getResultList();
         } catch (HibernateException e) {

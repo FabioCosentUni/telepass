@@ -17,20 +17,4 @@ public class CaselloHibernateDAOImpl extends BaseHibernateDAOImpl<Casello, Long>
     public CaselloHibernateDAOImpl() {
         super(Casello.class);
     }
-
-    /**
-     * Ottiene una lista di nomi di tutte le autostrade presenti nei caselli.
-     *
-     * @return Una lista di stringhe rappresentanti i nomi delle autostrade.
-     */
-    @Override
-    public List<String> getAllAutostrade() {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<String> query = session.createQuery("SELECT DISTINCT autostrada FROM Casello", String.class);
-            return query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
 }

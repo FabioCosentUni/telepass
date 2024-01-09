@@ -19,4 +19,6 @@ public interface TransponderHibernateDAO extends BaseHibernateDAO<Transponder, S
      * @throws DaoException se si verifica un errore durante l'accesso ai dati nel database.
      */
     List<Transponder> getActiveTransponders() throws DaoException;
+
+    List<Transponder> getFreeTransponders() throws DaoException;
 }

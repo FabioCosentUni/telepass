@@ -54,11 +54,14 @@ public class UtenteServiceImpl implements UtenteService {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
             }
 
-            Transponder t = transponderDAO.getActiveTransponders().get(FIRST_INDEX);//TODO: se non c'è transponder va in out of bounds
+            List<Transponder> freeTransponders = transponderDAO.getFreeTransponders();
 
-            if (t == null) {
+            if(freeTransponders.isEmpty()) {
                 throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);
             }
+
+            Transponder t = freeTransponders.get(FIRST_INDEX);
+
             if (utente.getMethodPayment() == null) {
                 throw new TelepassException(TelepassError.PAYMENT_OPTION_NOT_FOUND);
             }
