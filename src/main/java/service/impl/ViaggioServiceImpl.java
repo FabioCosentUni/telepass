@@ -16,7 +16,6 @@ import model.Viaggio;
 import model.bo.GetTariffInputBO;
 import model.bo.GetTariffOutputBO;
 import model.bo.StatisticsBO;
-import oracle.ucp.util.Pair;
 import service.ViaggioService;
 import utils.ClasseVeicoloEnum;
 import utils.ViaggioBuilder;
@@ -145,10 +144,12 @@ public class ViaggioServiceImpl implements ViaggioService {
     @Override
     public Map<Veicolo, List<Viaggio>> getViaggiPerVeicoli(List<Veicolo> veicoli) throws TelepassException {
         Map<Veicolo, List<Viaggio>> viaggiMap = new HashMap<>();
-
+        List<Viaggio> viaggi;
         try {
             for (Veicolo v : veicoli) {
-                viaggiMap.put(v, viaggioDAO.getViaggiPerVeicolo(v));
+                viaggi= viaggioDAO.getViaggiPerVeicolo(v);
+                if(viaggi != null && !viaggi.isEmpty())
+                    viaggiMap.put(viaggi.get(0).getVeicoloDTO(), viaggi);
             }
 
             return viaggiMap;

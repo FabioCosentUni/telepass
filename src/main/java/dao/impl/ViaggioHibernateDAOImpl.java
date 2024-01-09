@@ -103,7 +103,14 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
     public List<Viaggio> getViaggiPerVeicolo(Veicolo v) throws DaoException {
 
         try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Viaggio> query = session.createQuery("from Viaggio where veicolo = :veicolo", Viaggio.class);
+            Query<Viaggio> query = session.createQuery(
+                    "select v from Viaggio v " +
+                            "join fetch v.veicolo veicolo " +
+                            "join fetch veicolo.transponder transp " +
+                            "join fetch transp.utente " +
+                            "where veicolo = :veicolo",
+                    Viaggio.class
+            );
             query.setParameter("veicolo", v);
             List<Viaggio> viaggi = query.getResultList();
             return viaggi;
@@ -111,4 +118,25 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
             throw new DaoException(e.getMessage(), e);
         }
     }
+    /*public List<Viaggio> getViaggiPerVeicolo(Veicolo v) throws DaoException {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+            // Apri la sessione prima di eseguire la query
+            session.beginTransaction();
+            Query<Viaggio> query = session.createQuery(
+                    "select v from Viaggio v " +
+                            "join fetch v.veicolo veicolo " +
+                            "join fetch veicolo.transponder " +
+                            "where veicolo = :veicolo",
+                    Viaggio.class
+            );
+            query.setParameter("veicolo", v);
+            List<Viaggio> viaggi = query.getResultList();
+            // Chiudi la transazione prima di restituire i risultati
+            session.getTransaction().commit();
+            return viaggi;
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+    }*/
+
 }

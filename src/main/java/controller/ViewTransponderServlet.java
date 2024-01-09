@@ -43,7 +43,7 @@ public class ViewTransponderServlet extends HttpServlet {
             Utente u = (Utente) req.getSession().getAttribute("utente");
             List<Veicolo> veicoli = veicoloService.getVeicoliUtente(u);
             Map<Veicolo, List<Viaggio>> viaggiMap = viaggioService.getViaggiPerVeicoli(veicoli);
-
+            viaggiMap.get("veicolo");
             req.setAttribute("viaggiMap", viaggiMap);
 
             req.getServletContext().getRequestDispatcher("/viewTransponder.jsp").forward(req, resp);

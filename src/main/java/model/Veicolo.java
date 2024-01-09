@@ -77,10 +77,10 @@ public class Veicolo implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("VeicoloDTO{");
+        final StringBuilder sb = new StringBuilder("Veicolo{");
         sb.append("targaPk='").append(targaPk).append('\'');
         sb.append(", tipologiaVe='").append(tipologiaVe).append('\'');
-        sb.append(", transponderDTO=").append(transponder);
+        sb.append(", transponder=").append(transponder);
         sb.append('}');
         return sb.toString();
     }

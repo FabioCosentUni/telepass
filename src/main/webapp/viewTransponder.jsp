@@ -30,32 +30,53 @@
                 <% } else {%>
                 <h3 class="text-center pb-3">Viaggi effettuati</h3>
                 <ul class="nav nav-tabs" id="myTabs">
-                    <li class="nav-item" style="--bs-nav-link-color: black">
-                        <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1">Scheda 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2">Scheda 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3">Scheda 3</a>
-                    </li>
-                    <!-- Aggiungi ulteriori schede qui se necessario -->
+                    <c:set var="i" value="1"/>
+                    <c:forEach items="${viaggiMap.keySet()}" var="veicolo">
+                        <li class="nav-item" style="--bs-nav-link-color: black">
+                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab${i}">${veicolo.getTargaPk()}</a>
+                        </li>
+                        <c:set var="i" value="${i+1}"/>
+                    </c:forEach>
                 </ul>
+                <c:if test="${viaggiMap.isEmpty()}">
+                    <tr>
+                        <td colspan="2">Non hai ancora effettuato viaggi</td>
+                    </tr>
+                </c:if>
 
                 <div class="tab-content mt-2">
-                    <div class="tab-pane fade show active" id="tab1">
-                        <h3>Contenuto Scheda 1</h3>
-                        <p>Testo o contenuto della scheda 1 qui...</p>
-                    </div>
-                    <div class="tab-pane fade" id="tab2">
-                        <h3>Contenuto Scheda 2</h3>
-                        <p>Testo o contenuto della scheda 2 qui...</p>
-                    </div>
-                    <div class="tab-pane fade" id="tab3">
-                        <h3>Contenuto Scheda 3</h3>
-                        <p>Testo o contenuto della scheda 3 qui...</p>
-                    </div>
-                    <!-- Aggiungi ulteriori contenuti delle schede qui se necessario -->
+                    <c:if test="${not viaggiMap.isEmpty()}">
+                        <c:set var="x" value="1"/>
+                        <c:forEach var="viaggi" items="${viaggiMap.values()}">
+                            <div class="tab-pane fade show active" id="tab${x}">
+                                <table class="table table-success table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Targa</th>
+                                        <th scope="col">Casello entrata</th>
+                                        <th scope="col">Data entrata</th>
+                                        <th scope="col">Casello uscita</th>
+                                        <th scope="col">Data uscita</th>
+                                        <th scope="col">Pedaggio</th>
+                                    </tr>
+                                    </thead>
+                                    <c:forEach var="v" items="${viaggi}">
+                                    <tbody>
+                                        <tr>
+                                            <td>${v.getVeicoloDTO().getTargaPk()}</td>
+                                            <td>${v.getCaselloEntryDTO().getCitta()}</td>
+                                            <td>${v.getTimeEntry()}</td>
+                                            <td>${v.getCaselloExitDTO().getCitta()}</td>
+                                            <td>${v.getTimeExit()}</td>
+                                            <td>${v.getPedaggio()}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <c:set var="x" value="${x+1}"/>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
