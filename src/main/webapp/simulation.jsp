@@ -1,13 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="exception.TelepassError" %>
 <%@ page import="model.Casello" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: fabio
-  Date: 12/12/2023
-  Time: 11:14
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%--Head--%>
@@ -39,7 +33,7 @@
             <h2 class="text-center text-white font-alt mb-4">Scegli casello di entrata e di uscita</h2>
             <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
                 <select id="entrataSelect" name="entrataSelect" class="form-select-font-family form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Entrata</option>
+                    <option value="-1" selected>Entrata</option>
                     <c:forEach items="${caselli}" var="casello">
                         <c:if test="${casello.getAutostrada() eq autostradaSel}">
                             <option value="${casello.getIdCaselloPk()}">${casello.getCitta()} - ${casello.getKm()} km</option>
@@ -47,7 +41,7 @@
                     </c:forEach>
                 </select>
                 <select id="uscitaSelect" name="uscitaSelect" class="form-select-font-family form-select-sm" aria-label=".form-select-sm example" disabled>
-                    <option selected>Uscita</option>
+                    <option value="-1" selected>Uscita</option>
                     <c:forEach items="${caselli}" var="casello">
                         <c:if test="${casello.getAutostrada() eq autostradaSel}">
                             <option value="${casello.getIdCaselloPk()}">${casello.getCitta()} - ${casello.getKm()} km</option>
@@ -57,7 +51,7 @@
             </div>
             <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
                 <select id="veicoloSel" name="veicoloSel" class="form-select-font-family form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Veicolo</option>
+                    <option value="-1" selected>Veicolo</option>
                     <c:forEach items="${utente.getTransponder().getVeicoloList()}" var="veicolo">
                         <option value="${veicolo.getTargaPk()}">${veicolo.getTargaPk()}</option>
                     </c:forEach>

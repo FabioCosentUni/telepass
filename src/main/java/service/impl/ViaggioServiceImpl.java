@@ -50,12 +50,6 @@ public class ViaggioServiceImpl implements ViaggioService {
             Casello entryCasello = caselloDAO.findById(entry);
             Casello exitCasello = caselloDAO.findById(exit);
 
-            if (v == null || v.isEmpty()) {
-                //TODO
-                //Caso in cui si prova ad eseguire una simulazione senza aver selezionato un veicolo
-                //Configurare messaggio di errore e far reindirizzare alla pagina di simulazione
-            }
-
             Veicolo veicolo = veicoloDAO.findById(v);
 
             GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseVeicoloEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
