@@ -34,7 +34,7 @@ public class TransponderHibernateDAOImpl extends BaseHibernateDAOImpl<Transponde
         List<Transponder> activeTransponders;
 
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Transponder> query = session.createQuery("FROM Transponder t WHERE t.utente is not null", Transponder.class);
+            Query<Transponder> query = session.createQuery("FROM Transponder t WHERE t.utente is null", Transponder.class);
             activeTransponders = query.list();
         } catch (HibernateException e) {
             throw new DaoException("Errore durante il recupero dei transponder attivi", e);

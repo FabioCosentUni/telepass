@@ -2,8 +2,6 @@ package dao.impl;
 
 import dao.VeicoloHibernateDAO;
 import exception.DaoException;
-import exception.TelepassError;
-import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
 import org.hibernate.HibernateException;
@@ -24,8 +22,8 @@ public class VeicoloHibernateDAOImpl extends BaseHibernateDAOImpl<Veicolo, Strin
     public List<Veicolo> getVeicoliUtente(Utente u) throws DaoException {
 
         try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
-            Query<Veicolo> query = session.createQuery("from Veicolo where utente = :utente", Veicolo.class);
-            query.setParameter("utente", u);
+            Query<Veicolo> query = session.createQuery("from Veicolo where transponder = :transp", Veicolo.class);
+            query.setParameter("transp", u.getTransponder());
             return query.getResultList();
         } catch (HibernateException e) {
             throw new DaoException(e.getMessage(), e);

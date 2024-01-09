@@ -105,7 +105,8 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
         try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             Query<Viaggio> query = session.createQuery("from Viaggio where veicolo = :veicolo", Viaggio.class);
             query.setParameter("veicolo", v);
-            return query.getResultList();
+            List<Viaggio> viaggi = query.getResultList();
+            return viaggi;
         } catch (Exception e) {
             throw new DaoException(e.getMessage(), e);
         }

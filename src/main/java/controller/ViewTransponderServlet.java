@@ -46,6 +46,8 @@ public class ViewTransponderServlet extends HttpServlet {
 
             req.setAttribute("viaggiMap", viaggiMap);
 
+            req.getServletContext().getRequestDispatcher("/viewTransponder.jsp").forward(req, resp);
+
         } catch(TelepassException e) {
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 //TODO redirect to error page

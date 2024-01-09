@@ -54,7 +54,7 @@ public class UtenteServiceImpl implements UtenteService {
                 throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
             }
 
-            Transponder t = transponderDAO.getActiveTransponders().get(FIRST_INDEX);
+            Transponder t = transponderDAO.getActiveTransponders().get(FIRST_INDEX);//TODO: se non c'è transponder va in out of bounds
 
             if (t == null) {
                 throw new TelepassException(TelepassError.TRANSPONDER_NOT_AVAILABLE);
