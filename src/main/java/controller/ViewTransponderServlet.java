@@ -32,7 +32,7 @@ public class ViewTransponderServlet extends HttpServlet {
             viaggioService = new ViaggioServiceImpl();
         } catch(TelepassException e) {
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO redirect to error page
+                //TODO: non so come farlo senza req e resp
             }
         }
     }
@@ -43,14 +43,13 @@ public class ViewTransponderServlet extends HttpServlet {
             Utente u = (Utente) req.getSession().getAttribute("utente");
             List<Veicolo> veicoli = veicoloService.getVeicoliUtente(u);
             Map<Veicolo, List<Viaggio>> viaggiMap = viaggioService.getViaggiPerVeicoli(veicoli);
-            viaggiMap.get("veicolo");
             req.setAttribute("viaggiMap", viaggiMap);
 
             req.getServletContext().getRequestDispatcher("/viewTransponder.jsp").forward(req, resp);
 
         } catch(TelepassException e) {
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO redirect to error page
+                req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
             }
         }
     }

@@ -3,6 +3,7 @@ package model;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -96,6 +97,16 @@ public class Viaggio implements Serializable {
 
     public void setPagatoFlag(int pagatoFlag) {
         this.pagatoFlag = pagatoFlag;
+    }
+
+    public String getFormatDateEntry(){
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formatoData.format(this.timeEntry);
+    }
+
+    public String getFormatDateExit(){
+        SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formatoData.format(this.timeExit);
     }
 
     @Override

@@ -52,7 +52,6 @@
                                 <table class="table table-success table-striped">
                                     <thead>
                                     <tr>
-                                        <th scope="col">Targa</th>
                                         <th scope="col">Casello entrata</th>
                                         <th scope="col">Data entrata</th>
                                         <th scope="col">Casello uscita</th>
@@ -63,12 +62,11 @@
                                     <c:forEach var="v" items="${viaggi}">
                                     <tbody>
                                         <tr>
-                                            <td>${v.getVeicoloDTO().getTargaPk()}</td>
                                             <td>${v.getCaselloEntryDTO().getCitta()}</td>
-                                            <td>${v.getTimeEntry()}</td>
+                                            <td>${v.getFormatDateEntry()}</td>
                                             <td>${v.getCaselloExitDTO().getCitta()}</td>
-                                            <td>${v.getTimeExit()}</td>
-                                            <td>${v.getPedaggio()}</td>
+                                            <td>${v.getFormatDateExit()}</td>
+                                            <td>€ ${v.getPedaggio()}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
