@@ -38,7 +38,7 @@ public class RevokeTransponderServlet extends HttpServlet {
         try {
             transponderList = transponderService.getActiveTransponders();
         } catch (TelepassException e) {
-            // TODO errore generico --> redirect ad una pagina di errore generico
+            req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
         }
 
         req.setAttribute("transponders", transponderList);
@@ -53,7 +53,7 @@ public class RevokeTransponderServlet extends HttpServlet {
         try {
             transponderService.revokeTransponder(transponderCode);
         } catch (TelepassException e) {
-            //errore generico --> redirect ad una pagina di errore generico
+            req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
         }
 
     }

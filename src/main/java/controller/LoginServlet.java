@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 e.printStackTrace();
-                response.sendError(500, e.getMessage());
+                request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 return;
             }
 

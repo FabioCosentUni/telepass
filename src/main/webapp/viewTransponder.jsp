@@ -81,40 +81,6 @@
     </div>
     <% } %>
 </section>
-<%--<section class="bg-gradient-primary-to-secondary" id="download" style="padding-bottom: 25rem">
-
-    <div class="container px-5" style="margin-top: 10%">
-        <ul class="nav nav-tabs" id="myTabs">
-            <li class="nav-item" style="--bs-nav-link-color: black">
-                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1">Scheda 1</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2">Scheda 2</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3">Scheda 3</a>
-            </li>
-            <!-- Aggiungi ulteriori schede qui se necessario -->
-        </ul>
-
-        <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1">
-                <h3>Contenuto Scheda 1</h3>
-                <p>Testo o contenuto della scheda 1 qui...</p>
-            </div>
-            <div class="tab-pane fade" id="tab2">
-                <h3>Contenuto Scheda 2</h3>
-                <p>Testo o contenuto della scheda 2 qui...</p>
-            </div>
-            <div class="tab-pane fade" id="tab3">
-                <h3>Contenuto Scheda 3</h3>
-                <p>Testo o contenuto della scheda 3 qui...</p>
-            </div>
-            <!-- Aggiungi ulteriori contenuti delle schede qui se necessario -->
-        </div>
-    </div>
-</section>--%>
-
 
 
 

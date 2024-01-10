@@ -44,7 +44,7 @@ public class SimulationServlet extends HttpServlet {
 
              */
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO --> redirect ad una pagina di errore generico
+                request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
             }
 
         }

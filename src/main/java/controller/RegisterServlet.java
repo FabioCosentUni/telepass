@@ -57,8 +57,7 @@ public class RegisterServlet extends HttpServlet {
         } catch (TelepassException e) {
 
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO handle default page error
-                //Rimandare all'index con messaggio di errore generico e invitare a riprovare
+                request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 return;
             }
 

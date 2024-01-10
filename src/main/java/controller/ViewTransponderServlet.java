@@ -30,10 +30,8 @@ public class ViewTransponderServlet extends HttpServlet {
         veicoloService = new VeicoloServiceImpl();
         try {
             viaggioService = new ViaggioServiceImpl();
-        } catch(TelepassException e) {
-            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO: non so come farlo senza req e resp
-            }
+        }  catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

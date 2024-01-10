@@ -4,7 +4,6 @@ import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
 import model.Veicolo;
-import oracle.ucp.util.Pair;
 import service.UtenteService;
 import service.ViaggioService;
 import service.impl.UtenteServiceImpl;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class GestisciAbbServlet extends HttpServlet {
@@ -66,7 +64,7 @@ public class GestisciAbbServlet extends HttpServlet {
             }
 
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
-                //TODO: gestire eccezione con redirect a pagina di errore
+                request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
             }
 
         }

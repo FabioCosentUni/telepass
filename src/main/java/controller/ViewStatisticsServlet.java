@@ -44,7 +44,7 @@ public class ViewStatisticsServlet extends HttpServlet {
             request.setAttribute("statistics", statistics);
             request.getServletContext().getRequestDispatcher("/statistics.jsp").forward(request, response);
         } catch (TelepassException e) {
-            // TODO ERRORE GENERICO
+            request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
     }
 

@@ -53,6 +53,10 @@ public class AddTransponderServlet extends HttpServlet {
             req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
         } catch (TelepassException e) {
             e.printStackTrace();
+            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+                req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+                return;
+            }
             req.setAttribute("transponderError", e.getErrorCause());
             req.getServletContext().getRequestDispatcher("/addTransponder.jsp").forward(req, resp);
         }
