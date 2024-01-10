@@ -8,10 +8,10 @@
     </div>
     <div class="container px-5">
         <div class="alert alert-danger mt-5" role="alert">
-            <h4 class="alert-heading">Errore!</h4>
+            <h4 class="alert-heading">Attenzione!</h4>
             <p>${requestScope.error}</p>
             <hr>
-            <p class="mb-0">Contatta l'assistenza per ulteriori informazioni.</p>
+            <p class="mb-0">Si è verificato un errore imprevisto. Contatta l'assistenza per ulteriori informazioni.</p>
         </div>
     </div>
 </body>

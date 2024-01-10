@@ -1,12 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="exception.TelepassError" %>
 <%@ page import="model.Utente" %>
-<%-- Created by IntelliJ IDEA.
- User: fabio
- Date: 12/12/2023
- Time: 11:14
- To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.Viaggio" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Veicolo" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%--Head--%>
@@ -29,57 +27,53 @@
                 </div>
                 <% } else {%>
                 <h3 class="text-center pb-3">Viaggi effettuati</h3>
-                <ul class="nav nav-tabs" id="myTabs">
-                    <c:set var="i" value="1"/>
-                    <c:forEach items="${viaggiMap.keySet()}" var="veicolo">
-                        <li class="nav-item" style="--bs-nav-link-color: black">
-                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab${i}">${veicolo.getTargaPk()}</a>
-                        </li>
-                        <c:set var="i" value="${i+1}"/>
-                    </c:forEach>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <% if(!((Map<Veicolo, List<Viaggio>>)request.getAttribute("viaggiMap")).isEmpty()) { %>
+                    <% int x = 0; %>
+                    <% for(Veicolo v : ((Map<Veicolo, List<Viaggio>>)request.getAttribute("viaggiMap")).keySet()) { %>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link <%= x==0 ? "active" : ""%>" id="<%=v.getTargaPk()%>-tab" data-bs-toggle="tab" data-bs-target="#<%=v.getTargaPk()%>" type="button" role="tab" aria-controls="home" aria-selected="true"><%=v.getTargaPk()%></button>
+                    </li>
+                    <% x++; } %>
                 </ul>
-                <c:if test="${viaggiMap.isEmpty()}">
-                    <tr>
-                        <td colspan="2">Non hai ancora effettuato viaggi</td>
-                    </tr>
-                </c:if>
+                <div class="tab-content" id="myTabContent">
+                    <%int i = 0; %>
+                    <% for(Veicolo v : ((Map<Veicolo, List<Viaggio>>)request.getAttribute("viaggiMap")).keySet()) { %>
+                    <div class="tab-pane fade <%=i==0 ? "show active" : ""%>" id="<%=v.getTargaPk()%>" role="tabpanel" aria-labelledby="<%=v.getTargaPk()%>-tab">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Casello entrata</th>
+                                <th scope="col">Data entrata</th>
+                                <th scope="col">Casello uscita</th>
+                                <th scope="col">Data uscita</th>
+                                <th scope="col">Km percorsi</th>
+                                <th scope="col">Pedaggio pagato</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(Viaggio viaggio : ((Map<Veicolo, List<Viaggio>>)request.getAttribute("viaggiMap")).get(v)) { %>
+                            <tr>
+                                <td><%=viaggio.getCaselloEntryDTO().getCitta()%></td>
+                                <td><%=viaggio.getFormatDateEntry()%></td>
+                                <td><%=viaggio.getCaselloExitDTO().getCitta()%></td>
+                                <td><%=viaggio.getFormatDateExit()%></td>
+                                <td><%=Math.abs(viaggio.getCaselloExitDTO().getKm()-viaggio.getCaselloEntryDTO().getKm())%></td>
+                                <td>€ <%=viaggio.getPedaggio()%></td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="tab-content mt-2">
-                    <c:if test="${not viaggiMap.isEmpty()}">
-                        <c:set var="x" value="1"/>
-                        <c:forEach var="viaggi" items="${viaggiMap.values()}">
-                            <div class="tab-pane fade show active" id="tab${x}">
-                                <table class="table table-success table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Casello entrata</th>
-                                        <th scope="col">Data entrata</th>
-                                        <th scope="col">Casello uscita</th>
-                                        <th scope="col">Data uscita</th>
-                                        <th scope="col">Pedaggio</th>
-                                    </tr>
-                                    </thead>
-                                    <c:forEach var="v" items="${viaggi}">
-                                    <tbody>
-                                        <tr>
-                                            <td>${v.getCaselloEntryDTO().getCitta()}</td>
-                                            <td>${v.getFormatDateEntry()}</td>
-                                            <td>${v.getCaselloExitDTO().getCitta()}</td>
-                                            <td>${v.getFormatDateExit()}</td>
-                                            <td>€ ${v.getPedaggio()}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <c:set var="x" value="${x+1}"/>
-                        </c:forEach>
-                    </c:if>
+                    <% i++; } %>
                 </div>
+                <% } %>
+                <% } %>
+            </div>
             </div>
         </div>
     </div>
-    <% } %>
 </section>
 
 
