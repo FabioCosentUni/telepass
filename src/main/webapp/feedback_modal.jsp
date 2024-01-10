@@ -52,10 +52,9 @@
                     <!-- has successfully submitted-->
                     <div class="d-none" id="submitSuccessMessage">
                         <div class="text-center mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
+                            <div class="fw-bolder">Messaggio inviato correttamente!</div>
+                            Entro 48h riceverai una risposta all'indirizzo email fornito
                             <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
                         </div>
                     </div>
                     <!-- Submit error message-->

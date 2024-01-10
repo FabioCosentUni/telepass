@@ -40,7 +40,7 @@
                     <%int i = 0; %>
                     <% for(Veicolo v : ((Map<Veicolo, List<Viaggio>>)request.getAttribute("viaggiMap")).keySet()) { %>
                     <div class="tab-pane fade <%=i==0 ? "show active" : ""%>" id="<%=v.getTargaPk()%>" role="tabpanel" aria-labelledby="<%=v.getTargaPk()%>-tab">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-success table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">Casello entrata</th>
