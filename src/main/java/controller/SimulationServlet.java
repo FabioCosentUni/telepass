@@ -1,5 +1,11 @@
 package controller;
 
+import command.impl.GetAutostradeCommandExecutorImpl;
+import command.impl.GetTariffCommandExecutorImpl;
+import dao.impl.AutostradaDAOImpl;
+import dao.impl.CaselloHibernateDAOImpl;
+import dao.impl.VeicoloHibernateDAOImpl;
+import dao.impl.ViaggioHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Casello;
@@ -23,8 +29,8 @@ public class SimulationServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            viaggioService = new ViaggioServiceImpl();
-            caselloService = new CaselloServiceImpl();
+            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl(), new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()));
+            caselloService = new CaselloServiceImpl(new CaselloHibernateDAOImpl(), new GetAutostradeCommandExecutorImpl(new AutostradaDAOImpl()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,21 +38,22 @@ public class SimulationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String targaVeicolo = request.getParameter("veicoloSel");
+
         Long idCaselloPartenza = Long.valueOf(request.getParameter("entrataSelect"));
         Long idCaselloArrivo = Long.valueOf(request.getParameter("uscitaSelect"));
         try {
+
             viaggioService.insertViaggio(idCaselloPartenza, idCaselloArrivo, targaVeicolo);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
         } catch (TelepassException e) {
-            /*request.setAttribute("error", e.getMessage());
-            doGet(request, response);
 
-             */
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
             }
 
+        } catch (Exception e) {
+            request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
     }
 

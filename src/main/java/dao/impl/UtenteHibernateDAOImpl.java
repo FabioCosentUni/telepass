@@ -1,13 +1,13 @@
 package dao.impl;
 
-import dao.UtenteHibernateDAO;
+import dao.UtenteDAO;
 import exception.DaoException;
 import model.Utente;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-public class UtenteHibernateDAOImpl extends BaseHibernateDAOImpl<Utente, String> implements UtenteHibernateDAO {
+public class UtenteHibernateDAOImpl extends BaseHibernateDAOImpl<Utente, String> implements UtenteDAO {
 
     /**
      * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.

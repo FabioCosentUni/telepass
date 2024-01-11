@@ -1,9 +1,7 @@
 package service.impl;
 
-import dao.TransponderHibernateDAO;
-import dao.UtenteHibernateDAO;
-import dao.impl.TransponderHibernateDAOImpl;
-import dao.impl.UtenteHibernateDAOImpl;
+import dao.TransponderDAO;
+import dao.UtenteDAO;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -17,12 +15,12 @@ import java.util.List;
 public class UtenteServiceImpl implements UtenteService {
 
     private static final int FIRST_INDEX = 0;
-    private final UtenteHibernateDAO utenteDAO;
-    private final TransponderHibernateDAO transponderDAO;
+    private final UtenteDAO utenteDAO;
+    private final TransponderDAO transponderDAO;
 
-    public UtenteServiceImpl() {
-        this.utenteDAO = new UtenteHibernateDAOImpl();
-        this.transponderDAO = new TransponderHibernateDAOImpl();
+    public UtenteServiceImpl(UtenteDAO utenteDAO, TransponderDAO transponderDAO) {
+        this.utenteDAO = utenteDAO;
+        this.transponderDAO = transponderDAO;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class UtenteServiceImpl implements UtenteService {
     public void register(Utente utente, Veicolo v) throws TelepassException {
         try {
             if (v == null || utente == null) {
-                throw new TelepassException(TelepassError.GENERIC_ERROR);//Cambiare con errore specifico
+                throw new TelepassException(TelepassError.GENERIC_ERROR);
             }
 
             List<Transponder> freeTransponders = transponderDAO.getFreeTransponders();
@@ -68,7 +66,7 @@ public class UtenteServiceImpl implements UtenteService {
 
             t.setUtente(utente);
             utente.setTransponder(t);
-            v.setTransponderDTO(t);//TODO correggere nome del set rimuovendo DTO
+            v.setTransponderDTO(t);
             utente.getTransponder().setVeicoloList(List.of(v));
 
             utenteDAO.save(utente);

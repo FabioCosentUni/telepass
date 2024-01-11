@@ -12,7 +12,7 @@ import model.Veicolo;
 
 import java.util.List;
 
-public interface VeicoloHibernateDAO extends BaseHibernateDAO<Veicolo, String> {
+public interface VeicoloDAO extends BaseHibernateDAO<Veicolo, String> {
 
     /**
      * Ottiene una lista di veicoli associati ad un utente specifico.

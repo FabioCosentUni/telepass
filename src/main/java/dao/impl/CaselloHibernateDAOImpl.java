@@ -1,15 +1,9 @@
 package dao.impl;
 
-import dao.CaselloHibernateDAO;
+import dao.CaselloDAO;
 import model.Casello;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import utils.HibernateConfiguration;
 
-import java.util.Collections;
-import java.util.List;
-
-public class CaselloHibernateDAOImpl extends BaseHibernateDAOImpl<Casello, Long> implements CaselloHibernateDAO {
+public class CaselloHibernateDAOImpl extends BaseHibernateDAOImpl<Casello, Long> implements CaselloDAO {
 
     /**
      * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.

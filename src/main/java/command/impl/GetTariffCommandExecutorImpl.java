@@ -2,7 +2,6 @@ package command.impl;
 
 import command.CommandExecutor;
 import dao.AutostradaDAO;
-import dao.impl.AutostradaDAOImpl;
 import exception.CommandExecutorException;
 import model.BusinessObject;
 import model.bo.GetTariffInputBO;
@@ -10,9 +9,6 @@ import model.bo.GetTariffOutputBO;
 import model.pojo.Autostrada;
 import model.pojo.Autostrade;
 import model.pojo.Classe;
-import utils.JAXBUtils;
-
-import java.io.InputStream;
 
 /**
  * Implementazione dell'interfaccia {@link CommandExecutor} per l'ottenimento della tariffa
@@ -22,12 +18,8 @@ public class GetTariffCommandExecutorImpl implements CommandExecutor {
 
     private final AutostradaDAO autostradaDAO;
 
-    public GetTariffCommandExecutorImpl() throws CommandExecutorException {
-        try {
-            this.autostradaDAO = new AutostradaDAOImpl();
-        } catch (Exception e) {
-            throw new CommandExecutorException(e.getMessage(), e);
-        }
+    public GetTariffCommandExecutorImpl(AutostradaDAO autostradaDAO) {
+        this.autostradaDAO = autostradaDAO;
     }
 
     /**

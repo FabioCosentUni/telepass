@@ -1,6 +1,6 @@
 package dao.impl;
 
-import dao.ViaggioHibernateDAO;
+import dao.ViaggioDAO;
 import exception.DaoException;
 import model.Casello;
 import model.Veicolo;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long> implements ViaggioHibernateDAO {
+public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long> implements ViaggioDAO {
 
     public ViaggioHibernateDAOImpl() {
         super(Viaggio.class);

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.impl.TransponderHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Transponder;
@@ -21,7 +22,7 @@ public class RevokeTransponderServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        this.transponderService = new TransponderServiceImpl();
+        this.transponderService = new TransponderServiceImpl(new TransponderHibernateDAOImpl());
     }
 
     @Override

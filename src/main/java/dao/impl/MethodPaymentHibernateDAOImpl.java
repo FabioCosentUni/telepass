@@ -1,9 +1,9 @@
 package dao.impl;
 
-import dao.MethodPaymentHibernateDAO;
+import dao.MethodPaymentDAO;
 import model.MethodPayment;
 
-public class MethodPaymentHibernateDAOImpl extends BaseHibernateDAOImpl<MethodPayment, String> implements MethodPaymentHibernateDAO {
+public class MethodPaymentHibernateDAOImpl extends BaseHibernateDAOImpl<MethodPayment, String> implements MethodPaymentDAO {
 
     /**
      * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.

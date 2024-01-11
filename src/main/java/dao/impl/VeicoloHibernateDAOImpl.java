@@ -1,10 +1,9 @@
 package dao.impl;
 
-import dao.VeicoloHibernateDAO;
+import dao.VeicoloDAO;
 import exception.DaoException;
 import model.Utente;
 import model.Veicolo;
-import model.Viaggio;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -12,7 +11,7 @@ import utils.HibernateConfiguration;
 
 import java.util.List;
 
-public class VeicoloHibernateDAOImpl extends BaseHibernateDAOImpl<Veicolo, String> implements VeicoloHibernateDAO {
+public class VeicoloHibernateDAOImpl extends BaseHibernateDAOImpl<Veicolo, String> implements VeicoloDAO {
 
 
     public VeicoloHibernateDAOImpl() {

@@ -2,8 +2,6 @@ package command.impl;
 
 import command.CommandExecutor;
 import dao.AutostradaDAO;
-import dao.impl.AutostradaDAOImpl;
-import exception.CommandExecutorException;
 import model.BusinessObject;
 import model.bo.GetAutostradeOutputBO;
 import model.pojo.Autostrada;
@@ -13,12 +11,8 @@ public class GetAutostradeCommandExecutorImpl implements CommandExecutor {
 
     private AutostradaDAO autostradaDAO;
 
-    public GetAutostradeCommandExecutorImpl() throws CommandExecutorException {
-        try {
-            this.autostradaDAO = new AutostradaDAOImpl();
-        } catch (Exception e) {
-            throw new CommandExecutorException(e.getMessage(), e);
-        }
+    public GetAutostradeCommandExecutorImpl(AutostradaDAO autostradaDAO) {
+        this.autostradaDAO = autostradaDAO;
     }
 
     @Override

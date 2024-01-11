@@ -1,5 +1,7 @@
 package controller;
 
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
@@ -19,7 +21,7 @@ public class SignUpServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            utenteService = new UtenteServiceImpl();
+            utenteService = new UtenteServiceImpl(new UtenteHibernateDAOImpl(), new TransponderHibernateDAOImpl());
         } catch (ServletException e) {
             e.printStackTrace();
         }

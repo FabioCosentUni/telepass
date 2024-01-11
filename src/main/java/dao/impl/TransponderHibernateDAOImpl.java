@@ -1,6 +1,6 @@
 package dao.impl;
 
-import dao.TransponderHibernateDAO;
+import dao.TransponderDAO;
 import exception.DaoException;
 import model.Transponder;
 import org.hibernate.HibernateException;
@@ -8,14 +8,13 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import utils.HibernateConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementazione dell'interfaccia {@link TransponderHibernateDAO} che gestisce l'accesso
+ * Implementazione dell'interfaccia {@link TransponderDAO} che gestisce l'accesso
  * ai dati dei transponder utilizzando Hibernate come ORM.
  */
-public class TransponderHibernateDAOImpl extends BaseHibernateDAOImpl<Transponder, String> implements TransponderHibernateDAO {
+public class TransponderHibernateDAOImpl extends BaseHibernateDAOImpl<Transponder, String> implements TransponderDAO {
 
     /**
      * Costruttore che inizializza la classe DAO per la gestione dei transponder.

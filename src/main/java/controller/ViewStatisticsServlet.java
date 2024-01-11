@@ -1,5 +1,10 @@
 package controller;
 
+import command.impl.GetTariffCommandExecutorImpl;
+import dao.impl.AutostradaDAOImpl;
+import dao.impl.CaselloHibernateDAOImpl;
+import dao.impl.VeicoloHibernateDAOImpl;
+import dao.impl.ViaggioHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Casello;
@@ -23,7 +28,7 @@ public class ViewStatisticsServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            viaggioService = new ViaggioServiceImpl();
+            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl(), new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()));
         } catch (Exception e) {
             e.printStackTrace();
         }

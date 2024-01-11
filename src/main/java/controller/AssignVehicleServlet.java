@@ -1,5 +1,8 @@
 package controller;
 
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
+import dao.impl.VeicoloHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
@@ -23,8 +26,8 @@ public class AssignVehicleServlet extends HttpServlet{
     public void init() {
         try {
             super.init();
-            veicoloService = new VeicoloServiceImpl();
-            utenteService = new UtenteServiceImpl();
+            veicoloService = new VeicoloServiceImpl(new VeicoloHibernateDAOImpl());
+            utenteService = new UtenteServiceImpl(new UtenteHibernateDAOImpl(), new TransponderHibernateDAOImpl());
         } catch (Exception e) {
             e.printStackTrace();
         }

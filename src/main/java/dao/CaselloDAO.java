@@ -7,8 +7,5 @@ package dao;
 
 import model.Casello;
 
-import java.sql.SQLException;
-import java.util.List;
-
-public interface CaselloHibernateDAO extends BaseHibernateDAO<Casello, Long> {
+public interface CaselloDAO extends BaseHibernateDAO<Casello, Long> {
 }

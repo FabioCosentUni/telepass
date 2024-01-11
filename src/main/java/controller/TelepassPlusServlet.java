@@ -1,5 +1,7 @@
 package controller;
 
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Utente;
@@ -21,8 +23,8 @@ public class TelepassPlusServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        utenteService = new UtenteServiceImpl();
-        transponderService = new TransponderServiceImpl();
+        utenteService = new UtenteServiceImpl(new UtenteHibernateDAOImpl(), new TransponderHibernateDAOImpl());
+        transponderService = new TransponderServiceImpl(new TransponderHibernateDAOImpl());
     }
 
     @Override

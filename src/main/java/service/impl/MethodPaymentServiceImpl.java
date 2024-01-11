@@ -1,7 +1,6 @@
 package service.impl;
 
-import dao.MethodPaymentHibernateDAO;
-import dao.impl.MethodPaymentHibernateDAOImpl;
+import dao.MethodPaymentDAO;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -11,10 +10,10 @@ import service.MethodPaymentService;
 
 public class MethodPaymentServiceImpl implements MethodPaymentService {
 
-    private final MethodPaymentHibernateDAO methodPaymentDAO;
+    private final MethodPaymentDAO methodPaymentDAO;
 
-    public MethodPaymentServiceImpl() {
-        methodPaymentDAO = new MethodPaymentHibernateDAOImpl();
+    public MethodPaymentServiceImpl(MethodPaymentDAO methodPaymentDAO) {
+        this.methodPaymentDAO = methodPaymentDAO;
     }
 
 

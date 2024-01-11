@@ -1,5 +1,8 @@
 package controller;
 
+import dao.impl.MethodPaymentHibernateDAOImpl;
+import dao.impl.TransponderHibernateDAOImpl;
+import dao.impl.UtenteHibernateDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.MethodPayment;
@@ -26,8 +29,8 @@ public class RegisterServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            methodPaymentService = new MethodPaymentServiceImpl();
-            utenteService = new UtenteServiceImpl();
+            methodPaymentService = new MethodPaymentServiceImpl(new MethodPaymentHibernateDAOImpl());
+            utenteService = new UtenteServiceImpl(new UtenteHibernateDAOImpl(), new TransponderHibernateDAOImpl());
         } catch (Exception e) {
             e.printStackTrace();
         }

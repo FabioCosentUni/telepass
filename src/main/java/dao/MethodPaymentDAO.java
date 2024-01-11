@@ -7,5 +7,5 @@ package dao;
 
 import model.MethodPayment;
 
-public interface MethodPaymentHibernateDAO extends BaseHibernateDAO<MethodPayment, String> {
+public interface MethodPaymentDAO extends BaseHibernateDAO<MethodPayment, String> {
 }

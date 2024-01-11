@@ -1,10 +1,9 @@
 package service.impl;
 
 import command.CommandExecutor;
-import command.impl.GetTariffCommandExecutorImpl;
-import dao.impl.CaselloHibernateDAOImpl;
-import dao.impl.VeicoloHibernateDAOImpl;
-import dao.impl.ViaggioHibernateDAOImpl;
+import dao.CaselloDAO;
+import dao.VeicoloDAO;
+import dao.ViaggioDAO;
 import exception.CommandExecutorException;
 import exception.DaoException;
 import exception.TelepassError;
@@ -26,21 +25,16 @@ import java.util.*;
 
 public class ViaggioServiceImpl implements ViaggioService {
     private static final float VELOCITA_MEDIA = 90;
-    private final ViaggioHibernateDAOImpl viaggioDAO;
-    private final CaselloHibernateDAOImpl caselloDAO;
-    private final VeicoloHibernateDAOImpl veicoloDAO;
+    private final ViaggioDAO viaggioDAO;
+    private final CaselloDAO caselloDAO;
+    private final VeicoloDAO veicoloDAO;
     private final CommandExecutor executor;
 
-    public ViaggioServiceImpl() throws TelepassException {
-        this.viaggioDAO = new ViaggioHibernateDAOImpl();
-        this.caselloDAO = new CaselloHibernateDAOImpl();
-        this.veicoloDAO = new VeicoloHibernateDAOImpl();
-
-        try {
-            this.executor = new GetTariffCommandExecutorImpl();
-        } catch (CommandExecutorException e) {
-            throw new TelepassException(TelepassError.GENERIC_ERROR, e);
-        }
+    public ViaggioServiceImpl(ViaggioDAO viaggioDAO, CaselloDAO caselloDAO, VeicoloDAO veicoloDAO, CommandExecutor getTariffCE) {
+        this.viaggioDAO = viaggioDAO;
+        this.caselloDAO = caselloDAO;
+        this.veicoloDAO = veicoloDAO;
+        this.executor = getTariffCE;
     }
 
     @Override
