@@ -1,7 +1,5 @@
 package controller;
 
-import command.impl.GetTariffCommandExecutorImpl;
-import dao.impl.AutostradaDAOImpl;
 import dao.impl.CaselloHibernateDAOImpl;
 import dao.impl.VeicoloHibernateDAOImpl;
 import dao.impl.ViaggioHibernateDAOImpl;
@@ -28,7 +26,7 @@ public class ViewStatisticsServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl(), new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()));
+            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +47,7 @@ public class ViewStatisticsServlet extends HttpServlet {
             request.setAttribute("statistics", statistics);
             request.getServletContext().getRequestDispatcher("/statistics.jsp").forward(request, response);
         } catch (TelepassException e) {
+            e.printStackTrace();
             request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
     }

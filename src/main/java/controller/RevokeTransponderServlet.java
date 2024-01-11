@@ -54,6 +54,7 @@ public class RevokeTransponderServlet extends HttpServlet {
         try {
             transponderService.revokeTransponder(transponderCode);
         } catch (TelepassException e) {
+            e.printStackTrace();
             req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
         }
 

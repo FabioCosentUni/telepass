@@ -1,7 +1,5 @@
 package controller;
 
-import command.impl.GetTariffCommandExecutorImpl;
-import dao.impl.AutostradaDAOImpl;
 import dao.impl.CaselloHibernateDAOImpl;
 import dao.impl.VeicoloHibernateDAOImpl;
 import dao.impl.ViaggioHibernateDAOImpl;
@@ -34,7 +32,7 @@ public class ViewTransponderServlet extends HttpServlet {
             super.init();
 
             veicoloService = new VeicoloServiceImpl(new VeicoloHibernateDAOImpl());
-            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl(), new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()));
+            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl());
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -51,6 +49,8 @@ public class ViewTransponderServlet extends HttpServlet {
             req.getServletContext().getRequestDispatcher("/viewTransponder.jsp").forward(req, resp);
 
         } catch (TelepassException e) {
+            e.printStackTrace();
+
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
             }

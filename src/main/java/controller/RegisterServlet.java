@@ -58,6 +58,7 @@ public class RegisterServlet extends HttpServlet {
             request.getSession().setAttribute("utente", u);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (TelepassException e) {
+            e.printStackTrace();
 
             if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);

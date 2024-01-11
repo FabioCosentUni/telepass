@@ -1,6 +1,6 @@
 package command.impl;
 
-import command.CommandExecutor;
+import command.AutostradeCommand;
 import dao.AutostradaDAO;
 import exception.CommandExecutorException;
 import model.BusinessObject;
@@ -11,10 +11,10 @@ import model.pojo.Autostrade;
 import model.pojo.Classe;
 
 /**
- * Implementazione dell'interfaccia {@link CommandExecutor} per l'ottenimento della tariffa
+ * Implementazione dell'interfaccia {@link AutostradeCommand} per l'ottenimento della tariffa
  * basata sull'input fornito.
  */
-public class GetTariffCommandExecutorImpl implements CommandExecutor {
+public class GetTariffCommandExecutorImpl implements AutostradeCommand {
 
     private final AutostradaDAO autostradaDAO;
 

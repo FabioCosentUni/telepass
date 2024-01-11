@@ -6,7 +6,7 @@ import model.BusinessObject;
 /**
  * Interfaccia rappresentante il pattern Command per l'esecuzione di operazioni su oggetti di business.
  */
-public interface CommandExecutor {
+public interface AutostradeCommand {
 
     /**
      * Esegue un operazione specifica sull'oggetto di business in input.

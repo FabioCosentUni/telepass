@@ -1,8 +1,5 @@
 package controller;
 
-import command.impl.GetAutostradeCommandExecutorImpl;
-import command.impl.GetTariffCommandExecutorImpl;
-import dao.impl.AutostradaDAOImpl;
 import dao.impl.CaselloHibernateDAOImpl;
 import dao.impl.VeicoloHibernateDAOImpl;
 import dao.impl.ViaggioHibernateDAOImpl;
@@ -29,8 +26,8 @@ public class SimulationServlet extends HttpServlet {
     public void init() {
         try {
             super.init();
-            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl(), new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()));
-            caselloService = new CaselloServiceImpl(new CaselloHibernateDAOImpl(), new GetAutostradeCommandExecutorImpl(new AutostradaDAOImpl()));
+            viaggioService = new ViaggioServiceImpl(new ViaggioHibernateDAOImpl(), new CaselloHibernateDAOImpl(), new VeicoloHibernateDAOImpl());
+            caselloService = new CaselloServiceImpl(new CaselloHibernateDAOImpl());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,12 +44,14 @@ public class SimulationServlet extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
         } catch (TelepassException e) {
+            e.printStackTrace();
 
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
         }
     }

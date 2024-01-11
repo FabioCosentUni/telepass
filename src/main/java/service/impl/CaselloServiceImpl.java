@@ -1,8 +1,9 @@
 package service.impl;
 
-import command.CommandExecutor;
+import command.AutostradeExecutor;
+import command.impl.GetAutostradeCommandExecutorImpl;
 import dao.CaselloDAO;
-import exception.CommandExecutorException;
+import dao.impl.AutostradaDAOImpl;
 import exception.TelepassError;
 import exception.TelepassException;
 import model.Casello;
@@ -14,11 +15,9 @@ import java.util.List;
 
 public class CaselloServiceImpl implements CaselloService {
     private final CaselloDAO caselloDAO;
-    private final CommandExecutor commandExecutor;
 
-    public CaselloServiceImpl(CaselloDAO caselloDAO, CommandExecutor executor){
+    public CaselloServiceImpl(CaselloDAO caselloDAO){
         this.caselloDAO = caselloDAO;
-        this.commandExecutor = executor;
     }
 
     @Override
@@ -35,8 +34,8 @@ public class CaselloServiceImpl implements CaselloService {
     @Override
     public GetAutostradeOutputBO getAllAutostrade() throws TelepassException {
         try {
-            return (GetAutostradeOutputBO) commandExecutor.execute(null);
-        } catch (CommandExecutorException e) {
+            return (GetAutostradeOutputBO) AutostradeExecutor.execute(new GetAutostradeCommandExecutorImpl(new AutostradaDAOImpl()), null);
+        } catch (Exception e) {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
     }

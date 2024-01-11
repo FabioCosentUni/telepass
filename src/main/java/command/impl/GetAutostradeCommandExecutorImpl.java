@@ -1,13 +1,13 @@
 package command.impl;
 
-import command.CommandExecutor;
+import command.AutostradeCommand;
 import dao.AutostradaDAO;
 import model.BusinessObject;
 import model.bo.GetAutostradeOutputBO;
 import model.pojo.Autostrada;
 import model.pojo.Autostrade;
 
-public class GetAutostradeCommandExecutorImpl implements CommandExecutor {
+public class GetAutostradeCommandExecutorImpl implements AutostradeCommand {
 
     private AutostradaDAO autostradaDAO;
 

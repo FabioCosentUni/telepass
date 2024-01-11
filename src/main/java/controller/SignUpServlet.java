@@ -44,6 +44,7 @@ public class SignUpServlet extends HttpServlet {
             request.getSession().setAttribute("utenteProv", u);
             request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
         } catch (TelepassException e) {
+            e.printStackTrace();
 
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);

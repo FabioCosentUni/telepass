@@ -1,10 +1,12 @@
 package service.impl;
 
-import command.CommandExecutor;
+import command.AutostradeExecutor;
+import command.impl.GetAutostradeCommandExecutorImpl;
+import command.impl.GetTariffCommandExecutorImpl;
 import dao.CaselloDAO;
 import dao.VeicoloDAO;
 import dao.ViaggioDAO;
-import exception.CommandExecutorException;
+import dao.impl.AutostradaDAOImpl;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -28,13 +30,11 @@ public class ViaggioServiceImpl implements ViaggioService {
     private final ViaggioDAO viaggioDAO;
     private final CaselloDAO caselloDAO;
     private final VeicoloDAO veicoloDAO;
-    private final CommandExecutor executor;
 
-    public ViaggioServiceImpl(ViaggioDAO viaggioDAO, CaselloDAO caselloDAO, VeicoloDAO veicoloDAO, CommandExecutor getTariffCE) {
+    public ViaggioServiceImpl(ViaggioDAO viaggioDAO, CaselloDAO caselloDAO, VeicoloDAO veicoloDAO) {
         this.viaggioDAO = viaggioDAO;
         this.caselloDAO = caselloDAO;
         this.veicoloDAO = veicoloDAO;
-        this.executor = getTariffCE;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ViaggioServiceImpl implements ViaggioService {
             Veicolo veicolo = veicoloDAO.findById(v);
 
             GetTariffInputBO getTariffInputBO = new GetTariffInputBO(entryCasello.getAutostrada().toUpperCase(), Objects.requireNonNull(ClasseVeicoloEnum.getClasseEnumByName(veicolo.getTipologiaVe().toUpperCase())).getClassCode());
-            GetTariffOutputBO tariffa = (GetTariffOutputBO) executor.execute(getTariffInputBO);
+            GetTariffOutputBO tariffa = (GetTariffOutputBO) AutostradeExecutor.execute(new GetTariffCommandExecutorImpl(new AutostradaDAOImpl()),getTariffInputBO);
 
             Date timeEntry = new Date();
             ViaggioBuilder viaggioBuilder = new ViaggioBuilderImpl();
@@ -62,7 +62,7 @@ public class ViaggioServiceImpl implements ViaggioService {
 
             viaggioDAO.save(viaggio);
 
-        } catch (DaoException | CommandExecutorException e) {
+        } catch (Exception e) {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }
     }

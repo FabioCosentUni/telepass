@@ -49,6 +49,7 @@ public class TelepassPlusServlet extends HttpServlet {
             req.setAttribute("success", "Telepass Plus attivato con successo!");
             resp.sendRedirect(req.getContextPath() + "/gestisciAbb");
         } catch (TelepassException e) {
+            e.printStackTrace();
             if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 req.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(req, resp);
             }
