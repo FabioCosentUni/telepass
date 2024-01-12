@@ -10,14 +10,14 @@ import utils.HibernateConfiguration;
 public class UtenteHibernateDAOImpl extends BaseHibernateDAOImpl<Utente, String> implements UtenteDAO {
 
     /**
-     * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita.
+     * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita della superclasse.
      */
     public UtenteHibernateDAOImpl() {
         super(Utente.class);
     }
 
     /**
-     * Ottiene un utente basato sull'indirizzo email specificato.
+     * Ottiene un utente dato indirizzo email specificato.
      *
      * @param email Indirizzo email dell'utente da cercare.
      * @return L'utente corrispondente all'indirizzo email specificato, se presente; altrimenti, null.

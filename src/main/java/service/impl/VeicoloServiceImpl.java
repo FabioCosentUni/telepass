@@ -10,13 +10,28 @@ import service.VeicoloService;
 
 import java.util.List;
 
+/**
+ * Implementazione del servizio VeicoloService per la gestione dei veicoli nel sistema Telepass.
+ */
 public class VeicoloServiceImpl implements VeicoloService {
+
     private final VeicoloDAO veicoloDAO;
 
+    /**
+     * Costruttore che inizializza l'implementazione con un'istanza di VeicoloDAO.
+     *
+     * @param veicoloDAO DAO per la gestione dei veicoli.
+     */
     public VeicoloServiceImpl(VeicoloDAO veicoloDAO) {
         this.veicoloDAO = veicoloDAO;
     }
 
+    /**
+     * Verifica se un veicolo è già registrato nel sistema Telepass.
+     *
+     * @param veicolo Il veicolo da verificare.
+     * @throws TelepassException se il veicolo è già registrato o se si verifica un errore durante la verifica.
+     */
     @Override
     public void validateVeicolo(Veicolo veicolo) throws TelepassException {
         try {
@@ -29,6 +44,13 @@ public class VeicoloServiceImpl implements VeicoloService {
         }
     }
 
+    /**
+     * Ottiene la lista dei veicoli associati a un utente.
+     *
+     * @param u L'utente di cui ottenere i veicoli associati.
+     * @return La lista dei veicoli associati all'utente.
+     * @throws TelepassException se si verifica un errore durante l'ottenimento dei veicoli utente.
+     */
     @Override
     public List<Veicolo> getVeicoliUtente(Utente u) throws TelepassException {
         try {

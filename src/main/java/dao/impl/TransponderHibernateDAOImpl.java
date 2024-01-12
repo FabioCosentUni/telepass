@@ -17,7 +17,7 @@ import java.util.List;
 public class TransponderHibernateDAOImpl extends BaseHibernateDAOImpl<Transponder, String> implements TransponderDAO {
 
     /**
-     * Costruttore che inizializza la classe DAO per la gestione dei transponder.
+     * Costruttore che inizializza la classe DAO per la gestione dei transponder della superclasse.
      */
     public TransponderHibernateDAOImpl() {
         super(Transponder.class);
@@ -42,6 +42,13 @@ public class TransponderHibernateDAOImpl extends BaseHibernateDAOImpl<Transponde
 
         return activeTransponders;
     }
+
+    /**
+     * Restituisce una lista di transponder liberi associabili ad un utente.
+     *
+     * @return Una lista di oggetti {@link Transponder} rappresentanti i transponder attivi.
+     * @throws DaoException se si verifica un errore durante il recupero dei transponder attivi.
+     */
 
     @Override
     public List<Transponder> getFreeTransponders() throws DaoException {

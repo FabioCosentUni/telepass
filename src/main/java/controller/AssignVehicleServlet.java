@@ -18,11 +18,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AssignVehicleServlet extends HttpServlet{
+/**
+ * Servlet per l'assegnazione di un veicolo a un utente.
+ */
+public class AssignVehicleServlet extends HttpServlet {
 
     private VeicoloService veicoloService;
     private UtenteService utenteService;
 
+    /**
+     * Inizializza la servlet creando un'istanza dei servizi Veicolo e Utente.
+     */
     public void init() {
         try {
             super.init();
@@ -33,6 +39,15 @@ public class AssignVehicleServlet extends HttpServlet{
         }
     }
 
+    /**
+     * Gestisce le richieste POST per l'assegnazione di un veicolo a un utente.
+     * Valida il veicolo e gestisce eventuali eccezioni.
+     *
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta.
+     * @throws IOException      se si verifica un errore di I/O durante la gestione della richiesta.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Utente u = (Utente) request.getSession().getAttribute("utente");
@@ -44,8 +59,8 @@ public class AssignVehicleServlet extends HttpServlet{
 
             veicoloService.validateVeicolo(v);
 
-            //Se l'utente è loggato e sta associando un nuovo veicolo al transponder
-            if(u != null) {
+            // Se l'utente è loggato e sta associando un nuovo veicolo al transponder
+            if (u != null) {
                 v.setTransponderDTO(u.getTransponder());
                 u = utenteService.addVehicle(u, v);
                 request.getSession().setAttribute("utente", u);
@@ -54,12 +69,12 @@ public class AssignVehicleServlet extends HttpServlet{
                 return;
             }
 
-            //Altrimenti passa alla fase successiva di registrazione
+            // Altrimenti passa alla fase successiva di registrazione
             request.getSession().setAttribute("veicolo", v);
             request.getServletContext().getRequestDispatcher("/methodPayment.jsp").forward(request, response);
-        } catch (TelepassException e){
+        } catch (TelepassException e) {
 
-            if(TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
+            if (TelepassError.GENERIC_ERROR.equals(e.getErrorCause())) {
                 request.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 return;
             }
@@ -71,6 +86,14 @@ public class AssignVehicleServlet extends HttpServlet{
         }
     }
 
+    /**
+     * Gestisce le richieste GET per la visualizzazione della pagina di assegnazione del veicolo.
+     *
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta.
+     * @throws IOException      se si verifica un errore di I/O durante la gestione della richiesta.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getServletContext().getRequestDispatcher("/assignVehicle.jsp").forward(request, response);
     }

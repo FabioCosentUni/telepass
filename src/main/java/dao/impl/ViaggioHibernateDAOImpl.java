@@ -13,13 +13,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Implementazione specifica del DAO per l'entità Viaggio utilizzando Hibernate per
+ * l'interazione con il database.
+ */
 public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long> implements ViaggioDAO {
 
+    /**
+     * Costruttore che inizializza la classe DAO impostando il tipo di entità gestita della superclasse.
+     */
     public ViaggioHibernateDAOImpl() {
         super(Viaggio.class);
     }
 
 
+    /**
+     * Ottiene la lista degli importi pagati per i pedaggi di un veicolo.
+     *
+     * @param targa Targa del veicolo.
+     * @return Lista degli importi pagati per i pedaggi del veicolo.
+     * @throws DaoException se si verifica un errore durante il recupero degli importi pagati.
+     */
     @Override
     public List<Float> getPedaggiPagatiByVeicolo(String targa) throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
@@ -32,6 +46,13 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
         }
     }
 
+    /**
+     * Verifica se ci sono viaggi associati a un veicolo.
+     *
+     * @param targa Targa del veicolo.
+     * @return True se ci sono viaggi associati al veicolo, altrimenti False.
+     * @throws DaoException se si verifica un errore durante la verifica dei viaggi.
+     */
     public boolean checkVeicoloViaggi(String targa) throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             Query<Long> query = session.createQuery("SELECT COUNT(*) FROM Viaggio v WHERE v.veicolo.targaPk = :targa", Long.class);
@@ -45,6 +66,12 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
         }
     }
 
+    /**
+     * Ottiene le percentuali di entrate per ciascun casello.
+     *
+     * @return Mappa contenente i caselli come chiavi e le percentuali di entrate come valori.
+     * @throws DaoException se si verifica un errore durante il recupero delle percentuali di entrate.
+     */
     @Override
     public Map<Casello, Double> getPercentualiEntrateCaselli() throws DaoException {
 
@@ -73,6 +100,12 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
 
     }
 
+    /**
+     * Ottiene le percentuali di uscite per ciascun casello.
+     *
+     * @return Mappa contenente i caselli come chiavi e le percentuali di uscite come valori.
+     * @throws DaoException se si verifica un errore durante il recupero delle percentuali di uscite.
+     */
     @Override
     public Map<Casello, Double> getPercentualiUsciteCaselli() throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
@@ -99,6 +132,13 @@ public class ViaggioHibernateDAOImpl extends BaseHibernateDAOImpl<Viaggio, Long>
         }
     }
 
+    /**
+     * Ottiene la lista dei viaggi associati a un veicolo.
+     *
+     * @param v Veicolo per il quale si desidera ottenere la lista dei viaggi.
+     * @return Lista dei viaggi associati al veicolo.
+     * @throws DaoException se si verifica un errore durante il recupero dei viaggi.
+     */
     @Override
     public List<Viaggio> getViaggiPerVeicolo(Veicolo v) throws DaoException {
 

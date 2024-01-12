@@ -29,6 +29,12 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         this.entityClass = entityClass;
     }
 
+    /**
+     * Salva un'entità nel database.
+     *
+     * @param entity L'entità da salvare.
+     * @throws DaoException se si verifica un errore durante l'inserimento dell'entità.
+     */
     @Override
     public void save(T entity) throws DaoException {
         Transaction transaction = null;
@@ -44,6 +50,13 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         }
     }
 
+    /**
+     * Trova un'entità nel database dato il suo identificatore.
+     *
+     * @param id L'identificatore dell'entità da cercare.
+     * @return L'entità trovata o null se non esiste.
+     * @throws DaoException se si verifica un errore durante il recupero dell'entità.
+     */
     @Override
     public T findById(ID id) throws DaoException {
         try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
@@ -53,6 +66,12 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         }
     }
 
+    /**
+     * Aggiorna un'entità nel database.
+     *
+     * @param entity L'entità da aggiornare.
+     * @throws DaoException se si verifica un errore durante l'aggiornamento dell'entità.
+     */
     @Override
     public void update(T entity) throws DaoException {
         Transaction transaction = null;
@@ -68,6 +87,12 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         }
     }
 
+    /**
+     * Esegue un merge dell'entità nel database.
+     *
+     * @param entity L'entità da eseguire il merge.
+     * @throws DaoException se si verifica un errore durante l'aggiornamento dell'entità.
+     */
     @Override
     public void merge(T entity) throws DaoException {
         Transaction transaction = null;
@@ -83,6 +108,11 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         }
     }
 
+    /**
+     * Cancella un'entità dal database.
+     *
+     * @param entity L'entità da cancellare.
+     */
     @Override
     public void delete(T entity) {
         Transaction transaction = null;
@@ -98,9 +128,15 @@ public class BaseHibernateDAOImpl<T, ID extends Serializable> implements BaseHib
         }
     }
 
+    /**
+     * Trova tutte le entità della classe nel database.
+     *
+     * @return Una lista di tutte le entità della classe.
+     * @throws DaoException se si verifica un errore durante il recupero delle entità.
+     */
     @Override
     public List<T> findAll() throws DaoException {
-        try(Session session = HibernateConfiguration.getSessionFactory().openSession()) {
+        try (Session session = HibernateConfiguration.getSessionFactory().openSession()) {
             return session.createQuery("FROM " + entityClass.getName(), entityClass).list();
         } catch (Exception e) {
             throw new DaoException("Errore durante il recupero delle entità ", e);
