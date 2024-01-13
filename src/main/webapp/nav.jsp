@@ -29,7 +29,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/simulation">Simulazione</a></li>
-                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/viewTransponder">Viaggi</a></li>
+                            <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/viewTransponder">I miei viaggi</a></li>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/gestisciAbb">Gestisci abbonamento</a></li>
                             <li class="nav-item"><a class="nav-link me-lg-3" href="/Telepass/logout">Logout</a></li>
 
