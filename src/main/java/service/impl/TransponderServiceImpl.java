@@ -1,6 +1,8 @@
 package service.impl;
 
 import dao.TransponderDAO;
+import decorator.Device;
+import decorator.TransponderPlus;
 import exception.DaoException;
 import exception.TelepassError;
 import exception.TelepassException;
@@ -72,14 +74,14 @@ public class TransponderServiceImpl implements TransponderService {
     @Override
     public void makePlus(Transponder transponder) throws TelepassException {
         try {
-            transponder.setPlus(1);
+            Device device = new TransponderPlus(transponder);
 
             /*
              si utilizza il metodo merge di hibernate in quanto il transponder che arriva in input è un'entità nello stato transient,
              non gestita da una sessione hibernate. Il metodo update darebbe un errore.
              */
 
-            dao.merge(transponder);
+            dao.merge((Transponder)device.assemble());
         } catch (DaoException e) {
             throw new TelepassException(TelepassError.GENERIC_ERROR, e);
         }

@@ -1,5 +1,7 @@
 package model;
 
+import decorator.Device;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import java.io.Serializable;
@@ -9,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_transponder")
-public class Transponder implements Serializable {
+public class Transponder implements Serializable, Device {
 
     @Id
     @Column(name = "CODICE_TRANSPONDER", nullable = false)
@@ -95,5 +97,10 @@ public class Transponder implements Serializable {
         result = 31 * result + plus;
         result = 31 * result + (veicoloList != null ? veicoloList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public Device assemble() {
+        return this;
     }
 }
