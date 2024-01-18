@@ -1,6 +1,6 @@
 package decorator;
 
-public class TransponderDecorator implements Device{
+public abstract class TransponderDecorator implements Device{
 
     protected Device device;
 
